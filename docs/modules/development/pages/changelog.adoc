@@ -1,0 +1,24 @@
+= Changelog
+
+This page records user-visible changes. Versions follow
+https://semver.org/[Semantic Versioning], including pre-release identifiers.
+
+== Unreleased
+
+No user-visible changes are currently queued after the release candidate.
+
+== 1.0.0rc1 - 2026-08-01
+
+* Added native synchronous and asynchronous aggregate clients plus focused REST v1,
+  GraphQL v2, and REST v3 clients.
+* Added Pydantic v2 models, validated configuration, shared errors, rate-limit tracking,
+  safe retries, and sanitized request diagnostics.
+* Added manual application-specific API-key authentication, Nexus Mods WebSocket SSO
+  protocol 2, and OAuth Authorization Code with S256 PKCE.
+* Added proactive and HTTP 401 token refresh, rotating refresh credentials, concurrent
+  refresh coalescing, headless OAuth, loopback browser OAuth, and caller-supplied callback
+  HTML.
+* Added complete hand-written REST v1 coverage, a typed GraphQL executor with convenience
+  queries, and deterministic REST v3 generation from a pinned OpenAPI snapshot.
+* Added cross-platform package verification for Python 3.12 through 3.14, strict typing,
+  linting, documentation validation, and branch coverage above 90 percent.

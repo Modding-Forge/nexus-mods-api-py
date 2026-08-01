@@ -1,0 +1,16 @@
+= Security
+
+Do not open a public issue for a suspected vulnerability or accidentally exposed
+credential. Report security problems privately to `info@moddingforge.com` with the
+affected version, impact, and minimal reproduction details. Do not include live Nexus
+Mods API keys, OAuth tokens, authorization codes, PKCE verifiers, or SSO connection
+tokens.
+
+The library masks Pydantic secret fields, strips query strings from stored request URLs,
+and avoids copying raw upstream payloads into exception messages. Applications remain
+responsible for protecting credentials at rest, limiting application logs, and rotating
+credentials after suspected exposure.
+
+Only supported releases receive security fixes. While `1.0.0rc1` is a release candidate,
+report security issues against that version so they can be resolved before the stable
+release.

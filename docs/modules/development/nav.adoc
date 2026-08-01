@@ -1,4 +1,6 @@
 * xref:contributing.adoc[Contributing]
 * xref:testing.adoc[Testing]
 * xref:code-generation.adoc[Code generation]
+* xref:security.adoc[Security]
+* xref:changelog.adoc[Changelog]
 * xref:release-process.adoc[Release process]
