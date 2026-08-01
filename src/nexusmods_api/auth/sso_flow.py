@@ -3,9 +3,10 @@
 import json
 import webbrowser
 from collections.abc import Callable
-from typing import Optional
+from typing import Literal, Optional
 from uuid import UUID, uuid4
 
+from pydantic import ValidationError
 from websockets.exceptions import WebSocketException
 from websockets.sync.client import connect
 from websockets.sync.connection import Connection
@@ -14,7 +15,8 @@ from ..errors.nexus_sso_error import NexusSSOError
 from ..nexus_config import NexusConfig
 from .api_key_auth import ApiKeyAuth
 from .sso_config import SSOConfig
-from .sso_session import SSOSession
+from .sso_response import SSOResponse
+from .sso_session import SSOSession, create_sso_session
 
 
 class SSOFlow:
@@ -43,8 +45,7 @@ class SSOFlow:
         self.__nexus_config = nexus_config or NexusConfig()
         self.__browser_opener = browser_opener
 
-    @staticmethod
-    def create_session(identifier: Optional[UUID] = None) -> SSOSession:
+    def create_session(self, identifier: Optional[UUID] = None) -> SSOSession:
         """Creates one random SSO session and its authorization URL.
 
         Args:
@@ -54,10 +55,9 @@ class SSOFlow:
             SSOSession: Pending authorization session.
         """
 
-        session_id: UUID = identifier or uuid4()
-        return SSOSession(
-            identifier=session_id,
-            authorization_url=(f"https://www.nexusmods.com/sso?id={session_id}"),
+        return create_sso_session(
+            self.__config.application_id,
+            identifier or uuid4(),
         )
 
     def authorize(self, *, open_browser: bool = True) -> ApiKeyAuth:
@@ -101,6 +101,10 @@ class SSOFlow:
                 ping_interval=self.__config.ping_interval_seconds,
             ) as connection:
                 self.__send_request(connection, session)
+                registration: str | bytes = connection.recv(
+                    timeout=self.__config.connection_timeout_seconds,
+                )
+                self.__parse_value(registration, "connection_token")
                 if open_browser and not self.__browser_opener(session.authorization_url):
                     raise NexusSSOError("The SSO authorization page could not be opened.")
                 message: str | bytes = connection.recv(
@@ -130,14 +134,46 @@ class SSOFlow:
             json.dumps(
                 {
                     "id": str(session.identifier),
-                    "appid": self.__config.application_id,
+                    "token": None,
+                    "protocol": 2,
                 }
             )
         )
 
     @staticmethod
-    def __parse_key(message: str | bytes) -> ApiKeyAuth:
-        """Validates the documented plain-text SSO success response.
+    def __parse_value(
+        message: str | bytes,
+        field: Literal["connection_token", "api_key"],
+    ) -> str:
+        """Validates one structured SSO v2 response value.
+
+        Args:
+            message (str | bytes): WebSocket response from Nexus Mods.
+            field (Literal["connection_token", "api_key"]): Required field.
+
+        Returns:
+            str: Validated response value.
+
+        Raises:
+            NexusSSOError: If Nexus Mods returns an invalid or error response.
+        """
+
+        try:
+            response: SSOResponse = SSOResponse.model_validate_json(message)
+        except (UnicodeDecodeError, ValidationError, ValueError):
+            raise NexusSSOError("Nexus Mods rejected the SSO authorization.") from None
+        value = (
+            response.data.connection_token
+            if field == "connection_token"
+            else response.data.api_key
+        )
+        if not response.success or value is None or not value.get_secret_value():
+            raise NexusSSOError("Nexus Mods rejected the SSO authorization.")
+        return value.get_secret_value()
+
+    @classmethod
+    def __parse_key(cls, message: str | bytes) -> ApiKeyAuth:
+        """Validates the structured SSO v2 API-key response.
 
         Args:
             message (str | bytes): WebSocket response from Nexus Mods.
@@ -146,11 +182,7 @@ class SSOFlow:
             ApiKeyAuth: Masked API-key authentication.
 
         Raises:
-            NexusSSOError: If Nexus Mods returns an empty or error response.
+            NexusSSOError: If Nexus Mods returns an invalid or error response.
         """
 
-        value: str = message.decode("utf-8") if isinstance(message, bytes) else message
-        value = value.strip()
-        if not value or value.startswith("{"):
-            raise NexusSSOError("Nexus Mods rejected the SSO authorization.")
-        return ApiKeyAuth.from_value(value)
+        return ApiKeyAuth.from_value(cls.__parse_value(message, "api_key"))

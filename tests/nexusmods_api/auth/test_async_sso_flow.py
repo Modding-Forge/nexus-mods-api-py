@@ -27,7 +27,12 @@ class TestAsyncSSOFlow:
         # given
         connection: MagicMock = MagicMock()
         connection.send = AsyncMock()
-        connection.recv = AsyncMock(return_value="async-api-key")
+        connection.recv = AsyncMock(
+            side_effect=[
+                '{"success":true,"data":{"connection_token":"resume-secret"}}',
+                '{"success":true,"data":{"api_key":"async-api-key"}}',
+            ]
+        )
         context: MagicMock = mocker.patch(
             "nexusmods_api.auth.async_sso_flow.connect"
         ).return_value
@@ -40,9 +45,13 @@ class TestAsyncSSOFlow:
         auth = await flow.wait_for_api_key(session, open_browser=False)
 
         # then
-        sent: dict[str, str] = json.loads(connection.send.call_args.args[0])
-        assert sent["id"] == str(self.IDENTIFIER)
-        assert sent["appid"] == "async-test"
+        sent: dict[str, object] = json.loads(connection.send.call_args.args[0])
+        assert sent == {
+            "id": str(self.IDENTIFIER),
+            "token": None,
+            "protocol": 2,
+        }
+        assert session.authorization_url.endswith("&application=async-test")
         assert auth.headers() == {"apikey": "async-api-key"}
 
     async def test_wraps_async_timeout(self, mocker: MockerFixture) -> None:
@@ -69,6 +78,9 @@ class TestAsyncSSOFlow:
         # given
         connection: MagicMock = MagicMock()
         connection.send = AsyncMock()
+        connection.recv = AsyncMock(
+            return_value=('{"success":true,"data":{"connection_token":"resume-secret"}}')
+        )
         context: MagicMock = mocker.patch(
             "nexusmods_api.auth.async_sso_flow.connect"
         ).return_value

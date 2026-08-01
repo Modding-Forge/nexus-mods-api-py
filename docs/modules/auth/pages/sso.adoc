@@ -8,6 +8,8 @@ the generated WebSocket session open while the user authorizes in a browser.
 include::example$sso.py[]
 ----
 
-The library sends the documented WebSocket pings, enforces timeouts, validates messages,
-and returns `ApiKeyAuth`. It does not persist the issued key. Both `SSOFlow` and
-`AsyncSSOFlow` are available from `nexusmods_api.sso`.
+The library uses Nexus Mods SSO protocol 2, validates the initial connection token,
+and includes the registered application slug in the browser authorization URL. It
+sends WebSocket pings, enforces timeouts, validates structured responses, and returns
+`ApiKeyAuth`. It does not persist the connection token or issued key. Both `SSOFlow`
+and `AsyncSSOFlow` are available from `nexusmods_api.sso`.
