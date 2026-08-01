@@ -10,3 +10,4 @@ AGENTS.md
 build/
 dist/
 htmlcov/
+/local-integration/
