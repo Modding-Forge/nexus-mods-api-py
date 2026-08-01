@@ -4,6 +4,21 @@ The GraphQL clients accept arbitrary documents with a caller-selected Pydantic-c
 response type. Convenience methods cover games, mods, mod search, files, collections,
 revisions, and users.
 
+`get_mod` and `get_mod_files` accept the decimal 64-bit Nexus Mods mod UID returned by
+GraphQL. Collection revisions are addressed by collection slug and revision number because
+the current upstream schema no longer accepts a standalone revision ID. Pass
+`game_domain` when a collection slug needs to be disambiguated.
+
+[source,python]
+----
+mod = client.get_mod("7318624383875")
+revision = client.get_revision(
+    "rqhcxy",
+    1,
+    game_domain="skyrimspecialedition",
+)
+----
+
 [source,python]
 ----
 include::example$graphql_v2.py[]

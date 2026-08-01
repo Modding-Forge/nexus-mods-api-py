@@ -42,11 +42,11 @@ class TestAsyncNexusGraphQLClient:
 
         # when / then
         assert (await client.get_games()).nodes[0].id == 1
-        assert (await client.get_mod("game:2")).uid == "game:2"
+        assert (await client.get_mod("4294967298")).uid == "4294967298"
         assert (await client.search_mods("Mod")).total_count == 1
-        assert (await client.get_mod_files("game:2")).nodes[0].uid
+        assert (await client.get_mod_files("4294967298")).nodes[0].uid
         assert (await client.get_collection("collection")).slug == "collection"
-        assert (await client.get_revision(5)).id == 5
+        assert (await client.get_revision("collection", 1)).id == 5
         assert (await client.get_user(6)).name == "User"
         raw = await client.execute_raw("query { answer }")
         assert raw.data == {"answer": 42}

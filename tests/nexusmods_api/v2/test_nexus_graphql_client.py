@@ -48,14 +48,21 @@ class TestNexusGraphQLClient:
 
         # when / then
         assert client.get_games(count=1).nodes[0].domain_name == "game"
-        assert client.get_mod("game:2").mod_id == 2
+        assert client.get_mod("4294967298").mod_id == 2
         assert client.search_mods("Mod").nodes[0].name == "Mod"
-        assert client.get_mod_files("game:2").nodes[0].file_id == 4
+        assert client.get_mod_files("4294967298").nodes[0].file_id == 4
         assert client.get_collection("collection").id == 3
-        assert client.get_revision(5).revision_number == 1
+        assert client.get_revision("collection", 1).id == 5
         assert client.get_user(6).member_id == 6
         assert requests[0]["operationName"] == "Games"
-        assert requests[1]["variables"] == {"uid": "game:2"}
+        assert requests[1]["variables"] == {"modId": "2", "gameId": "1"}
+        assert requests[2]["variables"] == {
+            "filter": {
+                "name": [{"value": "Mod", "op": "WILDCARD"}],
+            },
+            "count": 20,
+            "offset": 0,
+        }
         assert client.last_errors == ()
         assert client.rate_limits.daily_remaining is None
         client.close()
@@ -155,7 +162,21 @@ class TestNexusGraphQLClient:
 
         # when / then
         with pytest.raises(NexusResponseValidationError, match="mod field"):
-            client.get_mod("x")
+            client.get_mod("4294967298")
         client.close()
         with NexusGraphQLClient():
             pass
+
+    @pytest.mark.parametrize("uid", ["invalid", "-1", str(1 << 64)])
+    def test_rejects_invalid_mod_uid(self, uid: str) -> None:
+        """Tests that convenience mod reads reject malformed UIDs."""
+
+        # given
+        client = NexusGraphQLClient()
+
+        # when / then
+        with pytest.raises(ValueError, match="mod UID"):
+            client.get_mod(uid)
+        with pytest.raises(ValueError, match="mod UID"):
+            client.get_mod_files(uid)
+        client.close()

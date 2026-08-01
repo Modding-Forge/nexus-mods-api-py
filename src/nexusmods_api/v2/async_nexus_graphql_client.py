@@ -31,6 +31,7 @@ from .operations import (
     SEARCH_MODS_QUERY,
     USER_QUERY,
 )
+from .uid import decode_mod_uid
 
 
 class AsyncNexusGraphQLClient:
@@ -123,12 +124,17 @@ class AsyncNexusGraphQLClient:
         return self.__root(data, "games")
 
     async def get_mod(self, uid: str) -> GraphQLMod:
-        """Returns one mod by globally unique identifier."""
+        """Returns one mod by globally unique identifier.
 
+        Raises:
+            ValueError: If the UID is not an unsigned decimal 64-bit integer.
+        """
+
+        game_id, mod_id = decode_mod_uid(uid)
         data: dict[str, GraphQLMod] = await self.execute(
             MOD_QUERY,
             dict[str, GraphQLMod],
-            variables={"uid": uid},
+            variables={"modId": str(mod_id), "gameId": str(game_id)},
             operation_name="Mod",
         )
         return self.__root(data, "mod")
@@ -145,7 +151,13 @@ class AsyncNexusGraphQLClient:
         data: dict[str, GraphQLPage[GraphQLMod]] = await self.execute(
             SEARCH_MODS_QUERY,
             dict[str, GraphQLPage[GraphQLMod]],
-            variables={"query": query, "count": count, "offset": offset},
+            variables={
+                "filter": {
+                    "name": [{"value": query, "op": "WILDCARD"}],
+                },
+                "count": count,
+                "offset": offset,
+            },
             operation_name="SearchMods",
         )
         return self.__root(data, "mods")
@@ -157,34 +169,60 @@ class AsyncNexusGraphQLClient:
         count: int = 20,
         offset: int = 0,
     ) -> GraphQLPage[GraphQLModFile]:
-        """Returns a typed page of files for one mod UID."""
+        """Returns a typed page of files for one mod UID.
 
-        data: dict[str, GraphQLPage[GraphQLModFile]] = await self.execute(
+        Raises:
+            ValueError: If the UID is not an unsigned decimal 64-bit integer.
+        """
+
+        game_id, mod_id = decode_mod_uid(uid)
+        data: dict[str, list[GraphQLModFile]] = await self.execute(
             MOD_FILES_QUERY,
-            dict[str, GraphQLPage[GraphQLModFile]],
-            variables={"uid": uid, "count": count, "offset": offset},
+            dict[str, list[GraphQLModFile]],
+            variables={"modId": str(mod_id), "gameId": str(game_id)},
             operation_name="ModFiles",
         )
-        return self.__root(data, "modFiles")
+        files: list[GraphQLModFile] = self.__root(data, "modFiles")
+        nodes: list[GraphQLModFile] = files[offset : offset + count]
+        return GraphQLPage(
+            nodes=nodes,
+            totalCount=len(files),
+            nodesCount=len(nodes),
+        )
 
-    async def get_collection(self, slug: str) -> GraphQLCollection:
+    async def get_collection(
+        self,
+        slug: str,
+        *,
+        game_domain: Optional[str] = None,
+    ) -> GraphQLCollection:
         """Returns one collection by slug."""
 
         data: dict[str, GraphQLCollection] = await self.execute(
             COLLECTION_QUERY,
             dict[str, GraphQLCollection],
-            variables={"slug": slug},
+            variables={"slug": slug, "domainName": game_domain},
             operation_name="Collection",
         )
         return self.__root(data, "collection")
 
-    async def get_revision(self, revision_id: int) -> GraphQLRevision:
-        """Returns one collection revision by numeric identifier."""
+    async def get_revision(
+        self,
+        slug: str,
+        revision_number: int,
+        *,
+        game_domain: Optional[str] = None,
+    ) -> GraphQLRevision:
+        """Returns one numbered revision belonging to a collection slug."""
 
         data: dict[str, GraphQLRevision] = await self.execute(
             REVISION_QUERY,
             dict[str, GraphQLRevision],
-            variables={"id": revision_id},
+            variables={
+                "slug": slug,
+                "revision": revision_number,
+                "domainName": game_domain,
+            },
             operation_name="Revision",
         )
         return self.__root(data, "collectionRevision")

@@ -28,14 +28,13 @@ def operation_payload(operation_name: str | None) -> dict[str, JsonValue]:
             }
         },
         "ModFiles": {
-            "modFiles": {
-                "nodes": [{"uid": "game:2:4", "fileId": 4, "name": "File"}],
-                "totalCount": 1,
-            }
+            "modFiles": [
+                {"uid": "4294967300", "fileId": 4, "name": "File"},
+            ]
         },
     }
     values: dict[str, JsonValue] = {
-        "Mod": {"mod": {"uid": "game:2", "modId": 2, "name": "Mod"}},
+        "Mod": {"mod": {"uid": "4294967298", "modId": 2, "name": "Mod"}},
         "Collection": {
             "collection": {"id": 3, "slug": "collection", "name": "Collection"}
         },
