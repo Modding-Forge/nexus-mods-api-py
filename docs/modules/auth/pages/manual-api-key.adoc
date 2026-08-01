@@ -1,0 +1,12 @@
+= Manual API key
+
+Manual keys are useful for personal development and explicitly supported registered
+applications. Never ship a key belonging to another application.
+
+[source,python]
+----
+include::example$manual_api_key.py[]
+----
+
+`SecretStr` masks the value in model representations. HTTP headers necessarily contain the
+raw key for the request, so avoid verbose third-party HTTP logging in production.

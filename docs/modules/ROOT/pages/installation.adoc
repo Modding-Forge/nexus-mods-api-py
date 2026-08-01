@@ -1,0 +1,19 @@
+= Installation
+
+The library requires Python 3.12 or newer.
+
+[source,shell]
+----
+python -m pip install nexusmods-api
+----
+
+The base package contains all HTTP APIs, manual API-key authentication, and OAuth.
+Install WebSocket SSO explicitly:
+
+[source,shell]
+----
+python -m pip install "nexusmods-api[sso]"
+----
+
+`nexusmods-api[all]` currently selects the same optional SSO capability and is intended
+for applications that want every supported feature.

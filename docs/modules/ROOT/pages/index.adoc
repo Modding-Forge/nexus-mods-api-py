@@ -1,0 +1,14 @@
+= Nexus Mods API for Python
+
+`nexusmods-api` is an unofficial, typed Python library for the Nexus Mods REST v1,
+GraphQL v2, and REST v3 APIs. It provides native synchronous and asynchronous clients,
+Pydantic v2 response models, manual API-key authentication, WebSocket SSO, and OAuth 2
+Authorization Code with PKCE.
+
+The package does not include credentials for any Nexus Mods application. Register and
+identify your own application, follow the Nexus Mods API policy, and let users control
+credential storage.
+
+Start with xref:installation.adoc[installation] and the xref:quickstart.adoc[quickstart].
+Authentication choices are described in xref:auth:manual-api-key.adoc[Manual API key],
+xref:auth:sso.adoc[SSO], and xref:auth:oauth.adoc[OAuth].

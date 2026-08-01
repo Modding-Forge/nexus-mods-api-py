@@ -1,0 +1,15 @@
+= Testing
+
+Run the local quality gates:
+
+[source,shell]
+----
+uv run ruff check src tests tools
+uv run pyright
+uv run pytest --cov=nexusmods_api --cov-branch
+uv run python tools/check_docs.py
+----
+
+Normal tests use mock transports or local fake servers and never consume the public API.
+The branch-coverage floor is 90 percent. Live credential tests are a separate release gate
+and must use credentials registered for the maintainer's own application.

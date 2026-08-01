@@ -1,0 +1,14 @@
+= Sync and async
+
+The sync and async clients expose matching API concepts while using native `httpx.Client`
+and `httpx.AsyncClient` transports. Choose sync for scripts and conventional threaded
+applications; choose async when the surrounding application already owns an event loop or
+runs many concurrent network tasks.
+
+[source,python]
+----
+include::example$sync_async.py[]
+----
+
+Do not call synchronous clients directly on an asynchronous event loop. The library does
+not hide sync calls in a worker thread.

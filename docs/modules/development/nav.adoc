@@ -1,0 +1,4 @@
+* xref:contributing.adoc[Contributing]
+* xref:testing.adoc[Testing]
+* xref:code-generation.adoc[Code generation]
+* xref:release-process.adoc[Release process]

@@ -1,0 +1,14 @@
+= REST v3
+
+REST v3 is generated from the checked-in `specs/nexusmods-v3-openapi.yaml` snapshot. The
+snapshot is SHA-256 pinned, normal builds do not access the network, and the package ships
+explicit sync and async methods for every operation in that snapshot.
+
+[source,python]
+----
+include::example$rest_v3.py[]
+----
+
+Generated Pydantic models are available from `nexusmods_api.v3.generated.models`.
+Experimental and deprecated operations remain callable and emit one process-wide
+`NexusStabilityWarning` per operation unless `warn_on_unstable=False`.

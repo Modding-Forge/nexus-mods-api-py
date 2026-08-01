@@ -1,0 +1,9 @@
+= Errors
+
+All library exceptions derive from `NexusApiError`. Dedicated subclasses distinguish HTTP,
+authentication, rate-limit, transport, response-validation, SSO, OAuth, and GraphQL
+failures.
+
+Error objects keep sanitized request URLs without query strings. Provider and transport
+details are not copied blindly into exception messages. Catch the narrowest useful class
+from `nexusmods_api.errors`.

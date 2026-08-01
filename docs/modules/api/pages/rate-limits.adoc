@@ -1,0 +1,10 @@
+= Rate limits and retries
+
+REST and GraphQL clients expose a mutable `rate_limits` observation model populated from
+Nexus Mods headers. The transport paces requests conservatively after a low remaining
+budget is observed.
+
+Only retry-safe requests are retried after connection failures or HTTP 429, 502, 503, and
+504. `Retry-After` is preferred; otherwise bounded exponential backoff with jitter is used.
+Mutations are not replayed automatically. See the current Nexus Mods API policy before
+designing high-volume integrations.

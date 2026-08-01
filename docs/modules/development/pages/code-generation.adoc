@@ -1,0 +1,13 @@
+= REST v3 code generation
+
+The pinned OpenAPI snapshot and its SHA-256 file live under `specs/`. Regenerate offline:
+
+[source,shell]
+----
+uv run python tools/generate_v3.py
+----
+
+Only after reviewing an upstream specification change, update the expected hash in the
+generator and run `--update-spec`. Review the snapshot and generated diff together. Never
+edit files under `src/nexusmods_api/v3/generated/` manually. CI regenerates offline and
+requires an empty diff.

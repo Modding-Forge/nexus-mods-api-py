@@ -1,0 +1,9 @@
+= Contributing
+
+Use Python 3.12 or newer and `uv` for the locked development environment. Keep sync and
+async behavior in parity, add tests with each feature, use Conventional Commits, and never
+include credentials or another application's Nexus Mods identity.
+
+The authoritative developer constraints live in the maintainer's local ignored
+`AGENTS.md`; it is intentionally never tracked. Public contribution requirements are
+captured in this documentation.

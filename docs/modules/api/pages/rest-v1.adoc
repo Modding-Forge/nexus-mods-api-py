@@ -1,0 +1,13 @@
+= REST v1
+
+`NexusV1Client` and `AsyncNexusV1Client` provide hand-written methods and Pydantic models
+for games, mods, updates, files, download links, MD5 lookup, tracking, endorsements,
+colour schemes, and key validation.
+
+[source,python]
+----
+include::example$rest_v1.py[]
+----
+
+All opaque path segments are escaped and positive numeric identifiers are checked before a
+request. Download `key` and `expires` values must be supplied together.

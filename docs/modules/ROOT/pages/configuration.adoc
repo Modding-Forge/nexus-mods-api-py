@@ -1,0 +1,20 @@
+= Configuration
+
+`NexusConfig` is an immutable Pydantic model shared by every client. Set a real application
+name and semantic application version so Nexus Mods can identify traffic correctly.
+
+[source,python]
+----
+from nexusmods_api import NexusConfig
+
+config = NexusConfig(
+    application_name="your-registered-app",
+    application_version="1.2.0",
+    timeout_seconds=20,
+    max_retries=3,
+)
+----
+
+Retries are restricted to explicitly safe requests and transient status codes. Low
+observed rate-limit budgets enable conservative pacing. Service URL overrides reject
+plaintext remote HTTP; local test servers may use loopback HTTP.

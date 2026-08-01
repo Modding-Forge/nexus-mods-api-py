@@ -1,0 +1,12 @@
+= Quickstart
+
+Create an application-specific authentication object and use either a focused API client
+or the lazy aggregate client.
+
+[source,python]
+----
+include::example$quickstart.py[]
+----
+
+No request is sent until an API method is called. Close clients or use them as context
+managers so owned connections are released.

@@ -1,0 +1,13 @@
+= WebSocket SSO
+
+Install the `sso` extra, configure the application slug assigned by Nexus Mods, and keep
+the generated WebSocket session open while the user authorizes in a browser.
+
+[source,python]
+----
+include::example$sso.py[]
+----
+
+The library sends the documented WebSocket pings, enforces timeouts, validates messages,
+and returns `ApiKeyAuth`. It does not persist the issued key. Both `SSOFlow` and
+`AsyncSSOFlow` are available from `nexusmods_api.sso`.

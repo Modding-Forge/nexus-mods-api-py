@@ -1,0 +1,8 @@
+name: nexusmods-api
+title: Nexus Mods API for Python
+version: "1.0"
+nav:
+  - modules/ROOT/nav.adoc
+  - modules/auth/nav.adoc
+  - modules/api/nav.adoc
+  - modules/development/nav.adoc

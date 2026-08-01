@@ -1,0 +1,14 @@
+= GraphQL v2
+
+The GraphQL clients accept arbitrary documents with a caller-selected Pydantic-compatible
+response type. Convenience methods cover games, mods, mod search, files, collections,
+revisions, and users.
+
+[source,python]
+----
+include::example$graphql_v2.py[]
+----
+
+By default, GraphQL errors raise `NexusGraphQLError`. Set `allow_partial=True` to validate
+and return data accompanied by errors, then inspect `last_errors`. Use `execute_raw` when
+the complete raw envelope is required.
