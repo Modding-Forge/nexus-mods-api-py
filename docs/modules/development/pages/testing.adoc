@@ -4,12 +4,19 @@ Run the local quality gates:
 
 [source,shell]
 ----
+uv run ruff format --check src tests tools
 uv run ruff check src tests tools
 uv run pyright
 uv run pytest --cov=nexusmods_api --cov-branch
 uv run python tools/check_docs.py
+uv run python tools/generate_v3.py
+git diff --exit-code -- src/nexusmods_api/v3/generated
 ----
 
 Normal tests use mock transports or local fake servers and never consume the public API.
 The branch-coverage floor is 90 percent. Live credential tests are a separate release gate
 and must use credentials registered for the maintainer's own application.
+
+Before a release candidate is handed off, also build with `uv build --no-sources`, run
+Twine and `tools/check_distribution.py` against `dist/`, and execute
+`tools/package_smoke.py` from isolated base and SSO-extra wheel installations.
