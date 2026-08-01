@@ -5,7 +5,14 @@ https://semver.org/[Semantic Versioning], including pre-release identifiers.
 
 == Unreleased
 
-No user-visible changes are currently queued after the release candidate.
+No user-visible changes are currently queued after `1.0.0`.
+
+== 1.0.0 - 2026-08-01
+
+* Promoted the library to its first stable release after successful live acceptance of
+  manual API-key, WebSocket SSO, and OAuth PKCE authentication.
+* Added release-version validation, reproducible universal package builds, expanded
+  cross-platform wheel installation coverage, and protected PyPI Trusted Publishing.
 
 == 1.0.0rc1 - 2026-08-01
 

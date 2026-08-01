@@ -11,6 +11,5 @@ and avoids copying raw upstream payloads into exception messages. Applications r
 responsible for protecting credentials at rest, limiting application logs, and rotating
 credentials after suspected exposure.
 
-Only supported releases receive security fixes. While `1.0.0rc1` is a release candidate,
-report security issues against that version so they can be resolved before the stable
-release.
+Only supported releases receive security fixes. Report security issues against the newest
+available release and include the exact affected version.

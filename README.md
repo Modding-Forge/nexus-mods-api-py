@@ -3,7 +3,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/nexusmods-api)](https://pypi.org/project/nexusmods-api/)
 [![Python](https://img.shields.io/pypi/pyversions/nexusmods-api)](https://pypi.org/project/nexusmods-api/)
 [![License](https://img.shields.io/pypi/l/nexusmods-api)](LICENSE)
-[![CI](https://github.com/Modding-Forge/nexusmods-api/actions/workflows/ci.yml/badge.svg)](https://github.com/Modding-Forge/nexusmods-api/actions/workflows/ci.yml)
+[![CI](https://github.com/Modding-Forge/nexus-mods-api-py/actions/workflows/ci.yml/badge.svg)](https://github.com/Modding-Forge/nexus-mods-api-py/actions/workflows/ci.yml)
 
 Unofficial, typed synchronous and asynchronous Python clients for all three
 Nexus Mods APIs:
@@ -54,9 +54,9 @@ The authoritative documentation is maintained as AsciiDoc, starting at the
 installation, sync and async usage, all authentication flows, API guides,
 error handling, rate limits, code generation, testing, and releases.
 
-`1.0.0rc1` is a release candidate. Stable `1.0.0` remains gated on live tests
-of manual API key, SSO, and OAuth with maintainer-owned Nexus Mods application
-registrations.
+Version `1.0.0` completed both the mocked conformance suite and live acceptance
+tests for manual API key, SSO, and OAuth with maintainer-owned Nexus Mods
+application registrations.
 
 ## License
 

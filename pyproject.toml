@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nexusmods-api"
-version = "1.0.0rc1"
+version = "1.0.0"
 description = "Typed sync and async Python clients for the Nexus Mods APIs"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -21,7 +21,7 @@ keywords = [
     "pydantic",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -39,11 +39,11 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Modding-Forge/nexusmods-api"
-Documentation = "https://github.com/Modding-Forge/nexusmods-api/tree/master/docs"
-Repository = "https://github.com/Modding-Forge/nexusmods-api"
-Issues = "https://github.com/Modding-Forge/nexusmods-api/issues"
-Changelog = "https://github.com/Modding-Forge/nexusmods-api/blob/master/docs/modules/development/pages/changelog.adoc"
+Homepage = "https://github.com/Modding-Forge/nexus-mods-api-py"
+Documentation = "https://github.com/Modding-Forge/nexus-mods-api-py/tree/master/docs"
+Repository = "https://github.com/Modding-Forge/nexus-mods-api-py"
+Issues = "https://github.com/Modding-Forge/nexus-mods-api-py/issues"
+Changelog = "https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/docs/modules/development/pages/changelog.adoc"
 
 [project.optional-dependencies]
 sso = [

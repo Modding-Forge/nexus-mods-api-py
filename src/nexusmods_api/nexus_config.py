@@ -12,7 +12,7 @@ class NexusConfig(BaseModel):
     """The application name reported to Nexus Mods."""
 
     application_version: str = Field(
-        default="1.0.0rc1",
+        default="1.0.0",
         pattern=r"^\d+\.\d+\.\d+(?:(?:a|b|rc)\d+)?(?:\+[0-9A-Za-z.-]+)?$",
     )
     """The semantic application version reported to Nexus Mods."""

@@ -9,9 +9,9 @@ The package does not include credentials for any Nexus Mods application. Registe
 identify your own application, follow the Nexus Mods API policy, and let users control
 credential storage.
 
-IMPORTANT: `1.0.0rc1` is a release candidate. Its mocked conformance suite is complete,
-but the stable `1.0.0` release remains blocked on live verification of all three
-authentication methods with maintainer-owned Nexus Mods application credentials.
+Version `1.0.0` completed its mocked conformance suite and live verification of manual API
+key, WebSocket SSO, and OAuth with maintainer-owned Nexus Mods application registrations.
+Live credentials and integration logs remain local and are never included in the package.
 
 Start with xref:installation.adoc[installation] and the xref:quickstart.adoc[quickstart].
 Authentication choices are described in xref:auth:manual-api-key.adoc[Manual API key],
