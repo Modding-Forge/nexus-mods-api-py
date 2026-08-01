@@ -1,11 +1,13 @@
 """Copyright (c) Modding Forge."""
 
+from datetime import UTC, datetime
 from typing import cast
 
 import httpx
 import pytest
 
 from nexusmods_api.nexus_config import NexusConfig
+from nexusmods_api.v1.models.endorsement import Endorsement
 from nexusmods_api.v1.nexus_v1_client import NexusV1Client
 from nexusmods_api.v1.types import EndorsementStatus, UpdatePeriod
 
@@ -43,7 +45,9 @@ class TestNexusV1Client:
         assert client.get_latest_added("game")[0].name == "Test Mod"
         assert client.get_latest_updated("game")[0].mod_id == 2
         assert client.get_trending("game")[0].mod_id == 2
-        assert client.get_endorsements()[0].status == "Endorsed"
+        endorsement = client.get_endorsements()[0]
+        assert endorsement.status == "Endorsed"
+        assert endorsement.date.year == 2026
         assert client.get_colour_schemes()[0].name == "Dark"
         assert client.get_game("game").categories is not None
         assert client.get_updated_mods("game", "1d")[0].mod_id == 2
@@ -141,6 +145,22 @@ class TestNexusV1Client:
         # then
         assert results == []
         client.close()
+
+    def test_accepts_legacy_numeric_endorsement_date(self) -> None:
+        """Tests compatibility with the former Unix timestamp response shape."""
+
+        # given / when
+        endorsement = Endorsement.model_validate(
+            {
+                "mod_id": 2,
+                "domain_name": "game",
+                "date": 1,
+                "status": "Endorsed",
+            }
+        )
+
+        # then
+        assert endorsement.date == datetime.fromtimestamp(1, UTC)
 
     def test_closes_owned_client_context(self) -> None:
         """Tests synchronous context-managed ownership."""

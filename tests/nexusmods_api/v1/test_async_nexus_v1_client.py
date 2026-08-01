@@ -41,7 +41,9 @@ class TestAsyncNexusV1Client:
         assert (await client.get_latest_added("game"))[0].mod_id == 2
         assert (await client.get_latest_updated("game"))[0].mod_id == 2
         assert (await client.get_trending("game"))[0].mod_id == 2
-        assert (await client.get_endorsements())[0].mod_id == 2
+        endorsement = (await client.get_endorsements())[0]
+        assert endorsement.mod_id == 2
+        assert endorsement.date.year == 2026
         assert (await client.get_colour_schemes())[0].id == 1
         assert (await client.get_game("game")).id == 1
         assert (await client.get_updated_mods("game", "1w"))[0].mod_id == 2

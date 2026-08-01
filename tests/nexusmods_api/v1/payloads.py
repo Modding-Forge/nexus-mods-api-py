@@ -64,7 +64,7 @@ def response_payload(method: str, path: str) -> JsonValue:
             {
                 "mod_id": 2,
                 "domain_name": "game",
-                "date": 1,
+                "date": "2026-08-01T18:39:50Z",
                 "status": "Endorsed",
             }
         ]

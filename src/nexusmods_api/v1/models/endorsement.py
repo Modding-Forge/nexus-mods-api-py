@@ -1,5 +1,6 @@
 """Copyright (c) Modding Forge."""
 
+from datetime import datetime
 from typing import Optional
 
 from ...models.nexus_model import NexusModel
@@ -10,6 +11,6 @@ class Endorsement(NexusModel):
 
     mod_id: int
     domain_name: str
-    date: int
+    date: datetime
     version: Optional[str] = None
     status: str
