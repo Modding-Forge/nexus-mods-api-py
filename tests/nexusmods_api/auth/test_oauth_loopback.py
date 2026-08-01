@@ -6,7 +6,9 @@ from urllib.parse import parse_qs, urlsplit
 
 import httpx
 import pytest
+from pydantic import ValidationError
 
+from nexusmods_api.auth.oauth_callback_pages import OAuthCallbackPages
 from nexusmods_api.auth.oauth_client_config import OAuthClientConfig
 from nexusmods_api.auth.oauth_flow import OAuthFlow
 from nexusmods_api.auth.oauth_loopback import OAuthLoopbackFlow
@@ -35,29 +37,94 @@ class TestOAuthLoopbackFlow:
             NexusConfig(oauth_base_url="http://127.0.0.1/oauth"),
             http_client=httpx.Client(transport=httpx.MockTransport(token_handler)),
         )
+        responses: list[httpx.Response] = []
+        browser_threads: list[threading.Thread] = []
 
         def open_browser(url: str) -> bool:
             state: str = parse_qs(urlsplit(url).query)["state"][0]
             target: str = f"{redirect_uri}?code=code&state={state}"
+
+            def visit() -> None:
+                """Captures the static browser response for verification."""
+
+                responses.append(httpx.get(target))
+
             thread: threading.Thread = threading.Thread(
-                target=httpx.get,
-                args=(target,),
+                target=visit,
                 daemon=True,
             )
+            browser_threads.append(thread)
             thread.start()
             return True
 
+        callback_pages = OAuthCallbackPages(
+            success_html="<html><body>Authorized ✓</body></html>",
+            error_html="<html><body>Rejected</body></html>",
+        )
         loopback: OAuthLoopbackFlow = OAuthLoopbackFlow(
             flow,
             timeout_seconds=2,
             browser_opener=open_browser,
+            callback_pages=callback_pages,
         )
 
         # when
         credentials = loopback.authorize(redirect_uri)
+        browser_threads[0].join(timeout=2)
 
         # then
         assert credentials.headers() == {"Authorization": "Bearer loopback-access"}
+        assert responses[0].text == callback_pages.success_html
+        assert responses[0].headers["content-type"] == "text/html; charset=utf-8"
+
+    def test_returns_custom_error_page_for_unrelated_path(self) -> None:
+        """Tests static custom HTML for an unrelated loopback request."""
+
+        # given
+        port: int = self.__free_port()
+        redirect_uri: str = f"http://127.0.0.1:{port}/callback"
+        responses: list[httpx.Response] = []
+        browser_threads: list[threading.Thread] = []
+        flow = OAuthFlow(
+            OAuthClientConfig(client_id="client", redirect_uri=redirect_uri),
+            NexusConfig(),
+        )
+
+        def open_browser(url: str) -> bool:
+            def visit() -> None:
+                """Visits a path that must not capture the OAuth callback."""
+
+                responses.append(httpx.get(f"http://127.0.0.1:{port}/unrelated"))
+
+            thread = threading.Thread(target=visit, daemon=True)
+            browser_threads.append(thread)
+            thread.start()
+            return True
+
+        callback_pages = OAuthCallbackPages(
+            error_html="<html><body>Custom error</body></html>"
+        )
+        loopback = OAuthLoopbackFlow(
+            flow,
+            timeout_seconds=0.2,
+            browser_opener=open_browser,
+            callback_pages=callback_pages,
+        )
+
+        # when / then
+        with pytest.raises(NexusOAuthError, match="timed out"):
+            loopback.authorize(redirect_uri)
+        browser_threads[0].join(timeout=2)
+        assert responses[0].status_code == 404
+        assert responses[0].text == callback_pages.error_html
+        flow.close()
+
+    def test_rejects_empty_callback_html(self) -> None:
+        """Tests strict validation of custom callback page configuration."""
+
+        # given / when / then
+        with pytest.raises(ValidationError):
+            OAuthCallbackPages(success_html="")
 
     @pytest.mark.parametrize(
         "redirect_uri",

@@ -73,4 +73,5 @@ class TestNexusClient:
         # then
         assert nexusmods_api.__version__ == "1.0.0rc1"
         assert "NexusV1Client" in nexusmods_api.__all__
+        assert "OAuthCallbackPages" in nexusmods_api.__all__
         assert "SSOFlow" not in nexusmods_api.__all__

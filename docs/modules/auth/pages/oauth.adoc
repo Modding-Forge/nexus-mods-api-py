@@ -14,5 +14,25 @@ through your own mechanism, and pass the full callback URL to `exchange_callback
 desktop browser flow, `OAuthLoopbackFlow` and `AsyncOAuthLoopbackFlow` bind only to IPv4
 loopback and validate state before exchanging the code.
 
+Both loopback helpers accept an `OAuthCallbackPages` model for custom success and error
+HTML. The content is encoded as UTF-8 and returned with `text/html`; it is never formatted
+with callback parameters, authorization codes, state values, or tokens.
+
+[source,python]
+----
+from pathlib import Path
+
+from nexusmods_api import OAuthCallbackPages, OAuthLoopbackFlow
+
+pages = OAuthCallbackPages(
+    success_html=Path("oauth-success.html").read_text(encoding="utf-8"),
+    error_html=Path("oauth-error.html").read_text(encoding="utf-8"),
+)
+credentials = OAuthLoopbackFlow(
+    flow,
+    callback_pages=pages,
+).authorize("http://127.0.0.1:8765/callback")
+----
+
 `OAuthAuth` and `AsyncOAuthAuth` provide proactive refresh, one refresh after HTTP 401, and
 coalescing so concurrent failures for the same token perform only one rotation.

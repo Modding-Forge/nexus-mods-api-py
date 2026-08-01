@@ -7,6 +7,7 @@ from typing import Optional
 from urllib.parse import urlsplit
 
 from ..errors.nexus_oauth_error import NexusOAuthError
+from .oauth_callback_pages import OAuthCallbackPages
 from .oauth_credentials import OAuthCredentials
 from .oauth_flow import OAuthFlow
 
@@ -15,6 +16,7 @@ class OAuthLoopbackFlow:
     """Completes a synchronous OAuth flow through a local callback server."""
 
     __browser_opener: Callable[[str], bool]
+    __callback_pages: OAuthCallbackPages
     __flow: OAuthFlow
     __timeout_seconds: float
 
@@ -24,6 +26,7 @@ class OAuthLoopbackFlow:
         *,
         timeout_seconds: float = 120.0,
         browser_opener: Callable[[str], bool] = webbrowser.open,
+        callback_pages: Optional[OAuthCallbackPages] = None,
     ) -> None:
         """Initializes a synchronous loopback helper.
 
@@ -31,11 +34,13 @@ class OAuthLoopbackFlow:
             flow (OAuthFlow): Configured OAuth flow.
             timeout_seconds (float): Maximum callback wait.
             browser_opener (Callable[[str], bool]): Injectable browser opener.
+            callback_pages (Optional[OAuthCallbackPages]): Static callback HTML.
         """
 
         self.__flow = flow
         self.__timeout_seconds = timeout_seconds
         self.__browser_opener = browser_opener
+        self.__callback_pages = callback_pages or OAuthCallbackPages()
 
     def authorize(self, redirect_uri: str) -> OAuthCredentials:
         """Waits for one loopback redirect and exchanges its code.
@@ -54,6 +59,8 @@ class OAuthLoopbackFlow:
         authorization = self.__flow.create_authorization()
         callback_url: list[str] = []
         expected_path: str = path
+        success_body: bytes = self.__callback_pages.success_html.encode("utf-8")
+        error_body: bytes = self.__callback_pages.error_html.encode("utf-8")
 
         class CallbackHandler(BaseHTTPRequestHandler):
             """Captures exactly one local OAuth callback."""
@@ -63,12 +70,21 @@ class OAuthLoopbackFlow:
 
                 target_path: str = urlsplit(self.path).path
                 if target_path != expected_path:
-                    self.send_error(404)
+                    self.__send_html(404, error_body)
                     return
                 callback_url.append(f"http://{host}:{port}{self.path}")
-                body: bytes = b"Authorization received. You may close this window."
-                self.send_response(200)
-                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.__send_html(200, success_body)
+
+            def __send_html(self, status_code: int, body: bytes) -> None:
+                """Returns one static UTF-8 HTML callback page.
+
+                Args:
+                    status_code (int): HTTP response status.
+                    body (bytes): Pre-encoded static HTML body.
+                """
+
+                self.send_response(status_code)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)

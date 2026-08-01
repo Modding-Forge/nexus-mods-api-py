@@ -8,6 +8,7 @@ from .auth.async_oauth_flow import AsyncOAuthFlow
 from .auth.async_oauth_loopback import AsyncOAuthLoopbackFlow
 from .auth.oauth_auth import OAuthAuth
 from .auth.oauth_authorization import OAuthAuthorization
+from .auth.oauth_callback_pages import OAuthCallbackPages
 from .auth.oauth_client_config import OAuthClientConfig
 from .auth.oauth_credentials import OAuthCredentials
 from .auth.oauth_flow import OAuthFlow
@@ -39,6 +40,7 @@ __all__: list[str] = [
     "NexusV3Client",
     "OAuthAuth",
     "OAuthAuthorization",
+    "OAuthCallbackPages",
     "OAuthClientConfig",
     "OAuthCredentials",
     "OAuthFlow",

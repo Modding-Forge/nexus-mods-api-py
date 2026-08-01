@@ -8,6 +8,7 @@ from urllib.parse import urlsplit
 
 from ..errors.nexus_oauth_error import NexusOAuthError
 from .async_oauth_flow import AsyncOAuthFlow
+from .oauth_callback_pages import OAuthCallbackPages
 from .oauth_credentials import OAuthCredentials
 
 
@@ -15,6 +16,7 @@ class AsyncOAuthLoopbackFlow:
     """Completes an asynchronous OAuth flow through a local callback server."""
 
     __browser_opener: Callable[[str], bool]
+    __callback_pages: OAuthCallbackPages
     __flow: AsyncOAuthFlow
     __timeout_seconds: float
 
@@ -24,6 +26,7 @@ class AsyncOAuthLoopbackFlow:
         *,
         timeout_seconds: float = 120.0,
         browser_opener: Callable[[str], bool] = webbrowser.open,
+        callback_pages: Optional[OAuthCallbackPages] = None,
     ) -> None:
         """Initializes an asynchronous loopback helper.
 
@@ -31,11 +34,13 @@ class AsyncOAuthLoopbackFlow:
             flow (AsyncOAuthFlow): Configured OAuth flow.
             timeout_seconds (float): Maximum callback wait.
             browser_opener (Callable[[str], bool]): Injectable browser opener.
+            callback_pages (Optional[OAuthCallbackPages]): Static callback HTML.
         """
 
         self.__flow = flow
         self.__timeout_seconds = timeout_seconds
         self.__browser_opener = browser_opener
+        self.__callback_pages = callback_pages or OAuthCallbackPages()
 
     async def authorize(self, redirect_uri: str) -> OAuthCredentials:
         """Waits asynchronously for one loopback redirect.
@@ -54,6 +59,8 @@ class AsyncOAuthLoopbackFlow:
         authorization = self.__flow.create_authorization()
         loop: asyncio.AbstractEventLoop = asyncio.get_running_loop()
         callback: asyncio.Future[str] = loop.create_future()
+        success_body: bytes = self.__callback_pages.success_html.encode("utf-8")
+        error_body: bytes = self.__callback_pages.error_html.encode("utf-8")
 
         async def handle(
             reader: asyncio.StreamReader,
@@ -62,14 +69,14 @@ class AsyncOAuthLoopbackFlow:
             """Reads one minimal local HTTP request without logging secrets."""
 
             status: bytes = b"200 OK"
-            message: bytes = b"Authorization received. You may close this window."
+            message: bytes = success_body
             try:
                 request_line: bytes = await reader.readline()
                 parts: list[str] = request_line.decode("ascii").split(" ")
                 target: str = parts[1] if len(parts) >= 2 else ""
                 if urlsplit(target).path != path:
                     status = b"404 Not Found"
-                    message = b"Not found."
+                    message = error_body
                 elif not callback.done():
                     callback.set_result(f"http://{host}:{port}{target}")
                 while await reader.readline() not in {b"\r\n", b""}:
@@ -78,11 +85,11 @@ class AsyncOAuthLoopbackFlow:
                 if not callback.done():
                     callback.set_exception(error)
                 status = b"400 Bad Request"
-                message = b"Invalid callback."
+                message = error_body
             writer.write(
                 b"HTTP/1.1 "
                 + status
-                + b"\r\nContent-Type: text/plain; charset=utf-8\r\n"
+                + b"\r\nContent-Type: text/html; charset=utf-8\r\n"
                 + f"Content-Length: {len(message)}\r\nConnection: close\r\n\r\n".encode()
                 + message
             )
