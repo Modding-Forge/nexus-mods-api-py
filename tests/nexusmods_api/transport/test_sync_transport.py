@@ -282,9 +282,7 @@ class TestSyncTransport:
         """Tests that caller-owned clients remain open after transport closure."""
 
         # given
-        caller_client: httpx.Client = self.__client(
-            lambda request: httpx.Response(200)
-        )
+        caller_client: httpx.Client = self.__client(lambda request: httpx.Response(200))
         caller_transport: SyncTransport = SyncTransport(
             NexusConfig(),
             http_client=caller_client,

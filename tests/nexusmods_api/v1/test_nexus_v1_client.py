@@ -28,9 +28,7 @@ class TestNexusV1Client:
                 json=response_payload(request.method, request.url.path),
             )
 
-        http_client: httpx.Client = httpx.Client(
-            transport=httpx.MockTransport(handler)
-        )
+        http_client: httpx.Client = httpx.Client(transport=httpx.MockTransport(handler))
         client: NexusV1Client = NexusV1Client(
             NexusConfig(v1_base_url="http://127.0.0.1/v1"),
             http_client=http_client,
@@ -61,12 +59,15 @@ class TestNexusV1Client:
             expires=123,
         )[0].uri.endswith("/file")
         assert client.search_file_by_md5("game", "a" * 32)[0].mod.mod_id == 2
-        assert client.set_mod_endorsement(
-            "game",
-            2,
-            "1.0",
-            "endorse",
-        ).status == "Endorsed"
+        assert (
+            client.set_mod_endorsement(
+                "game",
+                2,
+                "1.0",
+                "endorse",
+            ).status
+            == "Endorsed"
+        )
         assert requests[0].headers["apikey"] == "explicit-key"
         assert requests[-1].method == "POST"
         assert client.rate_limits.hourly_remaining is None

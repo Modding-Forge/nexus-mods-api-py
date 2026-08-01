@@ -59,9 +59,7 @@ class TestAsyncOAuthLoopbackFlow:
         credentials = await loopback.authorize(redirect_uri)
 
         # then
-        assert credentials.headers() == {
-            "Authorization": "Bearer async-loopback-access"
-        }
+        assert credentials.headers() == {"Authorization": "Bearer async-loopback-access"}
         await token_client.aclose()
 
     async def test_rejects_remote_listener_and_browser_failure(self) -> None:

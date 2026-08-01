@@ -53,9 +53,7 @@ class TestNexusV3Client:
             requests.append(request)
             return httpx.Response(200, json={"ok": True})
 
-        http_client: httpx.Client = httpx.Client(
-            transport=httpx.MockTransport(handler)
-        )
+        http_client: httpx.Client = httpx.Client(transport=httpx.MockTransport(handler))
         client: NexusV3Client = NexusV3Client(
             NexusConfig(
                 v3_base_url="http://127.0.0.1/v3",
@@ -143,9 +141,7 @@ class TestNexusV3Client:
 
         # then
         stability_warnings = [
-            item
-            for item in captured
-            if issubclass(item.category, NexusStabilityWarning)
+            item for item in captured if issubclass(item.category, NexusStabilityWarning)
         ]
         assert len(stability_warnings) == 1
         assert "getGameDlcs" in str(stability_warnings[0].message)

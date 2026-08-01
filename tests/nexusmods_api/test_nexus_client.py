@@ -40,9 +40,7 @@ class TestNexusClient:
                 )
             return httpx.Response(200, json=[])
 
-        http_client: httpx.Client = httpx.Client(
-            transport=httpx.MockTransport(handler)
-        )
+        http_client: httpx.Client = httpx.Client(transport=httpx.MockTransport(handler))
         client: NexusClient = NexusClient(
             NexusConfig(
                 v1_base_url="http://127.0.0.1/v1",

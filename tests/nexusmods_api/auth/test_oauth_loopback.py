@@ -57,9 +57,7 @@ class TestOAuthLoopbackFlow:
         credentials = loopback.authorize(redirect_uri)
 
         # then
-        assert credentials.headers() == {
-            "Authorization": "Bearer loopback-access"
-        }
+        assert credentials.headers() == {"Authorization": "Bearer loopback-access"}
 
     @pytest.mark.parametrize(
         "redirect_uri",

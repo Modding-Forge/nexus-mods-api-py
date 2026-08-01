@@ -169,9 +169,7 @@ class OAuthFlow:
         """
 
         if self.__client_config.client_secret is not None:
-            form["client_secret"] = (
-                self.__client_config.client_secret.get_secret_value()
-            )
+            form["client_secret"] = self.__client_config.client_secret.get_secret_value()
         try:
             response: httpx.Response = self.__client.post(
                 f"{self.__nexus_config.oauth_base_url}/token",
@@ -182,8 +180,6 @@ class OAuthFlow:
             payload: object = response.json()
             if not isinstance(payload, dict):
                 raise ValueError("Token response is not an object.")
-            return OAuthCredentials.from_token_response(
-                cast(dict[str, object], payload)
-            )
+            return OAuthCredentials.from_token_response(cast(dict[str, object], payload))
         except (httpx.HTTPError, ValueError) as error:
             raise NexusOAuthError("The OAuth token exchange failed.") from error

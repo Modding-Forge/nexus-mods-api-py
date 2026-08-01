@@ -87,9 +87,7 @@ class TestOAuthFlow:
         form: dict[str, list[str]] = parse_qs(requests[0].content.decode())
         assert form["grant_type"] == ["authorization_code"]
         assert form["code"] == ["issued-code"]
-        assert form["code_verifier"] == [
-            authorization.code_verifier.get_secret_value()
-        ]
+        assert form["code_verifier"] == [authorization.code_verifier.get_secret_value()]
         assert credentials.headers() == {
             "Authorization": "Bearer access-secret",
             "Fingerprint": "fingerprint-secret",
@@ -111,9 +109,7 @@ class TestOAuthFlow:
         # given
         flow: OAuthFlow = self.__flow(httpx.MockTransport(self.__unexpected))
         authorization = flow.create_authorization()
-        url: str = callback.format(
-            state=authorization.state.get_secret_value()
-        )
+        url: str = callback.format(state=authorization.state.get_secret_value())
 
         # when / then
         with pytest.raises(NexusOAuthError, match=message):
@@ -176,9 +172,7 @@ class TestOAuthFlow:
 
         # given
         flow: OAuthFlow = self.__flow(httpx.MockTransport(self.__unexpected))
-        credentials: OAuthCredentials = OAuthCredentials(
-            access_token=SecretStr("access")
-        )
+        credentials: OAuthCredentials = OAuthCredentials(access_token=SecretStr("access"))
 
         # when / then
         with pytest.raises(NexusOAuthError, match="No OAuth refresh token"):

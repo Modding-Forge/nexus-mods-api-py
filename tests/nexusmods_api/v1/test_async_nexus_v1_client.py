@@ -51,9 +51,7 @@ class TestAsyncNexusV1Client:
         assert (await client.get_file("game", 2, 4)).file_id == 4
         assert (await client.get_download_links("game", 2, 4))[0].name == "CDN"
         assert (await client.search_file_by_md5("game", "b" * 32))[0].mod
-        assert (
-            await client.set_mod_endorsement("game", 2, "1.0", "abstain")
-        ).message
+        assert (await client.set_mod_endorsement("game", 2, "1.0", "abstain")).message
         assert requests[-1].method == "POST"
         assert client.rate_limits.daily_remaining is None
         await client.close()

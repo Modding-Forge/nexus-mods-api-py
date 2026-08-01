@@ -101,15 +101,9 @@ class AsyncSSOFlow:
                 ping_interval=self.__config.ping_interval_seconds,
             ) as connection:
                 await self.__send_request(connection, session)
-                if open_browser and not self.__browser_opener(
-                    session.authorization_url
-                ):
-                    raise NexusSSOError(
-                        "The SSO authorization page could not be opened."
-                    )
-                async with asyncio.timeout(
-                    self.__config.authorization_timeout_seconds
-                ):
+                if open_browser and not self.__browser_opener(session.authorization_url):
+                    raise NexusSSOError("The SSO authorization page could not be opened.")
+                async with asyncio.timeout(self.__config.authorization_timeout_seconds):
                     message: str | bytes = await connection.recv()
         except NexusSSOError:
             raise

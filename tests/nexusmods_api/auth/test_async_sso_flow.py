@@ -33,9 +33,7 @@ class TestAsyncSSOFlow:
         ).return_value
         context.__aenter__ = AsyncMock(return_value=connection)
         context.__aexit__ = AsyncMock(return_value=None)
-        flow: AsyncSSOFlow = AsyncSSOFlow(
-            SSOConfig(application_id="async-test")
-        )
+        flow: AsyncSSOFlow = AsyncSSOFlow(SSOConfig(application_id="async-test"))
         session: SSOSession = flow.create_session(self.IDENTIFIER)
 
         # when

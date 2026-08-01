@@ -139,13 +139,11 @@ def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, st
             alias: bool = field_name != upstream_name
             needs_field = needs_field or alias
             if upstream_name in required:
-                default: str = (
-                    f' = Field(alias={upstream_name!r})' if alias else ""
-                )
+                default: str = f" = Field(alias={upstream_name!r})" if alias else ""
             else:
                 field_type = f"Optional[{field_type}]"
                 default = (
-                    f' = Field(default=None, alias={upstream_name!r})'
+                    f" = Field(default=None, alias={upstream_name!r})"
                     if alias
                     else " = None"
                 )
@@ -249,14 +247,14 @@ def generate_registry(records: list[dict[str, object]]) -> str:
         )
         lines.extend(
             [
-                f'    {record["id"]!r}: V3Operation(',
-                f'        operation_id={record["id"]!r},',
-                f'        method={record["method"]!r},',
-                f'        path={record["path"]!r},',
+                f"    {record['id']!r}: V3Operation(",
+                f"        operation_id={record['id']!r},",
+                f"        method={record['method']!r},",
+                f"        path={record['path']!r},",
                 f"        path_parameters={parameters!r},",
-                f'        has_body={record["has_body"]!r},',
-                f'        experimental={record["experimental"]!r},',
-                f'        deprecated={record["deprecated"]!r},',
+                f"        has_body={record['has_body']!r},",
+                f"        experimental={record['experimental']!r},",
+                f"        deprecated={record['deprecated']!r},",
                 "    ),",
             ]
         )
@@ -338,9 +336,7 @@ def write_generated(spec: dict[str, object]) -> None:
 
     GENERATED.mkdir(parents=True, exist_ok=True)
     MODELS.mkdir(parents=True, exist_ok=True)
-    components: dict[str, object] = cast(
-        dict[str, object], spec.get("components", {})
-    )
+    components: dict[str, object] = cast(dict[str, object], spec.get("components", {}))
     schemas: dict[str, object] = cast(
         dict[str, object],
         components.get("schemas", {}),

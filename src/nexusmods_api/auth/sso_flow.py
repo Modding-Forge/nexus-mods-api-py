@@ -57,9 +57,7 @@ class SSOFlow:
         session_id: UUID = identifier or uuid4()
         return SSOSession(
             identifier=session_id,
-            authorization_url=(
-                f"https://www.nexusmods.com/sso?id={session_id}"
-            ),
+            authorization_url=(f"https://www.nexusmods.com/sso?id={session_id}"),
         )
 
     def authorize(self, *, open_browser: bool = True) -> ApiKeyAuth:
@@ -103,12 +101,8 @@ class SSOFlow:
                 ping_interval=self.__config.ping_interval_seconds,
             ) as connection:
                 self.__send_request(connection, session)
-                if open_browser and not self.__browser_opener(
-                    session.authorization_url
-                ):
-                    raise NexusSSOError(
-                        "The SSO authorization page could not be opened."
-                    )
+                if open_browser and not self.__browser_opener(session.authorization_url):
+                    raise NexusSSOError("The SSO authorization page could not be opened.")
                 message: str | bytes = connection.recv(
                     timeout=self.__config.authorization_timeout_seconds,
                 )

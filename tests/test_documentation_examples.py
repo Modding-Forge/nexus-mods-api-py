@@ -12,9 +12,7 @@ class TestDocumentationExamples:
 
         # given
         root: Path = Path(__file__).resolve().parents[1]
-        examples: list[Path] = sorted(
-            (root / "docs" / "modules").glob("*/examples/*.py")
-        )
+        examples: list[Path] = sorted((root / "docs" / "modules").glob("*/examples/*.py"))
 
         # when
         namespaces: list[dict[str, object]] = [

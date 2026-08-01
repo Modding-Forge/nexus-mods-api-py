@@ -39,9 +39,7 @@ def operation_payload(operation_name: str | None) -> dict[str, JsonValue]:
         "Collection": {
             "collection": {"id": 3, "slug": "collection", "name": "Collection"}
         },
-        "Revision": {
-            "collectionRevision": {"id": 5, "revisionNumber": 1}
-        },
+        "Revision": {"collectionRevision": {"id": 5, "revisionNumber": 1}},
         "User": {"user": {"memberId": 6, "name": "User", "avatar": None}},
     }
     data: JsonValue = pages.get(operation_name or "")

@@ -38,9 +38,7 @@ class TestAsyncOAuthFlow:
                 },
             )
 
-        async with httpx.AsyncClient(
-            transport=httpx.MockTransport(handler)
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
             flow: AsyncOAuthFlow = self.__flow(client)
             authorization = flow.create_authorization()
 
@@ -63,9 +61,7 @@ class TestAsyncOAuthFlow:
         def handler(request: httpx.Request) -> httpx.Response:
             return httpx.Response(200, json=[])
 
-        async with httpx.AsyncClient(
-            transport=httpx.MockTransport(handler)
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
             flow: AsyncOAuthFlow = self.__flow(client)
             authorization = flow.create_authorization()
 
@@ -73,9 +69,7 @@ class TestAsyncOAuthFlow:
             with pytest.raises(NexusOAuthError):
                 await flow.exchange_code("code", authorization)
             with pytest.raises(NexusOAuthError, match="No OAuth refresh token"):
-                await flow.refresh(
-                    OAuthCredentials(access_token=SecretStr("access"))
-                )
+                await flow.refresh(OAuthCredentials(access_token=SecretStr("access")))
 
     async def test_closes_owned_client(self) -> None:
         """Tests cleanup for an internally created async token client."""

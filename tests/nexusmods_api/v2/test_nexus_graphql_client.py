@@ -40,9 +40,7 @@ class TestNexusGraphQLClient:
                 ),
             )
 
-        http_client: httpx.Client = httpx.Client(
-            transport=httpx.MockTransport(handler)
-        )
+        http_client: httpx.Client = httpx.Client(transport=httpx.MockTransport(handler))
         client: NexusGraphQLClient = NexusGraphQLClient(
             NexusConfig(v2_url="http://127.0.0.1/graphql"),
             http_client=http_client,
