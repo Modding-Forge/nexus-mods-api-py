@@ -4,9 +4,14 @@ from collections.abc import Callable, Coroutine
 
 import httpx
 import pytest
+from pydantic import SecretStr
 from pytest_mock import MockerFixture
 
 from nexusmods_api.auth.api_key_auth import ApiKeyAuth
+from nexusmods_api.auth.async_oauth_auth import AsyncOAuthAuth
+from nexusmods_api.auth.async_oauth_flow import AsyncOAuthFlow
+from nexusmods_api.auth.oauth_client_config import OAuthClientConfig
+from nexusmods_api.auth.oauth_credentials import OAuthCredentials
 from nexusmods_api.errors.nexus_authentication_error import (
     NexusAuthenticationError,
 )
@@ -134,6 +139,62 @@ class TestAsyncTransport:
             await failure_transport.request("GET", self.URL)
         await auth_client.aclose()
         await failure_client.aclose()
+
+    async def test_refreshes_oauth_once_after_unauthorized(self) -> None:
+        """Tests asynchronous 401 rotation followed by a bearer replay."""
+
+        # given
+        api_tokens: list[str] = []
+
+        async def api_handler(request: httpx.Request) -> httpx.Response:
+            """Rejects the old bearer token and accepts the rotated token."""
+
+            token: str = request.headers["Authorization"]
+            api_tokens.append(token)
+            return httpx.Response(401 if token.endswith("old") else 200)
+
+        async def token_handler(request: httpx.Request) -> httpx.Response:
+            """Returns rotated credentials."""
+
+            return httpx.Response(
+                200,
+                json={
+                    "access_token": "new",
+                    "refresh_token": "refresh-new",
+                },
+            )
+
+        token_client: httpx.AsyncClient = self.__client(token_handler)
+        api_client: httpx.AsyncClient = self.__client(api_handler)
+        flow: AsyncOAuthFlow = AsyncOAuthFlow(
+            OAuthClientConfig(
+                client_id="client",
+                redirect_uri="myapp://callback",
+            ),
+            NexusConfig(oauth_base_url="http://127.0.0.1/oauth"),
+            http_client=token_client,
+        )
+        auth: AsyncOAuthAuth = AsyncOAuthAuth(
+            OAuthCredentials(
+                access_token=SecretStr("old"),
+                refresh_token=SecretStr("refresh-old"),
+            ),
+            flow,
+        )
+        transport: AsyncTransport = AsyncTransport(
+            NexusConfig(),
+            auth,
+            http_client=api_client,
+        )
+
+        # when
+        response: httpx.Response = await transport.request("POST", self.URL)
+
+        # then
+        assert response.status_code == 200
+        assert api_tokens == ["Bearer old", "Bearer new"]
+        await token_client.aclose()
+        await api_client.aclose()
 
     async def test_applies_pacing_and_closes_owned_client(self) -> None:
         """Tests asynchronous adaptive pacing and context cleanup."""

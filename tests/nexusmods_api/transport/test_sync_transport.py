@@ -4,9 +4,14 @@ from collections.abc import Callable
 
 import httpx
 import pytest
+from pydantic import SecretStr
 from pytest_mock import MockerFixture
 
 from nexusmods_api.auth.api_key_auth import ApiKeyAuth
+from nexusmods_api.auth.oauth_auth import OAuthAuth
+from nexusmods_api.auth.oauth_client_config import OAuthClientConfig
+from nexusmods_api.auth.oauth_credentials import OAuthCredentials
+from nexusmods_api.auth.oauth_flow import OAuthFlow
 from nexusmods_api.errors.nexus_authentication_error import (
     NexusAuthenticationError,
 )
@@ -152,6 +157,58 @@ class TestSyncTransport:
             transport.request("POST", f"{self.URL}?key={self.API_KEY}")
         assert self.API_KEY not in repr(error_info.value)
         assert error_info.value.request_url == self.URL
+
+    def test_refreshes_oauth_once_after_unauthorized(self) -> None:
+        """Tests one 401-based rotation followed by a bearer replay."""
+
+        # given
+        api_tokens: list[str] = []
+
+        def api_handler(request: httpx.Request) -> httpx.Response:
+            """Rejects the old bearer token and accepts the rotated token."""
+
+            token: str = request.headers["Authorization"]
+            api_tokens.append(token)
+            return httpx.Response(401 if token.endswith("old") else 200)
+
+        def token_handler(request: httpx.Request) -> httpx.Response:
+            """Returns rotated credentials."""
+
+            return httpx.Response(
+                200,
+                json={
+                    "access_token": "new",
+                    "refresh_token": "refresh-new",
+                },
+            )
+
+        flow: OAuthFlow = OAuthFlow(
+            OAuthClientConfig(
+                client_id="client",
+                redirect_uri="myapp://callback",
+            ),
+            NexusConfig(oauth_base_url="http://127.0.0.1/oauth"),
+            http_client=self.__client(token_handler),
+        )
+        auth: OAuthAuth = OAuthAuth(
+            OAuthCredentials(
+                access_token=SecretStr("old"),
+                refresh_token=SecretStr("refresh-old"),
+            ),
+            flow,
+        )
+        transport: SyncTransport = SyncTransport(
+            NexusConfig(),
+            auth,
+            http_client=self.__client(api_handler),
+        )
+
+        # when
+        response: httpx.Response = transport.request("POST", self.URL)
+
+        # then
+        assert response.status_code == 200
+        assert api_tokens == ["Bearer old", "Bearer new"]
 
     def test_raises_rate_limit_after_retry_budget(self) -> None:
         """Tests that an exhausted 429 response raises a dedicated error."""

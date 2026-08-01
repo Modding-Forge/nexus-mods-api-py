@@ -8,6 +8,7 @@ from typing import Optional
 import httpx
 
 from ..auth.api_key_auth import ApiKeyAuth
+from ..auth.async_oauth_auth import AsyncOAuthAuth
 from ..errors.factory import create_http_error, sanitize_url
 from ..errors.nexus_transport_error import NexusTransportError
 from ..models.rate_limit_state import RateLimitState
@@ -27,7 +28,7 @@ class AsyncTransport:
         }
     )
 
-    __auth: Optional[ApiKeyAuth]
+    __auth: Optional[ApiKeyAuth | AsyncOAuthAuth]
     __client: httpx.AsyncClient
     __config: NexusConfig
     __last_request_at: Optional[float]
@@ -38,7 +39,7 @@ class AsyncTransport:
     def __init__(
         self,
         config: NexusConfig,
-        auth: Optional[ApiKeyAuth] = None,
+        auth: Optional[ApiKeyAuth | AsyncOAuthAuth] = None,
         *,
         http_client: Optional[httpx.AsyncClient] = None,
         sleep: AsyncSleepCallback = asyncio.sleep,
@@ -47,7 +48,7 @@ class AsyncTransport:
 
         Args:
             config (NexusConfig): Shared client configuration.
-            auth (Optional[ApiKeyAuth]): Optional API-key authentication.
+            auth (Optional[ApiKeyAuth | AsyncOAuthAuth]): Optional authentication.
             http_client (Optional[httpx.AsyncClient]): Optional caller-owned client.
             sleep (AsyncSleepCallback): Injectable asynchronous retry delay.
         """
@@ -106,7 +107,12 @@ class AsyncTransport:
         """
 
         attempt: int = 0
+        oauth_refreshed: bool = False
         while True:
+            token_marker: Optional[str] = None
+            if authenticated and isinstance(self.__auth, AsyncOAuthAuth):
+                await self.__auth.refresh_if_required()
+                token_marker = self.__auth.token_marker()
             await self.__pace_if_required()
             try:
                 response: httpx.Response = await self.__client.request(
@@ -129,6 +135,16 @@ class AsyncTransport:
 
             self.__last_request_at = time.monotonic()
             self.__update_rate_limits(response)
+            if (
+                response.status_code == 401
+                and token_marker is not None
+                and not oauth_refreshed
+                and isinstance(self.__auth, AsyncOAuthAuth)
+            ):
+                await response.aclose()
+                await self.__auth.refresh_after_unauthorized(token_marker)
+                oauth_refreshed = True
+                continue
             if (
                 retry_safe
                 and response.status_code in self.RETRYABLE_STATUS_CODES

@@ -82,7 +82,7 @@ reportUnnecessaryTypeIgnoreComment = "error"
 testpaths = ["tests"]
 pythonpath = ["src", "tests"]
 log_cli = true
-log_cli_level = "DEBUG"
+log_cli_level = "WARNING"
 addopts = "-vv"
 asyncio_mode = "auto"
 
