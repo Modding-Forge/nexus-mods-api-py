@@ -49,8 +49,9 @@ def _check_wheel(wheel: Path) -> dict[str, str]:
         raise RuntimeError(message)
 
     with zipfile.ZipFile(wheel) as archive:
-        metadata_name = _single_member(archive.namelist(), ".dist-info/METADATA")
-        wheel_name = _single_member(archive.namelist(), ".dist-info/WHEEL")
+        names = archive.namelist()
+        metadata_name = _single_member(names, ".dist-info/METADATA")
+        wheel_name = _single_member(names, ".dist-info/WHEEL")
         metadata_text = archive.read(metadata_name).decode("utf-8")
         wheel_text = archive.read(wheel_name).decode("utf-8")
 
@@ -79,6 +80,12 @@ def _check_wheel(wheel: Path) -> dict[str, str]:
         raise RuntimeError("the sso extra does not declare websockets")
     if "Tag: py3-none-any" not in wheel_text.splitlines():
         raise RuntimeError("WHEEL metadata does not contain Tag: py3-none-any")
+    required_suffixes = (
+        "nexusmods_api/py.typed",
+        ".dist-info/licenses/LICENSE",
+    )
+    for suffix in required_suffixes:
+        _single_member(names, suffix)
 
     return {
         "filename": wheel.name,
@@ -101,7 +108,18 @@ def _check_sdist(sdist: Path) -> dict[str, str]:
     expected_root = f"{expected_name.replace('-', '_')}-{expected_version}/"
     with tarfile.open(sdist, mode="r:gz") as archive:
         names = archive.getnames()
-    for required in ("pyproject.toml", "PKG-INFO"):
+    required_files = (
+        "LICENSE",
+        "PKG-INFO",
+        "README.md",
+        "docs/antora.yml",
+        "pyproject.toml",
+        "specs/nexusmods-v3-openapi.sha256",
+        "specs/nexusmods-v3-openapi.yaml",
+        "src/nexusmods_api/py.typed",
+        "tools/generate_v3.py",
+    )
+    for required in required_files:
         if f"{expected_root}{required}" not in names:
             message = f"source distribution is missing {required}"
             raise RuntimeError(message)

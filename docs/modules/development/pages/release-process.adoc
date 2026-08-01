@@ -3,6 +3,9 @@
 Build one universal `py3-none-any` wheel and one source distribution. CI installs the same
 wheel on supported Windows, Linux, and macOS architectures. Releases use PyPI Trusted
 Publishing from a protected environment and are never initiated by local development.
+Artifact validation requires the wheel's typing marker and license plus the source
+distribution's README, license, documentation descriptor, pinned OpenAPI snapshot, and
+generation tooling.
 
 The repository's `pypi` GitHub environment must require designated reviewers. The release
 workflow performs the complete CI and cross-platform package matrix first, then pauses at
