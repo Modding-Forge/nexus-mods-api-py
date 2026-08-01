@@ -1,6 +1,9 @@
 """Copyright (c) Modding Forge."""
 
+import webbrowser
+from collections.abc import Callable
 from typing import Optional, cast
+from urllib.parse import parse_qs, urlsplit
 
 import httpx
 
@@ -54,6 +57,50 @@ class AsyncOAuthFlow:
             self.__client_config,
             self.__nexus_config.oauth_base_url,
         )
+
+    def open_authorization(
+        self,
+        authorization: OAuthAuthorization,
+        *,
+        browser_opener: Callable[[str], bool] = webbrowser.open,
+    ) -> None:
+        """Opens a prepared authorization URL in the user's browser.
+
+        Args:
+            authorization (OAuthAuthorization): Prepared PKCE attempt.
+            browser_opener (Callable[[str], bool]): Injectable browser opener.
+        """
+
+        browser_opener(authorization.authorization_url)
+
+    async def exchange_callback(
+        self,
+        callback_url: str,
+        authorization: OAuthAuthorization,
+    ) -> OAuthCredentials:
+        """Validates an OAuth callback and exchanges its code asynchronously.
+
+        Args:
+            callback_url (str): Full redirect received by the caller.
+            authorization (OAuthAuthorization): Original PKCE attempt.
+
+        Returns:
+            OAuthCredentials: Newly issued credentials.
+
+        Raises:
+            NexusOAuthError: If the callback is invalid or denied.
+        """
+
+        query: dict[str, list[str]] = parse_qs(urlsplit(callback_url).query)
+        if query.get("state", [None])[0] != authorization.state.get_secret_value():
+            raise NexusOAuthError("The OAuth callback state did not match.")
+        error: Optional[str] = query.get("error", [None])[0]
+        if error is not None:
+            raise NexusOAuthError(f"Nexus Mods denied OAuth authorization: {error}.")
+        code: Optional[str] = query.get("code", [None])[0]
+        if code is None or not code:
+            raise NexusOAuthError("The OAuth callback did not contain a code.")
+        return await self.exchange_code(code, authorization)
 
     async def exchange_code(
         self,

@@ -41,10 +41,14 @@ class TestAsyncOAuthFlow:
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
             flow: AsyncOAuthFlow = self.__flow(client)
             authorization = flow.create_authorization()
+            callback: str = (
+                "myapp://callback?code=issued-code&state="
+                f"{authorization.state.get_secret_value()}"
+            )
 
             # when
-            first: OAuthCredentials = await flow.exchange_code(
-                "issued-code",
+            first: OAuthCredentials = await flow.exchange_callback(
+                callback,
                 authorization,
             )
             second: OAuthCredentials = await flow.refresh(first)
@@ -53,6 +57,53 @@ class TestAsyncOAuthFlow:
         assert forms[0]["code"] == ["issued-code"]
         assert forms[1]["refresh_token"] == ["refresh-1"]
         assert second.headers() == {"Authorization": "Bearer access-2"}
+
+    @pytest.mark.parametrize(
+        ("callback", "message"),
+        [
+            ("myapp://callback?code=x&state=wrong", "state"),
+            ("myapp://callback?error=denied&state={state}", "denied"),
+            ("myapp://callback?state={state}", "contain a code"),
+        ],
+    )
+    async def test_rejects_invalid_callback(
+        self,
+        callback: str,
+        message: str,
+    ) -> None:
+        """Tests async state mismatch, provider denial, and missing codes."""
+
+        # given
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(lambda request: httpx.Response(500))
+        ) as client:
+            flow: AsyncOAuthFlow = self.__flow(client)
+            authorization = flow.create_authorization()
+            url: str = callback.format(state=authorization.state.get_secret_value())
+
+            # when / then
+            with pytest.raises(NexusOAuthError, match=message):
+                await flow.exchange_callback(url, authorization)
+
+    async def test_opens_browser(self) -> None:
+        """Tests the asynchronous flow's non-blocking browser helper."""
+
+        # given
+        opened: list[str] = []
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(lambda request: httpx.Response(500))
+        ) as client:
+            flow: AsyncOAuthFlow = self.__flow(client)
+            authorization = flow.create_authorization()
+
+            # when
+            flow.open_authorization(
+                authorization,
+                browser_opener=lambda url: not opened.append(url),
+            )
+
+        # then
+        assert opened == [authorization.authorization_url]
 
     async def test_wraps_bad_response_and_requires_refresh_token(self) -> None:
         """Tests safe asynchronous OAuth error handling."""
