@@ -1,0 +1,115 @@
+name: Package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build universal distributions
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+
+      - name: Install locked dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Build wheel and source distribution
+        run: uv build --no-sources
+
+      - name: Check package metadata
+        run: |
+          uv run twine check dist/*
+          uv run python tools/check_distribution.py dist --report distribution-report.json
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: distributions
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload distribution report
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: distribution-report
+          path: distribution-report.json
+          if-no-files-found: error
+          retention-days: 14
+
+  install:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-2025
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-15
+          - macos-15-intel
+        python: ["3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+
+      - name: Download the universal distributions
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: distributions
+          path: dist
+
+      - name: Test minimal wheel installation
+        run: >-
+          uv run --isolated --no-project --python "${{ matrix.python }}"
+          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl"
+          python tools/package_smoke.py
+          --report "smoke-base-${{ matrix.os }}-${{ matrix.python }}.json"
+
+      - name: Test SSO installation
+        run: >-
+          uv run --isolated --no-project --python "${{ matrix.python }}"
+          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl"
+          --with "websockets>=15,<17"
+          python tools/package_smoke.py --sso
+          --report "smoke-sso-${{ matrix.os }}-${{ matrix.python }}.json"
+
+      - name: Upload installation reports
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: package-smoke-${{ matrix.os }}-python-${{ matrix.python }}
+          path: smoke-*.json
+          if-no-files-found: warn
+          retention-days: 14

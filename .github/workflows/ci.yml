@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Python ${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+
+      - name: Install locked dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Check formatting and lint
+        run: |
+          uv run ruff format --check src tests tools
+          uv run ruff check src tests tools
+
+      - name: Check strict types
+        run: uv run pyright
+
+      - name: Check AsciiDoc documentation
+        run: uv run python tools/check_docs.py
+
+      - name: Verify generated REST v3 sources
+        run: |
+          uv run python tools/generate_v3.py
+          git diff --exit-code -- src/nexusmods_api/v3/generated
+
+      - name: Run tests with branch coverage
+        run: >-
+          uv run pytest
+          --cov=nexusmods_api
+          --cov-branch
+          --cov-report=term-missing
+          --cov-report=xml:coverage-${{ matrix.python }}.xml
+          --junitxml=junit-${{ matrix.python }}.xml
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: test-reports-python-${{ matrix.python }}
+          path: |
+            coverage-${{ matrix.python }}.xml
+            junit-${{ matrix.python }}.xml
+          if-no-files-found: warn
+          retention-days: 14
