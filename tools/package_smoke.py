@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.metadata
+import importlib.util
 import json
 import platform
 import sys
@@ -35,6 +36,10 @@ def main(argv: list[str] | None = None) -> int:
         raise RuntimeError("installed distribution metadata has an unexpected version")
     if "websockets" in sys.modules:
         raise RuntimeError("the base package imported the optional websockets dependency")
+    websockets_available = importlib.util.find_spec("websockets") is not None
+    if websockets_available != test_sso:
+        message = "the installed optional dependencies do not match the requested mode"
+        raise RuntimeError(message)
 
     public_types = (
         nexusmods_api.NexusClient,

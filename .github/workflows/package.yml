@@ -100,8 +100,7 @@ jobs:
       - name: Test SSO installation
         run: >-
           uv run --isolated --no-project --python "${{ matrix.python }}"
-          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl"
-          --with "websockets>=15,<17"
+          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl[sso]"
           python tools/package_smoke.py --sso
           --report "smoke-sso-${{ matrix.os }}-${{ matrix.python }}.json"
 
