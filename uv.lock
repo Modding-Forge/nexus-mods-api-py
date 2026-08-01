@@ -433,7 +433,7 @@ wheels = [
 ]
 
 [[package]]
-name = "nexusmods-api"
+name = "nexus-mods-api"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [

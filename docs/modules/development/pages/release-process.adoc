@@ -20,15 +20,15 @@ Create a protected GitHub environment named `pypi` and require a maintainer revi
 deployments. Then register a pending GitHub Trusted Publisher in PyPI with these exact
 values:
 
-* PyPI project name: `nexusmods-api`
+* PyPI project name: `nexus-mods-api`
 * Owner: `Modding-Forge`
 * Repository name: `nexus-mods-api-py`
 * Workflow name: `release.yml`
 * Environment name: `pypi`
 
-The project name must match the `project.name` value in `pyproject.toml`; do not insert an
-extra hyphen between `nexus` and `mods`. Trusted Publishing uses a short-lived OpenID
-Connect identity, so no PyPI API token or password belongs in GitHub secrets.
+The project name must match the `project.name` value in `pyproject.toml` exactly. Trusted
+Publishing uses a short-lived OpenID Connect identity, so no PyPI API token or password
+belongs in GitHub secrets.
 
 The repository's `pypi` GitHub environment must require designated reviewers. The release
 workflow performs the complete CI and cross-platform package matrix first, then pauses at

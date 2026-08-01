@@ -211,7 +211,7 @@ class AsyncTransport:
             "Protocol-Version": self.__config.protocol_version,
             "User-Agent": (
                 f"{self.__config.application_name}/"
-                f"{self.__config.application_version} nexusmods-api"
+                f"{self.__config.application_version} nexus-mods-api"
             ),
         }
         if authenticated and self.__auth is not None:

@@ -56,6 +56,7 @@ class TestAsyncTransport:
         assert response.status_code == 200
         assert requests[0].headers["apikey"] == self.API_KEY
         assert requests[0].headers["application-name"] == "async-app"
+        assert requests[0].headers["user-agent"] == ("async-app/1.0.0 nexus-mods-api")
         assert transport.rate_limits.daily_remaining == 50
         await client.aclose()
 

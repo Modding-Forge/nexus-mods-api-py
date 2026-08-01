@@ -1,8 +1,8 @@
-# nexusmods-api
+# nexus-mods-api
 
-[![PyPI - Version](https://img.shields.io/pypi/v/nexusmods-api)](https://pypi.org/project/nexusmods-api/)
-[![Python](https://img.shields.io/pypi/pyversions/nexusmods-api)](https://pypi.org/project/nexusmods-api/)
-[![License](https://img.shields.io/pypi/l/nexusmods-api)](LICENSE)
+[![PyPI - Version](https://img.shields.io/pypi/v/nexus-mods-api)](https://pypi.org/project/nexus-mods-api/)
+[![Python](https://img.shields.io/pypi/pyversions/nexus-mods-api)](https://pypi.org/project/nexus-mods-api/)
+[![License](https://img.shields.io/pypi/l/nexus-mods-api)](LICENSE)
 [![CI](https://github.com/Modding-Forge/nexus-mods-api-py/actions/workflows/ci.yml/badge.svg)](https://github.com/Modding-Forge/nexus-mods-api-py/actions/workflows/ci.yml)
 
 Unofficial, typed synchronous and asynchronous Python clients for all three
@@ -19,14 +19,14 @@ client secret.
 ## Installation
 
 ```console
-python -m pip install nexusmods-api
+python -m pip install nexus-mods-api
 ```
 
 Python 3.12 or newer is required. Install the optional WebSocket dependency for
 SSO:
 
 ```console
-python -m pip install "nexusmods-api[sso]"
+python -m pip install "nexus-mods-api[sso]"
 ```
 
 ## Quick start
@@ -64,7 +64,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## About Modding Forge
 
-`nexusmods-api` is built for the Python tooling behind
+`nexus-mods-api` is built for the Python tooling behind
 [Modding Forge](https://moddingforge.com).
 
 This project is not affiliated with or endorsed by Nexus Mods.

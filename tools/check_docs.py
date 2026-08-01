@@ -24,7 +24,7 @@ def load_descriptor(errors: list[str]) -> dict[str, object]:
         return {}
     descriptor: dict[str, object] = cast(dict[str, object], loaded)
     expected: dict[str, str] = {
-        "name": "nexusmods-api",
+        "name": "nexus-mods-api",
         "title": "Nexus Mods API for Python",
         "version": "1.0",
     }

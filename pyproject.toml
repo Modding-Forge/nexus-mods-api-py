@@ -3,7 +3,7 @@ requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [project]
-name = "nexusmods-api"
+name = "nexus-mods-api"
 version = "1.0.0"
 description = "Typed sync and async Python clients for the Nexus Mods APIs"
 readme = "README.md"

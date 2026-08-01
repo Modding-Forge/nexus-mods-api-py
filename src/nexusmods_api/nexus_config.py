@@ -8,7 +8,7 @@ class NexusConfig(BaseModel):
 
     model_config = ConfigDict(frozen=True, use_attribute_docstrings=True)
 
-    application_name: str = Field(default="nexusmods-api", min_length=1)
+    application_name: str = Field(default="nexus-mods-api", min_length=1)
     """The application name reported to Nexus Mods."""
 
     application_version: str = Field(

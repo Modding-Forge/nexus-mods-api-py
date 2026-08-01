@@ -16,6 +16,7 @@ class TestNexusConfig:
         config: NexusConfig = NexusConfig(v1_base_url="https://example.com/v1/")
 
         # then
+        assert config.application_name == "nexus-mods-api"
         assert config.v1_base_url == "https://example.com/v1"
 
     def test_accepts_local_http_test_server(self) -> None:

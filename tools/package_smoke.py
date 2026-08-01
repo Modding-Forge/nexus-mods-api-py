@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
 
     import nexusmods_api
 
-    installed_version = importlib.metadata.version("nexusmods-api")
+    installed_version = importlib.metadata.version("nexus-mods-api")
     if nexusmods_api.__version__ != installed_version:
         message = (
             "public package version does not match installed distribution metadata: "
