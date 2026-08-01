@@ -20,3 +20,10 @@ and must use credentials registered for the maintainer's own application.
 Before a release candidate is handed off, also build with `uv build --no-sources`, run
 Twine and `tools/check_distribution.py` against `dist/`, and execute
 `tools/package_smoke.py` from isolated base and SSO-extra wheel installations.
+
+Validate the intended version or tag before creating it:
+
+[source,shell]
+----
+uv run python tools/check_release_version.py v1.0.0rc1
+----

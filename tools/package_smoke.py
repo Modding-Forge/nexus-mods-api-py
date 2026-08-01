@@ -9,8 +9,6 @@ import platform
 import sys
 from pathlib import Path
 
-EXPECTED_VERSION = "1.0.0rc1"
-
 
 def main(argv: list[str] | None = None) -> int:
     """Smoke-test an installed wheel without importing the source checkout."""
@@ -29,11 +27,13 @@ def main(argv: list[str] | None = None) -> int:
 
     import nexusmods_api
 
-    if nexusmods_api.__version__ != EXPECTED_VERSION:
-        message = f"unexpected package version: {nexusmods_api.__version__}"
+    installed_version = importlib.metadata.version("nexusmods-api")
+    if nexusmods_api.__version__ != installed_version:
+        message = (
+            "public package version does not match installed distribution metadata: "
+            f"{nexusmods_api.__version__!r} != {installed_version!r}"
+        )
         raise RuntimeError(message)
-    if importlib.metadata.version("nexusmods-api") != EXPECTED_VERSION:
-        raise RuntimeError("installed distribution metadata has an unexpected version")
     if "websockets" in sys.modules:
         raise RuntimeError("the base package imported the optional websockets dependency")
     websockets_available = importlib.util.find_spec("websockets") is not None
@@ -74,7 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     report: dict[str, object] = {
         "architecture": platform.machine(),
         "implementation": platform.python_implementation(),
-        "package_version": nexusmods_api.__version__,
+        "package_version": installed_version,
         "platform": platform.platform(),
         "python": platform.python_version(),
         "sso": test_sso,

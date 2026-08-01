@@ -13,6 +13,8 @@ jobs:
   build:
     name: Build universal distributions
     runs-on: ubuntu-24.04
+    outputs:
+      wheel_filename: ${{ steps.distribution.outputs.wheel_filename }}
 
     steps:
       - name: Check out repository
@@ -38,6 +40,15 @@ jobs:
         run: |
           uv run twine check dist/*
           uv run python tools/check_distribution.py dist --report distribution-report.json
+
+      - name: Resolve wheel filename
+        id: distribution
+        shell: bash
+        run: |
+          shopt -s nullglob
+          wheels=(dist/*.whl)
+          test "${#wheels[@]}" -eq 1
+          echo "wheel_filename=$(basename "${wheels[0]}")" >> "$GITHUB_OUTPUT"
 
       - name: Upload distributions
         uses: actions/upload-artifact@v7.0.1
@@ -93,14 +104,14 @@ jobs:
       - name: Test minimal wheel installation
         run: >-
           uv run --isolated --no-project --python "${{ matrix.python }}"
-          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl"
+          --with "./dist/${{ needs.build.outputs.wheel_filename }}"
           python tools/package_smoke.py
           --report "smoke-base-${{ matrix.os }}-${{ matrix.python }}.json"
 
       - name: Test SSO installation
         run: >-
           uv run --isolated --no-project --python "${{ matrix.python }}"
-          --with "./dist/nexusmods_api-1.0.0rc1-py3-none-any.whl[sso]"
+          --with "./dist/${{ needs.build.outputs.wheel_filename }}[sso]"
           python tools/package_smoke.py --sso
           --report "smoke-sso-${{ matrix.os }}-${{ matrix.python }}.json"
 

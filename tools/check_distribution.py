@@ -5,13 +5,34 @@ from __future__ import annotations
 import json
 import sys
 import tarfile
+import tomllib
 import zipfile
 from email.parser import Parser
 from pathlib import Path
+from typing import cast
 
-EXPECTED_NAME = "nexusmods-api"
-EXPECTED_VERSION = "1.0.0rc1"
 EXPECTED_WHEEL_SUFFIX = "-py3-none-any.whl"
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _project_metadata() -> tuple[str, str, str]:
+    document: dict[str, object] = tomllib.loads(
+        (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    )
+    raw_project = document.get("project")
+    if not isinstance(raw_project, dict):
+        raise RuntimeError("pyproject.toml does not contain a project table")
+    project = cast(dict[str, object], raw_project)
+    name = project.get("name")
+    version = project.get("version")
+    requires_python = project.get("requires-python")
+    if (
+        not isinstance(name, str)
+        or not isinstance(version, str)
+        or not isinstance(requires_python, str)
+    ):
+        raise RuntimeError("project name, version, and requires-python must be strings")
+    return name, version, requires_python
 
 
 def _single_file(directory: Path, pattern: str) -> Path:
@@ -34,10 +55,11 @@ def _check_wheel(wheel: Path) -> dict[str, str]:
         wheel_text = archive.read(wheel_name).decode("utf-8")
 
     metadata = Parser().parsestr(metadata_text)
+    expected_name, expected_version, expected_python = _project_metadata()
     expected_fields = {
-        "Name": EXPECTED_NAME,
-        "Version": EXPECTED_VERSION,
-        "Requires-Python": ">=3.12",
+        "Name": expected_name,
+        "Version": expected_version,
+        "Requires-Python": expected_python,
     }
     for field, expected in expected_fields.items():
         actual = metadata.get(field)
@@ -75,7 +97,8 @@ def _single_member(names: list[str], suffix: str) -> str:
 
 
 def _check_sdist(sdist: Path) -> dict[str, str]:
-    expected_root = f"nexusmods_api-{EXPECTED_VERSION}/"
+    expected_name, expected_version, _ = _project_metadata()
+    expected_root = f"{expected_name.replace('-', '_')}-{expected_version}/"
     with tarfile.open(sdist, mode="r:gz") as archive:
         names = archive.getnames()
     for required in ("pyproject.toml", "PKG-INFO"):
