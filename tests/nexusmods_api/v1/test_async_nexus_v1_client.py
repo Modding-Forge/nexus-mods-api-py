@@ -70,3 +70,22 @@ class TestAsyncNexusV1Client:
 
         # then
         assert True
+
+    async def test_returns_empty_md5_results_for_not_found_response(self) -> None:
+        """Tests that an unmatched MD5 search produces an empty result list."""
+
+        # given
+        async def handler(request: httpx.Request) -> httpx.Response:
+            return httpx.Response(404, json={"message": "Not found"})
+
+        client = AsyncNexusV1Client(
+            NexusConfig(v1_base_url="http://127.0.0.1/v1"),
+            http_client=httpx.AsyncClient(transport=httpx.MockTransport(handler)),
+        )
+
+        # when
+        results = await client.search_file_by_md5("game", "0" * 32)
+
+        # then
+        assert results == []
+        await client.close()

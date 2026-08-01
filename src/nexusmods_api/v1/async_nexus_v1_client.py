@@ -7,6 +7,7 @@ import httpx
 
 from ..auth.api_key_auth import ApiKeyAuth
 from ..auth.async_oauth_auth import AsyncOAuthAuth
+from ..errors.nexus_http_error import NexusHttpError
 from ..models.rate_limit_state import RateLimitState
 from ..nexus_config import NexusConfig
 from ..transport.async_transport import AsyncTransport
@@ -213,7 +214,12 @@ class AsyncNexusV1Client:
             f"/games/{self.__segment(game_domain)}/mods/md5_search/"
             f"{self.__segment(md5_hash)}"
         )
-        return await self.__get(path, list[MD5Result])
+        try:
+            return await self.__get(path, list[MD5Result])
+        except NexusHttpError as error:
+            if error.status_code == 404:
+                return []
+            raise
 
     async def set_mod_endorsement(
         self,
