@@ -2,12 +2,12 @@
 
 import asyncio
 from collections.abc import Awaitable, Callable
-from typing import Optional
+from typing import Optional, TypeAlias
 
 from .async_oauth_flow import AsyncOAuthFlow
 from .oauth_credentials import OAuthCredentials
 
-type AsyncCredentialCallback = Callable[[OAuthCredentials], Awaitable[None]]
+AsyncCredentialCallback: TypeAlias = Callable[[OAuthCredentials], Awaitable[None]]
 
 
 class AsyncOAuthAuth:

@@ -1,6 +1,6 @@
 """Copyright (c) Modding Forge."""
 
-from typing import Optional
+from typing import Optional, TypeVar
 from urllib.parse import quote
 
 import httpx
@@ -16,6 +16,8 @@ from .generated.operations import OPERATIONS
 from .generated.sync_operations import GeneratedSyncOperations
 from .stability import warn_if_unstable
 from .v3_operation import V3Operation
+
+ResponseT = TypeVar("ResponseT")
 
 
 class NexusV3Client(GeneratedSyncOperations):
@@ -55,7 +57,7 @@ class NexusV3Client(GeneratedSyncOperations):
 
         return dict(OPERATIONS)
 
-    def request[ResponseT](
+    def request(
         self,
         operation_id: str,
         response_model: type[ResponseT],
