@@ -65,7 +65,7 @@ dev = [
     "pyyaml>=6,<7",
     "respx>=0.22,<1",
     "ruff>=0.12,<1",
-    "twine>=6.1,<7",
+    "twine>=7,<8",
 ]
 
 [tool.hatch.build.targets.wheel]
