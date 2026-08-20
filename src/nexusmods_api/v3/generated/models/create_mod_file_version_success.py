@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class CreateModFileVersionSuccess(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreateModFileVersionSuccess schema from the pinned Nexus..."""
 
     file: JsonValue
+    """The embedded UploadModFile data for this CreateModFileVersionSuccess..."""
+
     version: JsonValue
+    """The embedded CreatedModFileVersion data for this..."""

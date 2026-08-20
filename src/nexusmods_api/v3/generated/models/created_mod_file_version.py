@@ -4,7 +4,10 @@ from ....models.nexus_model import NexusModel
 
 
 class CreatedModFileVersion(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreatedModFileVersion schema from the pinned Nexus Mods..."""
 
     id: str
+    """The unique identifier for the created mod file version."""
+
     position: str
+    """Position within the mod file."""

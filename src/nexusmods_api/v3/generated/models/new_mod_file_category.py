@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class NewModFileCategory(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the NewModFileCategory schema from the pinned Nexus Mods REST..."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

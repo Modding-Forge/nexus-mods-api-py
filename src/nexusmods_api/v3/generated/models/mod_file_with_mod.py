@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class ModFileWithMod(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """A mod file with its associated mod."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

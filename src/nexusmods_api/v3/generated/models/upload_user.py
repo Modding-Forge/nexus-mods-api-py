@@ -4,6 +4,7 @@ from ....models.nexus_model import NexusModel
 
 
 class UploadUser(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the UploadUser schema from the pinned Nexus Mods REST v3..."""
 
     id: str
+    """The unique identifier for the user who owns this upload."""

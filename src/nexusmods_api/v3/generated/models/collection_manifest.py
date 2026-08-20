@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class CollectionManifest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """The JSON manifest that defines a collection."""
 
     info: JsonValue
+    """The embedded CollectionManifestInfo data for this CollectionManifest..."""
+
     mods: list[JsonValue]
+    """List of mod resources for the manifest."""

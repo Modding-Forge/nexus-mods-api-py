@@ -5,8 +5,13 @@ from ....types import JsonValue
 
 
 class CollectionPayload(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """The data payload used to create a collection revision."""
 
     adult_content: bool
+    """Whether the collection includes adult content."""
+
     collection_manifest: JsonValue
+    """The embedded CollectionManifest data for this CollectionPayload value."""
+
     collection_schema_id: int
+    """Collection schema id."""

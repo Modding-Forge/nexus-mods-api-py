@@ -7,9 +7,10 @@ import hashlib
 import keyword
 import re
 import subprocess
+import textwrap
 import urllib.request
 from pathlib import Path
-from typing import cast
+from typing import Optional, cast
 
 import yaml
 
@@ -24,8 +25,115 @@ MODELS: Path = GENERATED / "models"
 COPYRIGHT: str = '"""Copyright (c) Modding Forge."""\n\n'
 
 
+def prose(value: object, fallback: str) -> str:
+    """Normalizes upstream prose into one concise sentence.
+
+    Args:
+        value (object): Optional OpenAPI description or summary value.
+        fallback (str): Sentence used when the schema provides no prose.
+
+    Returns:
+        str: A whitespace-normalized sentence ending in punctuation.
+    """
+
+    source: str = value if isinstance(value, str) and value.strip() else fallback
+    normalized: str = " ".join(source.split())
+    shortened: str = textwrap.shorten(normalized, width=72, placeholder="...")
+    return shortened if shortened.endswith((".", "!", "?")) else f"{shortened}."
+
+
+def reference_name(schema: dict[str, object]) -> Optional[str]:
+    """Finds the first referenced schema name in an OpenAPI fragment.
+
+    Args:
+        schema (dict[str, object]): OpenAPI schema fragment to inspect.
+
+    Returns:
+        Optional[str]: Referenced schema name, if the fragment contains one.
+    """
+
+    reference: object = schema.get("$ref")
+    if isinstance(reference, str):
+        return reference.rsplit("/", maxsplit=1)[-1]
+    items: object = schema.get("items")
+    if isinstance(items, dict):
+        item_reference: Optional[str] = reference_name(cast(dict[str, object], items))
+        if item_reference is not None:
+            return item_reference
+    for keyword_name in ("allOf", "oneOf", "anyOf"):
+        options: object = schema.get(keyword_name)
+        if not isinstance(options, list):
+            continue
+        for option in cast(list[object], options):
+            if isinstance(option, dict):
+                option_reference: Optional[str] = reference_name(
+                    cast(dict[str, object], option)
+                )
+                if option_reference is not None:
+                    return option_reference
+    return None
+
+
+def field_description(
+    model_name: str,
+    upstream_name: str,
+    schema: dict[str, object],
+) -> str:
+    """Builds useful field documentation from a schema property.
+
+    Args:
+        model_name (str): Generated Pydantic model name.
+        upstream_name (str): Property name used by the OpenAPI document.
+        schema (dict[str, object]): OpenAPI property schema.
+
+    Returns:
+        str: Concise field description suitable for an attribute docstring.
+    """
+
+    referenced: Optional[str] = reference_name(schema)
+    fallback: str = (
+        f"The embedded {referenced} data for this {model_name} value"
+        if referenced is not None
+        else (
+            f"The {upstream_name} value for this {model_name}; the pinned schema "
+            "defines no additional semantics"
+        )
+    )
+    return prose(schema.get("description"), fallback)
+
+
+def append_doc_entry(
+    lines: list[str],
+    indentation: str,
+    label: str,
+    description: str,
+) -> None:
+    """Appends one wrapped Google-style docstring entry.
+
+    Args:
+        lines (list[str]): Generated source lines to extend.
+        indentation (str): Whitespace placed before the entry label.
+        label (str): Parameter, return type, or exception label.
+        description (str): Human-readable entry description.
+    """
+
+    prefix: str = f"{indentation}{label}: "
+    content_width: int = max(20, 90 - len(prefix))
+    wrapped: list[str] = textwrap.wrap(description, width=content_width)
+    lines.append(f"{prefix}{wrapped[0]}")
+    continuation: str = " " * len(prefix)
+    lines.extend(f"{continuation}{line}" for line in wrapped[1:])
+
+
 def snake_case(value: str) -> str:
-    """Converts an OpenAPI identifier into a safe Python identifier."""
+    """Converts an OpenAPI identifier into a safe Python identifier.
+
+    Args:
+        value (str): OpenAPI identifier to normalize.
+
+    Returns:
+        str: Snake-case identifier safe for Python source.
+    """
 
     converted: str = re.sub(r"(?<!^)(?=[A-Z])", "_", value).replace("-", "_").lower()
     converted = re.sub(r"\W", "_", converted)
@@ -35,7 +143,14 @@ def snake_case(value: str) -> str:
 
 
 def class_name(value: str) -> str:
-    """Converts an OpenAPI schema name into a Python class name."""
+    """Converts an OpenAPI schema name into a Python class name.
+
+    Args:
+        value (str): OpenAPI schema name to normalize.
+
+    Returns:
+        str: Pascal-case class name safe for Python source.
+    """
 
     words: list[str] = re.split(r"[^0-9A-Za-z]+", value)
     name: str = "".join(word[:1].upper() + word[1:] for word in words if word)
@@ -45,7 +160,17 @@ def class_name(value: str) -> str:
 
 
 def load_spec(*, update: bool) -> dict[str, object]:
-    """Loads and verifies the pinned OpenAPI snapshot."""
+    """Loads and verifies the pinned OpenAPI snapshot.
+
+    Args:
+        update (bool): Whether to download the reviewed upstream document first.
+
+    Returns:
+        dict[str, object]: Parsed and hash-verified OpenAPI document.
+
+    Raises:
+        RuntimeError: If the document changed, has an invalid hash, or is not a mapping.
+    """
 
     if update:
         with urllib.request.urlopen(SOURCE_URL, timeout=30) as response:
@@ -70,7 +195,14 @@ def load_spec(*, update: bool) -> dict[str, object]:
 
 
 def python_type(schema: dict[str, object]) -> str:
-    """Maps a non-referencing OpenAPI schema to a safe Python type."""
+    """Maps a non-referencing OpenAPI schema to a safe Python type.
+
+    Args:
+        schema (dict[str, object]): OpenAPI schema fragment to map.
+
+    Returns:
+        str: Python annotation source for the represented value.
+    """
 
     if "$ref" in schema or "allOf" in schema or "oneOf" in schema or "anyOf" in schema:
         return "JsonValue"
@@ -115,7 +247,15 @@ def python_type(schema: dict[str, object]) -> str:
 
 
 def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, str]:
-    """Generates one Pydantic model module from an OpenAPI schema."""
+    """Generates one Pydantic model module from an OpenAPI schema.
+
+    Args:
+        schema_name (str): Name of the OpenAPI component schema.
+        schema (dict[str, object]): Component schema to generate.
+
+    Returns:
+        tuple[str, str]: Generated module name and complete Python source.
+    """
 
     model_name: str = class_name(schema_name)
     properties: object = schema.get("properties", {})
@@ -125,7 +265,7 @@ def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, st
     )
     required: set[str] = {item for item in required_items if isinstance(item, str)}
     lines: list[str] = [COPYRIGHT.rstrip(), ""]
-    fields: list[str] = []
+    fields: list[tuple[str, str]] = []
     needs_field: bool = False
     needs_literal: bool = False
     if isinstance(properties, dict):
@@ -147,9 +287,17 @@ def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, st
                     if alias
                     else " = None"
                 )
-            fields.append(f"    {field_name}: {field_type}{default}")
+            declaration: str = f"    {field_name}: {field_type}{default}"
+            description: str = field_description(
+                model_name,
+                upstream_name,
+                cast(dict[str, object], raw_schema),
+            )
+            fields.append((declaration, description))
     typing_names: list[str] = (
-        ["Optional"] if any("Optional[" in item for item in fields) else []
+        ["Optional"]
+        if any("Optional[" in declaration for declaration, _ in fields)
+        else []
     )
     if needs_literal:
         typing_names.append("Literal")
@@ -158,17 +306,44 @@ def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, st
     if needs_field:
         lines.extend(["from pydantic import Field", ""])
     lines.extend(["from ....models.nexus_model import NexusModel"])
-    if any("JsonValue" in item for item in fields) or not fields:
+    if any("JsonValue" in declaration for declaration, _ in fields) or not fields:
         lines.append("from ....types import JsonValue")
     lines.extend(["", "", f"class {model_name}(NexusModel):"])
-    lines.append('    """Provides a generated Pydantic response model."""')
+    model_description: str = prose(
+        schema.get("description"),
+        (
+            f"Models the {schema_name} schema from the pinned Nexus Mods REST v3 "
+            "OpenAPI document"
+        ),
+    )
+    lines.append(f'    """{model_description}"""')
     lines.append("")
-    lines.extend(fields or ["    root: JsonValue = None"])
+    if fields:
+        for declaration, description in fields:
+            lines.extend([declaration, f'    """{description}"""', ""])
+        lines.pop()
+    else:
+        lines.extend(
+            [
+                "    root: JsonValue = None",
+                '    """The unstructured value returned for this OpenAPI schema."""',
+            ]
+        )
     return snake_case(schema_name), "\n".join(lines) + "\n"
 
 
 def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
-    """Extracts deterministic HTTP operation records."""
+    """Extracts deterministic HTTP operation records.
+
+    Args:
+        spec (dict[str, object]): Parsed OpenAPI document.
+
+    Returns:
+        list[dict[str, object]]: Normalized operations sorted by operation ID.
+
+    Raises:
+        RuntimeError: If an HTTP operation does not define an operation ID.
+    """
 
     paths: dict[str, object] = cast(dict[str, object], spec.get("paths", {}))
     records: list[dict[str, object]] = []
@@ -191,7 +366,7 @@ def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
                 *common_parameters,
                 *cast(list[object], operation_map.get("parameters", [])),
             ]
-            path_parameters: list[tuple[str, str]] = []
+            path_parameters: list[tuple[str, str, str]] = []
             for parameter in parameters:
                 if not isinstance(parameter, dict):
                     continue
@@ -206,7 +381,11 @@ def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
                         if isinstance(schema, dict)
                         else "str"
                     )
-                    path_parameters.append((name, parameter_type))
+                    parameter_description: str = prose(
+                        parameter_map.get("description"),
+                        f"The {name} path value required by the operation",
+                    )
+                    path_parameters.append((name, parameter_type, parameter_description))
             badges: object = operation_map.get("x-badges", [])
             badge_names: list[str] = []
             if isinstance(badges, list):
@@ -221,6 +400,14 @@ def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
                     "method": method.upper(),
                     "path": path,
                     "path_parameters": path_parameters,
+                    "summary": prose(
+                        operation_map.get("summary"),
+                        f"Calls the {operation_id} REST v3 operation",
+                    ),
+                    "description": prose(
+                        operation_map.get("description"),
+                        f"Calls the {operation_id} REST v3 operation",
+                    ),
                     "has_body": "requestBody" in operation_map,
                     "deprecated": bool(operation_map.get("deprecated", False)),
                     "experimental": any(
@@ -232,7 +419,14 @@ def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
 
 
 def generate_registry(records: list[dict[str, object]]) -> str:
-    """Generates the immutable operation registry module."""
+    """Generates the immutable operation registry module.
+
+    Args:
+        records (list[dict[str, object]]): Normalized OpenAPI operation records.
+
+    Returns:
+        str: Complete Python source for the operation registry.
+    """
 
     lines: list[str] = [
         COPYRIGHT.rstrip(),
@@ -243,7 +437,8 @@ def generate_registry(records: list[dict[str, object]]) -> str:
     ]
     for record in records:
         parameters: tuple[str, ...] = tuple(
-            name for name, _ in cast(list[tuple[str, str]], record["path_parameters"])
+            name
+            for name, _, _ in cast(list[tuple[str, str, str]], record["path_parameters"])
         )
         lines.extend(
             [
@@ -267,7 +462,15 @@ def generate_mixin(
     *,
     asynchronous: bool,
 ) -> str:
-    """Generates explicit sync or async operation methods."""
+    """Generates explicit sync or async operation methods.
+
+    Args:
+        records (list[dict[str, object]]): Normalized OpenAPI operation records.
+        asynchronous (bool): Whether to generate coroutine methods.
+
+    Returns:
+        str: Complete Python source for the generated operation mixin.
+    """
 
     class_name_value: str = (
         "GeneratedAsyncOperations" if asynchronous else "GeneratedSyncOperations"
@@ -285,13 +488,13 @@ def generate_mixin(
         "",
     ]
     for record in records:
-        parameters: list[tuple[str, str]] = cast(
-            list[tuple[str, str]], record["path_parameters"]
+        parameters: list[tuple[str, str, str]] = cast(
+            list[tuple[str, str, str]], record["path_parameters"]
         )
         prefix: str = "async def" if asynchronous else "def"
         signature_parts: list[str] = [
             "self",
-            *[f"{snake_case(name)}: {value_type}" for name, value_type in parameters],
+            *[f"{snake_case(name)}: {value_type}" for name, value_type, _ in parameters],
             "*",
             "query: Optional[QueryParameters] = None",
         ]
@@ -300,10 +503,45 @@ def generate_mixin(
         lines.append(
             f"    {prefix} {record['name']}({', '.join(signature_parts)}) -> JsonValue:"
         )
-        lines.append('        """Calls the pinned OpenAPI operation."""')
+        lines.append(f'        """{record["summary"]}')
+        lines.append("")
+        description: str = cast(str, record["description"])
+        if description != record["summary"]:
+            lines.append(f"        {description}")
+            lines.append("")
+        lines.append("        Args:")
+        for name, _, parameter_description in parameters:
+            append_doc_entry(
+                lines,
+                "            ",
+                snake_case(name),
+                parameter_description,
+            )
+        append_doc_entry(
+            lines,
+            "            ",
+            "query",
+            "Optional query parameters accepted by the pinned operation.",
+        )
+        if record["has_body"]:
+            append_doc_entry(
+                lines,
+                "            ",
+                "body",
+                "Optional JSON request body accepted by the pinned operation.",
+            )
+        lines.append("")
+        lines.append("        Returns:")
+        append_doc_entry(
+            lines,
+            "            ",
+            "JsonValue",
+            "Decoded response data, or `None` when the response has no body.",
+        )
+        lines.append('        """')
         lines.append("")
         mapping: str = ", ".join(
-            f"{name!r}: {snake_case(name)}" for name, _ in parameters
+            f"{name!r}: {snake_case(name)}" for name, _, _ in parameters
         )
         call_prefix: str = "await " if asynchronous else ""
         body_argument: str = ", body=body" if record["has_body"] else ""

@@ -4,6 +4,7 @@ from ....models.nexus_model import NexusModel
 
 
 class UpdateModFileRequest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the UpdateModFileRequest schema from the pinned Nexus Mods..."""
 
     name: str
+    """The name of the mod file."""

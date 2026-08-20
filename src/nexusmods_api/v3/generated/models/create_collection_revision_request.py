@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class CreateCollectionRevisionRequest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreateCollectionRevisionRequest schema from the pinned..."""
 
     collection_data: JsonValue
+    """The embedded CollectionPayload data for this..."""
+
     upload_id: str
+    """The unique identifier for the upload to claim against this new..."""

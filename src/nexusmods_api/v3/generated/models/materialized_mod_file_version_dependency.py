@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class MaterializedModFileVersionDependency(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """A materialized dependency definition with its resolved candidate mod..."""
 
     candidate_mod_files: list[JsonValue]
+    """The embedded DependencyCandidateModFile data for this..."""
+
     id: str
+    """The unique identifier for the dependency definition."""

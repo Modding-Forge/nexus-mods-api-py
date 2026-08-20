@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class ModFileVersionsResponse(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionsResponse schema from the pinned Nexus Mods..."""
 
     versions: list[JsonValue]
+    """The embedded ModFileVersion data for this ModFileVersionsResponse value."""

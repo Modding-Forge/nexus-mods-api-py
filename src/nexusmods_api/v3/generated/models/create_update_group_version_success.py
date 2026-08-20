@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class CreateUpdateGroupVersionSuccess(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreateUpdateGroupVersionSuccess schema from the pinned..."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

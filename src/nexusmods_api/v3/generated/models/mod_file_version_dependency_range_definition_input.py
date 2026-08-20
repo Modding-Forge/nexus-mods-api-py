@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class ModFileVersionDependencyRangeDefinitionInput(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionDependencyRangeDefinitionInput schema from..."""
 
     ranges: list[JsonValue]
+    """The embedded ModFileVersionDependencyRangeInput data for this..."""

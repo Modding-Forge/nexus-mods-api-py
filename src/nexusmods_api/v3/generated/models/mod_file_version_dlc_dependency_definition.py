@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class ModFileVersionDlcDependencyDefinition(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionDlcDependencyDefinition schema from the..."""
 
     dlc_targets: list[JsonValue]
+    """The DLCs that satisfy this definition (OR-alternatives)."""
+
     id: str
+    """The unique identifier for the DLC dependency definition."""

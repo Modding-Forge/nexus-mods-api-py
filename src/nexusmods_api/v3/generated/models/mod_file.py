@@ -4,7 +4,10 @@ from ....models.nexus_model import NexusModel
 
 
 class ModFile(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """A mod file - the persistent, updatable file on a mod page. Its..."""
 
     id: str
+    """The unique identifier for the mod file."""
+
     name: str
+    """The name of the mod file."""

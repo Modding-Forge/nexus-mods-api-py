@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class MoveModFileVersionsRequest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the MoveModFileVersionsRequest schema from the pinned Nexus..."""
 
     target: JsonValue
+    """The embedded MoveToPosition data for this MoveModFileVersionsRequest..."""
+
     version_ids: list[str]
+    """The unique identifiers for the mod file versions to move. Versions..."""
