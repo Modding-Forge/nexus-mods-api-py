@@ -127,7 +127,17 @@ def _check_sdist(sdist: Path) -> dict[str, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Validate built artifacts and optionally write a machine-readable report."""
+    """Validate built artifacts and optionally write a machine-readable report.
+
+    Args:
+        argv (list[str] | None): Command arguments without the executable name.
+
+    Returns:
+        int: Zero after every distribution check succeeds.
+
+    Raises:
+        RuntimeError: If arguments or built distribution artifacts are invalid.
+    """
     arguments = list(sys.argv[1:] if argv is None else argv)
     directory = Path(arguments.pop(0)) if arguments else Path("dist")
     report_path: Path | None = None

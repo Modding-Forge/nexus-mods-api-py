@@ -44,6 +44,9 @@ def response_payload(method: str, path: str) -> JsonValue:
 
     Returns:
         JsonValue: Route-specific response payload.
+
+    Raises:
+        AssertionError: If the test requests an unmodelled route.
     """
 
     if path.endswith("/users/validate"):

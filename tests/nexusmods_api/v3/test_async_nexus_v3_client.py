@@ -90,6 +90,13 @@ class TestAsyncNexusV3Client:
 
     @staticmethod
     def __method_name(operation_id: str) -> str:
-        """Converts an operation ID to its generated method name."""
+        """Converts an operation ID to its generated method name.
+
+        Args:
+            operation_id (str): OpenAPI operation identifier.
+
+        Returns:
+            str: Generated snake-case method name.
+        """
 
         return re.sub(r"(?<!^)(?=[A-Z])", "_", operation_id).lower()

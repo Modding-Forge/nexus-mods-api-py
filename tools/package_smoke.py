@@ -11,7 +11,17 @@ from pathlib import Path
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Smoke-test an installed wheel without importing the source checkout."""
+    """Smoke-test an installed wheel without importing the source checkout.
+
+    Args:
+        argv (list[str] | None): Command arguments without the executable name.
+
+    Returns:
+        int: Zero after every installed-package check succeeds.
+
+    Raises:
+        RuntimeError: If arguments, imports, metadata, or extras are inconsistent.
+    """
     arguments = list(sys.argv[1:] if argv is None else argv)
     test_sso = False
     report_path: Path | None = None
