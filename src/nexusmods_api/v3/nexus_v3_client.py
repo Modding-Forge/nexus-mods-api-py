@@ -21,7 +21,16 @@ ResponseT = TypeVar("ResponseT")
 
 
 class NexusV3Client(GeneratedSyncOperations):
-    """Provides generated synchronous access to every pinned REST v3 operation."""
+    """Provides generated synchronous access to every pinned REST v3 operation.
+
+    Examples:
+        Use a generated method or the typed generic executor::
+
+            game = client.get_game("skyrimspecialedition")
+            result = client.request("getGame", Game, path_parameters={
+                "game_domain": "skyrimspecialedition",
+            })
+    """
 
     __base_url: str
     __transport: SyncTransport
@@ -34,7 +43,13 @@ class NexusV3Client(GeneratedSyncOperations):
         *,
         http_client: Optional[httpx.Client] = None,
     ) -> None:
-        """Initializes a synchronous REST v3 client."""
+        """Initializes a synchronous REST v3 client.
+
+        Args:
+            config (Optional[NexusConfig]): Shared client configuration.
+            auth (Optional[ApiKeyAuth | OAuthAuth]): Optional authentication.
+            http_client (Optional[httpx.Client]): Optional caller-owned HTTP client.
+        """
 
         resolved: NexusConfig = config or NexusConfig()
         self.__base_url = resolved.v3_base_url
@@ -47,13 +62,13 @@ class NexusV3Client(GeneratedSyncOperations):
 
     @property
     def rate_limits(self) -> RateLimitState:
-        """Returns the latest observed REST v3 rate-limit state."""
+        """The latest observed REST v3 rate-limit state."""
 
         return self.__transport.rate_limits
 
     @property
     def operations(self) -> dict[str, V3Operation]:
-        """Returns a defensive copy of the generated operation registry."""
+        """A defensive copy of the generated operation registry."""
 
         return dict(OPERATIONS)
 
@@ -66,7 +81,23 @@ class NexusV3Client(GeneratedSyncOperations):
         query: Optional[QueryParameters] = None,
         body: JsonValue = None,
     ) -> ResponseT:
-        """Executes one generated operation and validates a caller-selected model."""
+        """Executes one generated operation and validates a caller-selected model.
+
+        Args:
+            operation_id (str): Stable OpenAPI operation identifier.
+            response_model (type[ResponseT]): Expected response type.
+            path_parameters (Optional[dict[str, str | int | float | bool]]):
+                Values for every path placeholder.
+            query (Optional[QueryParameters]): Optional query parameters.
+            body (JsonValue): Optional JSON request body.
+
+        Returns:
+            ResponseT: Validated response value.
+
+        Raises:
+            ValueError: If the operation or path parameters are invalid.
+            NexusResponseValidationError: If response validation fails.
+        """
 
         response: httpx.Response = self.__send(
             operation_id,
@@ -84,7 +115,22 @@ class NexusV3Client(GeneratedSyncOperations):
         query: Optional[QueryParameters] = None,
         body: JsonValue = None,
     ) -> JsonValue:
-        """Executes one generated operation and returns recursive JSON data."""
+        """Executes one generated operation and returns recursive JSON data.
+
+        Args:
+            operation_id (str): Stable OpenAPI operation identifier.
+            path_parameters (Optional[dict[str, str | int | float | bool]]):
+                Values for every path placeholder.
+            query (Optional[QueryParameters]): Optional query parameters.
+            body (JsonValue): Optional JSON request body.
+
+        Returns:
+            JsonValue: Validated JSON, or `None` for an empty response body.
+
+        Raises:
+            ValueError: If the operation or path parameters are invalid.
+            NexusResponseValidationError: If JSON validation fails.
+        """
 
         response: httpx.Response = self.__send(
             operation_id,
@@ -102,7 +148,11 @@ class NexusV3Client(GeneratedSyncOperations):
         self.__transport.close()
 
     def __enter__(self) -> "NexusV3Client":
-        """Enters the synchronous client context."""
+        """Enters the synchronous client context.
+
+        Returns:
+            NexusV3Client: This open REST v3 client.
+        """
 
         return self
 
@@ -112,7 +162,13 @@ class NexusV3Client(GeneratedSyncOperations):
         exception: Optional[BaseException],
         traceback: Optional[object],
     ) -> None:
-        """Leaves the client context and releases owned resources."""
+        """Leaves the client context and releases owned resources.
+
+        Args:
+            exception_type (Optional[type[BaseException]]): Raised exception type.
+            exception (Optional[BaseException]): Raised exception instance.
+            traceback (Optional[object]): Raised exception traceback.
+        """
 
         self.close()
 
@@ -124,7 +180,17 @@ class NexusV3Client(GeneratedSyncOperations):
         query: Optional[QueryParameters] = None,
         body: JsonValue = None,
     ) -> JsonValue:
-        """Executes one explicit generated operation method."""
+        """Executes one explicit generated operation method.
+
+        Args:
+            operation_id (str): Stable OpenAPI operation identifier.
+            path_parameters (dict[str, str | int | float | bool]): Path values.
+            query (Optional[QueryParameters]): Optional query parameters.
+            body (JsonValue): Optional JSON request body.
+
+        Returns:
+            JsonValue: Validated JSON, or `None` for an empty response body.
+        """
 
         return self.request_json(
             operation_id,
@@ -141,7 +207,20 @@ class NexusV3Client(GeneratedSyncOperations):
         query: Optional[QueryParameters],
         body: JsonValue,
     ) -> httpx.Response:
-        """Builds and sends one registered OpenAPI operation."""
+        """Builds and sends one registered OpenAPI operation.
+
+        Args:
+            operation_id (str): Stable OpenAPI operation identifier.
+            path_parameters (dict[str, str | int | float | bool]): Path values.
+            query (Optional[QueryParameters]): Optional query parameters.
+            body (JsonValue): Optional JSON request body.
+
+        Returns:
+            httpx.Response: Successful raw HTTP response.
+
+        Raises:
+            ValueError: If the operation or exact path parameters are invalid.
+        """
 
         try:
             operation: V3Operation = OPERATIONS[operation_id]
