@@ -12,10 +12,12 @@ from ..models.rate_limit_state import RateLimitState
 from ..nexus_config import NexusConfig
 from ..transport.response import parse_response
 from ..transport.sync_transport import SyncTransport
+from .file_content_parser import parse_file_content
 from .models.action_result import ActionResult
 from .models.colour_scheme import ColourScheme
 from .models.download_link import DownloadLink
 from .models.endorsement import Endorsement
+from .models.file_content import FileContent
 from .models.game import Game
 from .models.md5_result import MD5Result
 from .models.mod import Mod
@@ -25,7 +27,7 @@ from .models.mod_update import ModUpdate
 from .models.tracked_mod import TrackedMod
 from .models.user_validation import UserValidation
 from .types import Changelogs, EndorsementStatus, UpdatePeriod
-from .validators import require_period, require_positive
+from .validators import require_content_preview_url, require_period, require_positive
 
 ResponseT = TypeVar("ResponseT")
 
@@ -306,6 +308,39 @@ class NexusV1Client:
         require_positive(file_id, "file_id")
         path: str = f"{self.__mod_path(game_domain, mod_id)}/files/{file_id}"
         return self.__get(path, ModFile)
+
+    def get_file_content(
+        self,
+        content_preview_url: Optional[str],
+    ) -> FileContent:
+        """Retrieves and flattens a mod file's archive content preview.
+
+        The result includes only file nodes. Empty archives and directories yield
+        no paths, duplicate files remain duplicated, and traversal order is stable.
+        Configured authentication is never sent to the external preview host.
+
+        Args:
+            content_preview_url (Optional[str]): URL from
+                `ModFile.content_preview_link`.
+
+        Returns:
+            FileContent: Ordered relative paths reported by the preview service.
+
+        Raises:
+            ValueError: If the URL is missing, malformed, or insecure.
+            NexusTransportError: If the HTTP exchange cannot be completed.
+            NexusHttpError: If the preview service returns an HTTP error.
+            NexusResponseValidationError: If the preview payload is malformed.
+        """
+
+        url: str = require_content_preview_url(content_preview_url)
+        response: httpx.Response = self.__transport.request(
+            "GET",
+            url,
+            authenticated=False,
+            retry_safe=True,
+        )
+        return parse_file_content(response)
 
     def get_download_links(
         self,
