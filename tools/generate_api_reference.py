@@ -19,12 +19,15 @@ from pydantic import BaseModel
 import nexusmods_api
 import nexusmods_api.errors
 import nexusmods_api.sso
+from nexusmods_api.models.rate_limit_state import RateLimitState
 from nexusmods_api.v1.async_nexus_v1_client import AsyncNexusV1Client
 from nexusmods_api.v1.nexus_v1_client import NexusV1Client
 from nexusmods_api.v2.async_nexus_graphql_client import AsyncNexusGraphQLClient
 from nexusmods_api.v2.nexus_graphql_client import NexusGraphQLClient
 from nexusmods_api.v3.async_nexus_v3_client import AsyncNexusV3Client
+from nexusmods_api.v3.nexus_stability_warning import NexusStabilityWarning
 from nexusmods_api.v3.nexus_v3_client import NexusV3Client
+from nexusmods_api.v3.v3_operation import V3Operation
 
 ROOT: Path = Path(__file__).resolve().parents[1]
 OUTPUT: Path = ROOT / "docs" / "modules" / "reference"
@@ -213,6 +216,7 @@ def page_specs() -> list[PageSpec]:
         "OAuthLoopbackFlow",
     )
     aggregates: list[type[Any]] = [root_exports[name] for name in aggregate_names]
+    aggregates.append(RateLimitState)
     auth: list[type[Any]] = [root_exports[name] for name in auth_names]
     auth.extend(exported_classes(nexusmods_api.sso))
     return [
@@ -239,7 +243,13 @@ def page_specs() -> list[PageSpec]:
         (
             "rest-v3",
             "REST v3",
-            [NexusV3Client, AsyncNexusV3Client, *exported_classes(v3_models)],
+            [
+                NexusV3Client,
+                AsyncNexusV3Client,
+                NexusStabilityWarning,
+                V3Operation,
+                *exported_classes(v3_models),
+            ],
         ),
         ("errors", "Errors", exported_classes(nexusmods_api.errors)),
     ]

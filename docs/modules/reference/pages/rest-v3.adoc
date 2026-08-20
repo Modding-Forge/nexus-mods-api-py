@@ -2565,6 +2565,37 @@ Updates the name of an existing mod file by its ID.
 |JsonValue: Decoded response data, or `None` when the response has no body.
 |===
 
+[#nexusmods-api-v3-nexus-stability-warning-nexusstabilitywarning]
+== `NexusStabilityWarning`
+
+`nexusmods_api.v3.nexus_stability_warning.NexusStabilityWarning`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_stability_warning.py#L4[Source]
+
+Warns that an upstream endpoint is experimental or deprecated.
+
+[#nexusmods-api-v3-v3-operation-v3operation]
+== `V3Operation`
+
+`nexusmods_api.v3.v3_operation.V3Operation`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/v3_operation.py#L8[Source]
+
+Describes one operation generated from the pinned OpenAPI snapshot.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|deprecated |bool |Whether the operation is marked deprecated by Nexus Mods.
+|experimental |bool |Whether the operation is marked experimental by Nexus Mods.
+|has_body |bool |Whether the operation accepts a JSON request body.
+|method |str |The uppercase HTTP method used by the operation.
+|operation_id |str |The stable OpenAPI operation identifier.
+|path |str |The relative REST v3 path template.
+|path_parameters |tuple[str, ...] |The ordered path parameter names required by the operation.
+|===
+
 [#nexusmods-api-v3-generated-models-add-mod-changelog-entries-request-addmodchangelogentriesrequest]
 == `AddModChangelogEntriesRequest`
 
