@@ -113,10 +113,13 @@ def _check_sdist(sdist: Path) -> dict[str, str]:
         "PKG-INFO",
         "README.md",
         "docs/antora.yml",
+        "docs/modules/reference/nav.adoc",
+        "docs/modules/reference/pages/index.adoc",
         "pyproject.toml",
         "specs/nexusmods-v3-openapi.sha256",
         "specs/nexusmods-v3-openapi.yaml",
         "src/nexusmods_api/py.typed",
+        "tools/generate_api_reference.py",
         "tools/generate_v3.py",
     )
     for required in required_files:

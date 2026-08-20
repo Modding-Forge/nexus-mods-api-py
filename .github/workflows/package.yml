@@ -33,6 +33,11 @@ jobs:
       - name: Install locked dependencies
         run: uv sync --locked --all-extras --dev
 
+      - name: Check generated documentation
+        run: |
+          uv run python tools/generate_api_reference.py --check
+          uv run python tools/check_docs.py
+
       - name: Build wheel and source distribution
         run: uv build --no-sources
 
