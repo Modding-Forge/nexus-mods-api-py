@@ -13,7 +13,14 @@ from .v3.nexus_v3_client import NexusV3Client
 
 
 class NexusClient:
-    """Lazily aggregates all synchronous Nexus Mods API clients."""
+    """Lazily aggregates all synchronous Nexus Mods API clients.
+
+    Examples:
+        Access only the API versions an application needs::
+
+            with NexusClient(auth=ApiKeyAuth.from_value(api_key)) as client:
+                games = client.v1.games()
+    """
 
     __auth: Optional[ApiKeyAuth | OAuthAuth]
     __config: NexusConfig
@@ -29,7 +36,13 @@ class NexusClient:
         *,
         http_client: Optional[httpx.Client] = None,
     ) -> None:
-        """Initializes an aggregate without creating any API subclient."""
+        """Initializes an aggregate without creating any API subclient.
+
+        Args:
+            config (Optional[NexusConfig]): Shared client configuration.
+            auth (Optional[ApiKeyAuth | OAuthAuth]): Optional authentication.
+            http_client (Optional[httpx.Client]): Optional caller-owned client.
+        """
 
         self.__config = config or NexusConfig()
         self.__auth = auth
@@ -40,7 +53,7 @@ class NexusClient:
 
     @property
     def v1(self) -> NexusV1Client:
-        """Returns the lazily created REST v1 client."""
+        """The lazily created REST v1 client."""
 
         if self.__v1 is None:
             self.__v1 = NexusV1Client(
@@ -50,7 +63,7 @@ class NexusClient:
 
     @property
     def graphql(self) -> NexusGraphQLClient:
-        """Returns the lazily created GraphQL v2 client."""
+        """The lazily created GraphQL v2 client."""
 
         if self.__graphql is None:
             self.__graphql = NexusGraphQLClient(
@@ -60,13 +73,13 @@ class NexusClient:
 
     @property
     def v2(self) -> NexusGraphQLClient:
-        """Returns the GraphQL v2 client under its version alias."""
+        """The GraphQL v2 client under its version alias."""
 
         return self.graphql
 
     @property
     def v3(self) -> NexusV3Client:
-        """Returns the lazily created REST v3 client."""
+        """The lazily created REST v3 client."""
 
         if self.__v3 is None:
             self.__v3 = NexusV3Client(
@@ -85,7 +98,11 @@ class NexusClient:
             self.__v3.close()
 
     def __enter__(self) -> "NexusClient":
-        """Enters the synchronous aggregate context."""
+        """Enters the synchronous aggregate context.
+
+        Returns:
+            NexusClient: This aggregate client.
+        """
 
         return self
 
@@ -95,6 +112,12 @@ class NexusClient:
         exception: Optional[BaseException],
         traceback: Optional[object],
     ) -> None:
-        """Leaves the aggregate context and releases created resources."""
+        """Leaves the aggregate context and releases created resources.
+
+        Args:
+            exception_type (Optional[type[BaseException]]): Raised exception type.
+            exception (Optional[BaseException]): Raised exception instance.
+            traceback (Optional[object]): Raised exception traceback.
+        """
 
         self.close()

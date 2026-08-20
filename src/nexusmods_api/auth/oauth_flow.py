@@ -179,7 +179,7 @@ class OAuthFlow:
             response.raise_for_status()
             payload: object = response.json()
             if not isinstance(payload, dict):
-                raise ValueError("Token response is not an object.")
+                raise NexusOAuthError("The OAuth token response is not an object.")
             return OAuthCredentials.from_token_response(cast(dict[str, object], payload))
         except (httpx.HTTPError, ValueError) as error:
             raise NexusOAuthError("The OAuth token exchange failed.") from error

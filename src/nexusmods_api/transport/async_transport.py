@@ -10,6 +10,7 @@ import httpx
 from ..auth.api_key_auth import ApiKeyAuth
 from ..auth.async_oauth_auth import AsyncOAuthAuth
 from ..errors.factory import create_http_error, sanitize_url
+from ..errors.nexus_http_error import NexusHttpError
 from ..errors.nexus_transport_error import NexusTransportError
 from ..models.rate_limit_state import RateLimitState
 from ..nexus_config import NexusConfig
@@ -66,7 +67,7 @@ class AsyncTransport:
 
     @property
     def is_closed(self) -> bool:
-        """Returns whether the underlying HTTP client is closed.
+        """Whether the underlying HTTP client is closed.
 
         Returns:
             bool: Whether no more requests can be sent.
@@ -155,7 +156,8 @@ class AsyncTransport:
                 attempt += 1
                 continue
             if response.is_error:
-                raise create_http_error(response)
+                http_error: NexusHttpError = create_http_error(response)
+                raise http_error
             return response
 
     async def close(self) -> None:
