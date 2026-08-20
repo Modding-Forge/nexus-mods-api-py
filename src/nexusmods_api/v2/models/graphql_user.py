@@ -14,5 +14,8 @@ class GraphQLUser(NexusModel):
         validation_alias=AliasChoices("memberId", "id"),
         serialization_alias="memberId",
     )
+    """The user's Nexus Mods member identifier."""
     name: str
+    """The user's display name."""
     avatar: Optional[str] = None
+    """The user's avatar URL, when available."""

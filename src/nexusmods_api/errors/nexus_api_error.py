@@ -9,8 +9,11 @@ class NexusApiError(Exception):
     """Provides the sanitized base error for the Nexus Mods client."""
 
     status_code: Optional[int]
+    """The HTTP status code associated with the failure, when available."""
     request_url: Optional[str]
+    """The sanitized request URL associated with the failure, when available."""
     payload: JsonValue
+    """The safe structured response payload associated with the failure."""
 
     def __init__(
         self,
