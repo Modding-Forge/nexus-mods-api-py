@@ -36,7 +36,7 @@ that environment for manual approval. It authenticates to PyPI exclusively throu
 Connect Trusted Publishing; no long-lived PyPI token is stored.
 
 Every release tag must exactly match the package version with a `v` prefix, for example
-`v1.0.0`. Manual workflow runs require the same version value. The workflow rejects a
+`v1.1.0`. Manual workflow runs require the same version value. The workflow rejects a
 tag or input that differs from either the project metadata or the public package version.
 Tag-triggered releases also create a GitHub release containing the verified universal
 wheel and source distribution.
@@ -44,4 +44,4 @@ wheel and source distribution.
 Manual API key, WebSocket SSO, and OAuth each passed local live acceptance on 2026-08-01
 using the maintainer's own registered Nexus Mods application credentials. Repeat the
 affected live flow after authentication or protocol changes. The current release is
-`1.0.0`.
+`1.1.0`.
