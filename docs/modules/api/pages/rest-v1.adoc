@@ -14,3 +14,28 @@ request. Download `key` and `expires` values must be supplied together.
 
 Endorsement dates are normalized to Python `datetime` values. Both the ISO timestamps
 returned by the current API and legacy Unix timestamp payloads are accepted.
+
+== File content previews
+
+Retrieve a `ModFile`, then pass its optional `content_preview_link` directly to
+`get_file_content`. The asynchronous client provides the equivalent awaitable method.
+
+[source,python]
+----
+include::example$file_content_preview.py[]
+----
+
+The frozen `FileContent` result contains an ordered `list[Path]`. Directory nodes are
+not included. Empty archives and empty directories produce an empty list. Duplicate
+file entries remain duplicated, and depth-first upstream traversal order and path
+spelling are preserved.
+
+Absolute paths, empty paths, traversal segments, malformed JSON, and invalid tree
+shapes raise `NexusResponseValidationError`. Additive unknown response fields are
+accepted for forward compatibility. A missing or empty preview URL raises `ValueError`
+before network traffic. Non-local preview URLs must use HTTPS and cannot include user
+information or fragments.
+
+Preview requests are retry-safe GET operations. API keys, OAuth bearer tokens, SSO
+credentials, and authorization headers are never forwarded to the external preview
+host, including credentials configured as defaults on a caller-owned HTTPX client.

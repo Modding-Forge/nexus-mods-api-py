@@ -60,8 +60,53 @@ class TestAsyncTransport:
         assert response.status_code == 200
         assert requests[0].headers["apikey"] == self.API_KEY
         assert requests[0].headers["application-name"] == "async-app"
-        assert requests[0].headers["user-agent"] == ("async-app/1.0.0 nexus-mods-api")
+        assert requests[0].headers["user-agent"] == ("async-app/1.1.0 nexus-mods-api")
         assert transport.rate_limits.daily_remaining == 50
+        await client.aclose()
+
+    async def test_removes_all_credentials_from_unauthenticated_requests(
+        self,
+    ) -> None:
+        """Prevents auth from client defaults, configured auth, and overrides."""
+
+        # given
+        requests: list[httpx.Request] = []
+
+        async def handler(request: httpx.Request) -> httpx.Response:
+            """Records one unauthenticated asynchronous request.
+
+            Returns:
+                httpx.Response: Successful empty response.
+            """
+
+            requests.append(request)
+            return httpx.Response(200)
+
+        client: httpx.AsyncClient = httpx.AsyncClient(
+            headers={
+                "Authorization": "Bearer caller-secret",
+                "apikey": "caller-api-key",
+            },
+            transport=httpx.MockTransport(handler),
+        )
+        transport: AsyncTransport = AsyncTransport(
+            NexusConfig(),
+            ApiKeyAuth.from_value(self.API_KEY),
+            http_client=client,
+        )
+
+        # when
+        await transport.request(
+            "GET",
+            self.URL,
+            authenticated=False,
+            headers={"Proxy-Authorization": "proxy-secret"},
+        )
+
+        # then
+        assert "Authorization" not in requests[0].headers
+        assert "Proxy-Authorization" not in requests[0].headers
+        assert "apikey" not in requests[0].headers
         await client.aclose()
 
     async def test_retries_response_and_connection_failures(

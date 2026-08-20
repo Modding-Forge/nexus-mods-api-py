@@ -20,5 +20,5 @@ class TestDocumentationExamples:
         ]
 
         # then
-        assert len(examples) == 8
+        assert len(examples) == 9
         assert all("__builtins__" in namespace for namespace in namespaces)

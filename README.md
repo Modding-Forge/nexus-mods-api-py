@@ -49,10 +49,10 @@ GraphQL v2, and REST v3 clients.
 
 ## Documentation
 
-The authoritative documentation is maintained as AsciiDoc, starting at the
-[documentation overview](docs/modules/ROOT/pages/index.adoc). It includes
-installation, sync and async usage, all authentication flows, API guides,
-error handling, rate limits, code generation, testing, and releases.
+The authoritative AsciiDoc documentation is published in the
+[Modding Forge documentation](https://moddingforge.com/docs/nexus-mods-api).
+It includes installation, sync and async usage, all authentication flows, API
+guides, error handling, rate limits, code generation, testing, and releases.
 
 Version `1.0.0` completed both the mocked conformance suite and live acceptance
 tests for manual API key, SSO, and OAuth with maintainer-owned Nexus Mods

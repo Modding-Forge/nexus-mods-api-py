@@ -8,7 +8,7 @@ This page is generated from the public Python API. Do not edit it by hand.
 
 `nexusmods_api.v1.nexus_v1_client.NexusV1Client`
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L33[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L35[Source]
 
 Sync/async counterpart: <<nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client,AsyncNexusV1Client>>.
 
@@ -36,7 +36,7 @@ def __init__(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L47[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L49[Source]
 
 Initializes a synchronous REST v1 client.
 
@@ -57,7 +57,7 @@ Initializes a synchronous REST v1 client.
 def close() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L412[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L447[Source]
 
 Closes internally owned HTTP resources.
 
@@ -72,7 +72,7 @@ def get_changelogs(
 ) -> dict[str, list[str]]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L257[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L259[Source]
 
 Returns version-keyed changelog entries for one mod.
 
@@ -106,7 +106,7 @@ Returns version-keyed changelog entries for one mod.
 def get_colour_schemes() -> list[v1.models.colour_scheme.ColourScheme]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L192[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L194[Source]
 
 Returns legacy Nexus Mods colour schemes.
 
@@ -132,7 +132,7 @@ def get_download_links(
 ) -> list[v1.models.download_link.DownloadLink]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L310[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L345[Source]
 
 Returns short-lived mirrors for a mod file.
 
@@ -169,7 +169,7 @@ Returns short-lived mirrors for a mod file.
 def get_endorsements() -> list[v1.models.endorsement.Endorsement]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L183[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L185[Source]
 
 Returns endorsements by the authenticated user.
 
@@ -192,7 +192,7 @@ def get_file(
 ) -> v1.models.mod_file.ModFile
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L291[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L293[Source]
 
 Returns metadata for one mod file.
 
@@ -219,6 +219,48 @@ Returns metadata for one mod file.
 |ValueError |If either identifier is not a positive integer.
 |===
 
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-file-content]
+=== `NexusV1Client.get_file_content`
+
+[source,python]
+----
+def get_file_content(
+    content_preview_url: str | None,
+) -> v1.models.file_content.FileContent
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L312[Source]
+
+Retrieves and flattens a mod file's archive content preview.
+
+The result includes only file nodes. Empty archives and directories yield
+no paths, duplicate files remain duplicated, and traversal order is stable.
+Configured authentication is never sent to the external preview host.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|content_preview_url |str \| None |URL from `ModFile.content_preview_link`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|FileContent: Ordered relative paths reported by the preview service.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the URL is missing, malformed, or insecure.
+|NexusTransportError |If the HTTP exchange cannot be completed.
+|NexusHttpError |If the preview service returns an HTTP error.
+|NexusResponseValidationError |If the preview payload is malformed.
+|===
+
 [#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-game]
 === `NexusV1Client.get_game`
 
@@ -229,7 +271,7 @@ def get_game(
 ) -> v1.models.game.Game
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L201[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L203[Source]
 
 Returns metadata and categories for one game.
 
@@ -255,7 +297,7 @@ Returns metadata and categories for one game.
 def get_games() -> list[v1.models.game.Game]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L138[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L140[Source]
 
 Returns all games supported by Nexus Mods.
 
@@ -276,7 +318,7 @@ def get_latest_added(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L147[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L149[Source]
 
 Returns the latest added mods for a game.
 
@@ -304,7 +346,7 @@ def get_latest_updated(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L159[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L161[Source]
 
 Returns the latest updated mods for a game.
 
@@ -333,7 +375,7 @@ def get_mod(
 ) -> v1.models.mod.Mod
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L240[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L242[Source]
 
 Returns metadata for one mod.
 
@@ -370,7 +412,7 @@ def get_mod_files(
 ) -> v1.models.mod_files.ModFiles
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L274[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L276[Source]
 
 Returns all files and replacement links for one mod.
 
@@ -404,7 +446,7 @@ Returns all files and replacement links for one mod.
 def get_tracked_mods() -> list[v1.models.tracked_mod.TrackedMod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L97[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L99[Source]
 
 Returns all mods tracked by the authenticated user.
 
@@ -425,7 +467,7 @@ def get_trending(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L171[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L173[Source]
 
 Returns currently trending mods for a game.
 
@@ -454,7 +496,7 @@ def get_updated_mods(
 ) -> list[v1.models.mod_update.ModUpdate]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L213[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L215[Source]
 
 Returns mods with activity in a cached recent period.
 
@@ -488,7 +530,7 @@ Returns mods with activity in a cached recent period.
 def rate_limits() -> models.rate_limit_state.RateLimitState
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L70[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L72[Source]
 
 The latest observed REST rate-limit state.
 
@@ -503,7 +545,7 @@ def search_file_by_md5(
 ) -> list[v1.models.md5_result.MD5Result]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L354[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L389[Source]
 
 Finds mod files matching an MD5 digest.
 
@@ -543,7 +585,7 @@ def set_mod_endorsement(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L380[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L415[Source]
 
 Endorses or abstains from endorsing one installed mod version.
 
@@ -582,7 +624,7 @@ def track_mod(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L106[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L108[Source]
 
 Tracks a mod for the authenticated user.
 
@@ -619,7 +661,7 @@ def untrack_mod(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L122[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L124[Source]
 
 Stops tracking a mod for the authenticated user.
 
@@ -655,7 +697,7 @@ def validate_api_key(
 ) -> v1.models.user_validation.UserValidation
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L76[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L78[Source]
 
 Validates the configured or explicitly supplied API key.
 
@@ -678,7 +720,7 @@ Validates the configured or explicitly supplied API key.
 
 `nexusmods_api.v1.async_nexus_v1_client.AsyncNexusV1Client`
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L33[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L35[Source]
 
 Sync/async counterpart: <<nexusmods-api-v1-nexus-v1-client-nexusv1client,NexusV1Client>>.
 
@@ -706,7 +748,7 @@ def __init__(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L47[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L49[Source]
 
 Initializes an asynchronous REST v1 client.
 
@@ -727,7 +769,7 @@ Initializes an asynchronous REST v1 client.
 async def close() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L427[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L462[Source]
 
 Closes internally owned HTTP resources.
 
@@ -742,7 +784,7 @@ async def get_changelogs(
 ) -> dict[str, list[str]]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L259[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L261[Source]
 
 Returns version-keyed changelog entries for one mod.
 
@@ -776,7 +818,7 @@ Returns version-keyed changelog entries for one mod.
 async def get_colour_schemes() -> list[v1.models.colour_scheme.ColourScheme]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L195[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L197[Source]
 
 Returns legacy Nexus Mods colour schemes.
 
@@ -802,7 +844,7 @@ async def get_download_links(
 ) -> list[v1.models.download_link.DownloadLink]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L321[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L356[Source]
 
 Returns short-lived mirrors for a mod file.
 
@@ -839,7 +881,7 @@ Returns short-lived mirrors for a mod file.
 async def get_endorsements() -> list[v1.models.endorsement.Endorsement]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L186[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L188[Source]
 
 Returns endorsements by the authenticated user.
 
@@ -862,7 +904,7 @@ async def get_file(
 ) -> v1.models.mod_file.ModFile
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L297[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L299[Source]
 
 Returns metadata for one mod file.
 
@@ -889,6 +931,48 @@ Returns metadata for one mod file.
 |ValueError |If either identifier is not a positive integer.
 |===
 
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-file-content]
+=== `AsyncNexusV1Client.get_file_content`
+
+[source,python]
+----
+async def get_file_content(
+    content_preview_url: str | None,
+) -> v1.models.file_content.FileContent
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L323[Source]
+
+Retrieves and flattens a mod file's archive content preview.
+
+The result includes only file nodes. Empty archives and directories yield
+no paths, duplicate files remain duplicated, and traversal order is stable.
+Configured authentication is never sent to the external preview host.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|content_preview_url |str \| None |URL from `ModFile.content_preview_link`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|FileContent: Ordered relative paths reported by the preview service.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the URL is missing, malformed, or insecure.
+|NexusTransportError |If the HTTP exchange cannot be completed.
+|NexusHttpError |If the preview service returns an HTTP error.
+|NexusResponseValidationError |If the preview payload is malformed.
+|===
+
 [#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-game]
 === `AsyncNexusV1Client.get_game`
 
@@ -899,7 +983,7 @@ async def get_game(
 ) -> v1.models.game.Game
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L204[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L206[Source]
 
 Returns metadata and categories for one game.
 
@@ -925,7 +1009,7 @@ Returns metadata and categories for one game.
 async def get_games() -> list[v1.models.game.Game]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L141[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L143[Source]
 
 Returns all games supported by Nexus Mods.
 
@@ -946,7 +1030,7 @@ async def get_latest_added(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L150[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L152[Source]
 
 Returns the latest added mods for a game.
 
@@ -974,7 +1058,7 @@ async def get_latest_updated(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L162[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L164[Source]
 
 Returns the latest updated mods for a game.
 
@@ -1003,7 +1087,7 @@ async def get_mod(
 ) -> v1.models.mod.Mod
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L243[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L245[Source]
 
 Returns metadata for one mod.
 
@@ -1040,7 +1124,7 @@ async def get_mod_files(
 ) -> v1.models.mod_files.ModFiles
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L280[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L282[Source]
 
 Returns all files and replacement links for one mod.
 
@@ -1074,7 +1158,7 @@ Returns all files and replacement links for one mod.
 async def get_tracked_mods() -> list[v1.models.tracked_mod.TrackedMod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L100[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L102[Source]
 
 Returns all mods tracked by the authenticated user.
 
@@ -1095,7 +1179,7 @@ async def get_trending(
 ) -> list[v1.models.mod.Mod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L174[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L176[Source]
 
 Returns currently trending mods for a game.
 
@@ -1124,7 +1208,7 @@ async def get_updated_mods(
 ) -> list[v1.models.mod_update.ModUpdate]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L216[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L218[Source]
 
 Returns mods with activity in a cached recent period.
 
@@ -1158,7 +1242,7 @@ Returns mods with activity in a cached recent period.
 def rate_limits() -> models.rate_limit_state.RateLimitState
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L70[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L72[Source]
 
 The latest observed REST rate-limit state.
 
@@ -1173,7 +1257,7 @@ async def search_file_by_md5(
 ) -> list[v1.models.md5_result.MD5Result]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L365[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L400[Source]
 
 Finds mod files matching an MD5 digest.
 
@@ -1213,7 +1297,7 @@ async def set_mod_endorsement(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L395[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L430[Source]
 
 Endorses or abstains from endorsing one installed mod version.
 
@@ -1252,7 +1336,7 @@ async def track_mod(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L109[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L111[Source]
 
 Tracks a mod for the authenticated user.
 
@@ -1289,7 +1373,7 @@ async def untrack_mod(
 ) -> v1.models.action_result.ActionResult
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L125[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L127[Source]
 
 Stops tracking a mod for the authenticated user.
 
@@ -1325,7 +1409,7 @@ async def validate_api_key(
 ) -> v1.models.user_validation.UserValidation
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L76[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L78[Source]
 
 Validates the configured or explicitly supplied API key.
 
@@ -1416,6 +1500,22 @@ Describes one endorsement by the authenticated user.
 |mod_id |int |The endorsed mod identifier.
 |status |str |The current endorsement status.
 |version |str \| None |The mod version endorsed by the user, when reported.
+|===
+
+[#nexusmods-api-v1-models-file-content-filecontent]
+== `FileContent`
+
+`nexusmods_api.v1.models.file_content.FileContent`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/file_content.py#L10[Source]
+
+Contains the ordered file paths reported by an archive preview.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|paths |list[pathlib.Path] |Relative file paths in upstream traversal order, including duplicates.
 |===
 
 [#nexusmods-api-v1-models-file-update-fileupdate]

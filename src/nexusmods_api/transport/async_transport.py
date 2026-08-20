@@ -3,7 +3,7 @@
 import asyncio
 import random
 import time
-from typing import Optional
+from typing import ClassVar, Optional
 
 import httpx
 
@@ -20,6 +20,11 @@ from ..types import AsyncSleepCallback, JsonValue, QueryParameters
 class AsyncTransport:
     """Provides native asynchronous Nexus Mods HTTP behavior."""
 
+    CREDENTIAL_HEADERS: ClassVar[tuple[str, ...]] = (
+        "Authorization",
+        "Proxy-Authorization",
+        "apikey",
+    )
     RETRYABLE_STATUS_CODES: frozenset[int] = frozenset(
         {
             httpx.codes.TOO_MANY_REQUESTS,
@@ -116,7 +121,7 @@ class AsyncTransport:
                 token_marker = self.__auth.token_marker()
             await self.__pace_if_required()
             try:
-                response: httpx.Response = await self.__client.request(
+                request: httpx.Request = self.__client.build_request(
                     method,
                     url,
                     params=params,
@@ -124,6 +129,9 @@ class AsyncTransport:
                     data=data,
                     headers=self.__headers(headers, authenticated),
                 )
+                if not authenticated:
+                    self.__remove_credentials(request)
+                response: httpx.Response = await self.__client.send(request)
             except httpx.TransportError as error:
                 if not retry_safe or attempt >= self.__config.max_retries:
                     raise NexusTransportError(
@@ -221,6 +229,16 @@ class AsyncTransport:
         if additional is not None:
             headers.update(additional)
         return headers
+
+    def __remove_credentials(self, request: httpx.Request) -> None:
+        """Removes credentials merged from caller-owned client defaults.
+
+        Args:
+            request (httpx.Request): Fully built unauthenticated request.
+        """
+
+        for header in self.CREDENTIAL_HEADERS:
+            request.headers.pop(header, None)
 
     async def __pace_if_required(self) -> None:
         """Applies conservative pacing while a remaining budget is low."""

@@ -5,6 +5,16 @@ https://semver.org/[Semantic Versioning], including pre-release identifiers.
 
 == Unreleased
 
+No changes yet.
+
+== 1.1.0 - 2026-08-20
+
+* Added synchronous and asynchronous convenience methods that retrieve and flatten mod
+  file content previews into ordered, relative `Path` values.
+* Prevented API keys, OAuth tokens, SSO credentials, and authorization headers from
+  reaching external preview hosts, including caller-owned HTTPX client defaults.
+* Added the Modding Forge documentation deployment trigger and linked the published
+  documentation from the repository and package metadata.
 * Replaced PEP 695 type aliases and generic syntax with equivalent `TypeAlias`,
   `TypeVar`, and `Generic` declarations for compatibility with current Nuitka releases.
 

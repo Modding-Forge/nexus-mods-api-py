@@ -16,6 +16,7 @@ from .auth.oauth_loopback import OAuthLoopbackFlow
 from .nexus_client import NexusClient
 from .nexus_config import NexusConfig
 from .v1.async_nexus_v1_client import AsyncNexusV1Client
+from .v1.models.file_content import FileContent
 from .v1.nexus_v1_client import NexusV1Client
 from .v2.async_nexus_graphql_client import AsyncNexusGraphQLClient
 from .v2.nexus_graphql_client import NexusGraphQLClient
@@ -32,6 +33,7 @@ __all__: list[str] = [
     "AsyncOAuthAuth",
     "AsyncOAuthFlow",
     "AsyncOAuthLoopbackFlow",
+    "FileContent",
     "NexusClient",
     "NexusConfig",
     "NexusGraphQLClient",
