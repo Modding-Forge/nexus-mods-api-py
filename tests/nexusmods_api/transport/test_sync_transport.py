@@ -70,6 +70,49 @@ class TestSyncTransport:
         assert transport.rate_limits.hourly_remaining == 99
         assert transport.rate_limits.daily_remaining == 999
 
+    def test_removes_all_credentials_from_unauthenticated_requests(self) -> None:
+        """Prevents auth from client defaults, configured auth, and overrides."""
+
+        # given
+        requests: list[httpx.Request] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            """Records one unauthenticated request.
+
+            Returns:
+                httpx.Response: Successful empty response.
+            """
+
+            requests.append(request)
+            return httpx.Response(200)
+
+        client: httpx.Client = httpx.Client(
+            headers={
+                "Authorization": "Bearer caller-secret",
+                "apikey": "caller-api-key",
+            },
+            transport=httpx.MockTransport(handler),
+        )
+        transport: SyncTransport = SyncTransport(
+            NexusConfig(),
+            ApiKeyAuth.from_value(self.API_KEY),
+            http_client=client,
+        )
+
+        # when
+        transport.request(
+            "GET",
+            self.URL,
+            authenticated=False,
+            headers={"Proxy-Authorization": "proxy-secret"},
+        )
+
+        # then
+        assert "Authorization" not in requests[0].headers
+        assert "Proxy-Authorization" not in requests[0].headers
+        assert "apikey" not in requests[0].headers
+        client.close()
+
     def test_retries_safe_request_using_retry_after(self) -> None:
         """Tests that a retry-safe request respects server delay guidance."""
 
