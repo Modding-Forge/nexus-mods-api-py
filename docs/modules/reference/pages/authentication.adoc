@@ -1,0 +1,1356 @@
+= Authentication
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-auth-api-key-auth-apikeyauth]
+== `ApiKeyAuth`
+
+`nexusmods_api.auth.api_key_auth.ApiKeyAuth`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/api_key_auth.py#L10[Source]
+
+Provides manual application-specific API-key authentication.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|api_key |pydantic.types.SecretStr |The application-specific personal Nexus Mods API key.
+|===
+
+[#nexusmods-api-auth-api-key-auth-apikeyauth-from-value]
+=== `ApiKeyAuth.from_value`
+
+[source,python]
+----
+def from_value(
+    api_key: str,
+) -> Self
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/api_key_auth.py#L23[Source]
+
+Creates authentication from a raw key at the application boundary.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|api_key |str |Application-specific personal Nexus Mods API key.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Self: Masked API-key authentication data.
+|===
+
+[#nexusmods-api-auth-api-key-auth-apikeyauth-headers]
+=== `ApiKeyAuth.headers`
+
+[source,python]
+----
+def headers() -> dict[str, str]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/api_key_auth.py#L36[Source]
+
+Builds the HTTP authentication headers.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|dict[str, str]: A new mapping containing the API-key header.
+|===
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth]
+== `AsyncOAuthAuth`
+
+`nexusmods_api.auth.async_oauth_auth.AsyncOAuthAuth`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L13[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-oauth-auth-oauthauth,OAuthAuth>>.
+
+Coordinates asynchronous bearer headers and coalesced token rotation.
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-init]
+=== `AsyncOAuthAuth.__init__`
+
+[source,python]
+----
+def __init__(
+    credentials: auth.oauth_credentials.OAuthCredentials,
+    flow: auth.async_oauth_flow.AsyncOAuthFlow,
+    *,
+    refresh_leeway_seconds: float = 30.0,
+    credential_callback: collections.abc.Callable[[auth.oauth_credentials.OAuthCredentials], collections.abc.Awaitable[None]] | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L22[Source]
+
+Initializes asynchronous OAuth request authentication.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Mutable in-memory credentials.
+|flow |auth.async_oauth_flow.AsyncOAuthFlow |Token refresh flow.
+|refresh_leeway_seconds |float |Proactive refresh window.
+|credential_callback |collections.abc.Callable[[auth.oauth_credentials.OAuthCredentials], collections.abc.Awaitable[None]] \| None |Rotation callback.
+|===
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-headers]
+=== `AsyncOAuthAuth.headers`
+
+[source,python]
+----
+def headers() -> dict[str, str]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L45[Source]
+
+Builds current bearer headers.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|dict[str, str]: A new authorization mapping.
+|===
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-refresh-after-unauthorized]
+=== `AsyncOAuthAuth.refresh_after_unauthorized`
+
+[source,python]
+----
+async def refresh_after_unauthorized(
+    token_marker: str,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L72[Source]
+
+Refreshes only if another request has not already rotated the token.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|token_marker |str |Token used by the rejected request.
+|===
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-refresh-if-required]
+=== `AsyncOAuthAuth.refresh_if_required`
+
+[source,python]
+----
+async def refresh_if_required() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L63[Source]
+
+Proactively refreshes once when the token approaches expiry.
+
+[#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-token-marker]
+=== `AsyncOAuthAuth.token_marker`
+
+[source,python]
+----
+def token_marker() -> str
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L54[Source]
+
+Returns the current token for internal stale-response detection.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|str: Current bearer token.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow]
+== `AsyncOAuthFlow`
+
+`nexusmods_api.auth.async_oauth_flow.AsyncOAuthFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L18[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-oauth-flow-oauthflow,OAuthFlow>>.
+
+Implements asynchronous OAuth token exchanges with shared PKCE logic.
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-init]
+=== `AsyncOAuthFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    client_config: auth.oauth_client_config.OAuthClientConfig,
+    nexus_config: nexus_config.NexusConfig,
+    *,
+    http_client: httpx.AsyncClient | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L26[Source]
+
+Initializes an asynchronous OAuth flow.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|client_config |auth.oauth_client_config.OAuthClientConfig |Registered caller application.
+|nexus_config |nexus_config.NexusConfig |Shared service configuration.
+|http_client |httpx.AsyncClient \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-close]
+=== `AsyncOAuthFlow.close`
+
+[source,python]
+----
+async def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L153[Source]
+
+Closes an internally owned HTTP client.
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-create-authorization]
+=== `AsyncOAuthFlow.create_authorization`
+
+[source,python]
+----
+def create_authorization() -> auth.oauth_authorization.OAuthAuthorization
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L49[Source]
+
+Creates fresh PKCE and state secrets plus an authorization URL.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthAuthorization: Headless authorization instructions.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-exchange-callback]
+=== `AsyncOAuthFlow.exchange_callback`
+
+[source,python]
+----
+async def exchange_callback(
+    callback_url: str,
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L76[Source]
+
+Validates an OAuth callback and exchanges its code asynchronously.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|callback_url |str |Full redirect received by the caller.
+|authorization |auth.oauth_authorization.OAuthAuthorization |Original PKCE attempt.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If the callback is invalid or denied.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-exchange-code]
+=== `AsyncOAuthFlow.exchange_code`
+
+[source,python]
+----
+async def exchange_code(
+    code: str,
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L105[Source]
+
+Exchanges an authorization code with its PKCE verifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|code |str |One-time authorization code.
+|authorization |auth.oauth_authorization.OAuthAuthorization |Original PKCE attempt.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-open-authorization]
+=== `AsyncOAuthFlow.open_authorization`
+
+[source,python]
+----
+def open_authorization(
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+    *,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L61[Source]
+
+Opens a prepared authorization URL in the user's browser.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|authorization |auth.oauth_authorization.OAuthAuthorization |Prepared PKCE attempt.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|===
+
+[#nexusmods-api-auth-async-oauth-flow-asyncoauthflow-refresh]
+=== `AsyncOAuthFlow.refresh`
+
+[source,python]
+----
+async def refresh(
+    credentials: auth.oauth_credentials.OAuthCredentials,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_flow.py#L130[Source]
+
+Rotates OAuth credentials with a refresh token.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Current credentials.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If no refresh token exists.
+|===
+
+[#nexusmods-api-auth-async-oauth-loopback-asyncoauthloopbackflow]
+== `AsyncOAuthLoopbackFlow`
+
+`nexusmods_api.auth.async_oauth_loopback.AsyncOAuthLoopbackFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_loopback.py#L15[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-oauth-loopback-oauthloopbackflow,OAuthLoopbackFlow>>.
+
+Completes an asynchronous OAuth flow through a local callback server.
+
+[#nexusmods-api-auth-async-oauth-loopback-asyncoauthloopbackflow-init]
+=== `AsyncOAuthLoopbackFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    flow: auth.async_oauth_flow.AsyncOAuthFlow,
+    *,
+    timeout_seconds: float = 120.0,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+    callback_pages: auth.oauth_callback_pages.OAuthCallbackPages | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_loopback.py#L23[Source]
+
+Initializes an asynchronous loopback helper.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|flow |auth.async_oauth_flow.AsyncOAuthFlow |Configured OAuth flow.
+|timeout_seconds |float |Maximum callback wait.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|callback_pages |auth.oauth_callback_pages.OAuthCallbackPages \| None |Static callback HTML.
+|===
+
+[#nexusmods-api-auth-async-oauth-loopback-asyncoauthloopbackflow-authorize]
+=== `AsyncOAuthLoopbackFlow.authorize`
+
+[source,python]
+----
+async def authorize(
+    redirect_uri: str,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_loopback.py#L45[Source]
+
+Waits asynchronously for one loopback redirect.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|redirect_uri |str |Registered loopback redirect URI.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If the redirect is unsafe, times out, or fails.
+|===
+
+[#nexusmods-api-auth-async-sso-flow-asyncssoflow]
+== `AsyncSSOFlow`
+
+`nexusmods_api.auth.async_sso_flow.AsyncSSOFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_sso_flow.py#L22[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-sso-flow-ssoflow,SSOFlow>>.
+
+Completes Nexus Mods WebSocket SSO asynchronously.
+
+[#nexusmods-api-auth-async-sso-flow-asyncssoflow-init]
+=== `AsyncSSOFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    config: auth.sso_config.SSOConfig,
+    nexus_config: nexus_config.NexusConfig | None = None,
+    *,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_sso_flow.py#L29[Source]
+
+Initializes an asynchronous SSO flow.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |auth.sso_config.SSOConfig |Registered SSO application configuration.
+|nexus_config |nexus_config.NexusConfig \| None |Optional service overrides.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|===
+
+[#nexusmods-api-auth-async-sso-flow-asyncssoflow-authorize]
+=== `AsyncSSOFlow.authorize`
+
+[source,python]
+----
+async def authorize(
+    *,
+    open_browser: bool = True,
+) -> auth.api_key_auth.ApiKeyAuth
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_sso_flow.py#L63[Source]
+
+Creates and completes an asynchronous SSO authorization.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|open_browser |bool |Whether to open the authorization URL.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ApiKeyAuth: Newly issued application-specific API-key auth.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusSSOError |If the connection or authorization fails.
+|===
+
+[#nexusmods-api-auth-async-sso-flow-asyncssoflow-create-session]
+=== `AsyncSSOFlow.create_session`
+
+[source,python]
+----
+def create_session(
+    identifier: uuid.UUID | None = None,
+) -> auth.sso_session.SSOSession
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_sso_flow.py#L48[Source]
+
+Creates one asynchronous SSO session.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|identifier |uuid.UUID \| None |Optional deterministic test identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|SSOSession: Pending authorization session.
+|===
+
+[#nexusmods-api-auth-async-sso-flow-asyncssoflow-wait-for-api-key]
+=== `AsyncSSOFlow.wait_for_api_key`
+
+[source,python]
+----
+async def wait_for_api_key(
+    session: auth.sso_session.SSOSession,
+    *,
+    open_browser: bool = True,
+) -> auth.api_key_auth.ApiKeyAuth
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_sso_flow.py#L81[Source]
+
+Waits asynchronously for an API key for a session.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|session |auth.sso_session.SSOSession |Pending authorization session.
+|open_browser |bool |Whether to open the authorization URL.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ApiKeyAuth: Newly issued application-specific API-key auth.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusSSOError |If the connection, browser, or response fails.
+|===
+
+[#nexusmods-api-auth-oauth-auth-oauthauth]
+== `OAuthAuth`
+
+`nexusmods_api.auth.oauth_auth.OAuthAuth`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L13[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-async-oauth-auth-asyncoauthauth,AsyncOAuthAuth>>.
+
+Coordinates synchronous bearer headers and coalesced token rotation.
+
+[#nexusmods-api-auth-oauth-auth-oauthauth-init]
+=== `OAuthAuth.__init__`
+
+[source,python]
+----
+def __init__(
+    credentials: auth.oauth_credentials.OAuthCredentials,
+    flow: auth.oauth_flow.OAuthFlow,
+    *,
+    refresh_leeway_seconds: float = 30.0,
+    credential_callback: collections.abc.Callable[[auth.oauth_credentials.OAuthCredentials], None] | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L22[Source]
+
+Initializes synchronous OAuth request authentication.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Mutable in-memory credentials.
+|flow |auth.oauth_flow.OAuthFlow |Token refresh flow.
+|refresh_leeway_seconds |float |Proactive refresh window.
+|credential_callback |collections.abc.Callable[[auth.oauth_credentials.OAuthCredentials], None] \| None |Rotation callback.
+|===
+
+[#nexusmods-api-auth-oauth-auth-oauthauth-headers]
+=== `OAuthAuth.headers`
+
+[source,python]
+----
+def headers() -> dict[str, str]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L45[Source]
+
+Builds current bearer headers.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|dict[str, str]: A new authorization mapping.
+|===
+
+[#nexusmods-api-auth-oauth-auth-oauthauth-refresh-after-unauthorized]
+=== `OAuthAuth.refresh_after_unauthorized`
+
+[source,python]
+----
+def refresh_after_unauthorized(
+    token_marker: str,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L72[Source]
+
+Refreshes only if another request has not already rotated the token.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|token_marker |str |Token used by the rejected request.
+|===
+
+[#nexusmods-api-auth-oauth-auth-oauthauth-refresh-if-required]
+=== `OAuthAuth.refresh_if_required`
+
+[source,python]
+----
+def refresh_if_required() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L63[Source]
+
+Proactively refreshes once when the token approaches expiry.
+
+[#nexusmods-api-auth-oauth-auth-oauthauth-token-marker]
+=== `OAuthAuth.token_marker`
+
+[source,python]
+----
+def token_marker() -> str
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L54[Source]
+
+Returns the current token for internal stale-response detection.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|str: Current bearer token.
+|===
+
+[#nexusmods-api-auth-oauth-authorization-oauthauthorization]
+== `OAuthAuthorization`
+
+`nexusmods_api.auth.oauth_authorization.OAuthAuthorization`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_authorization.py#L8[Source]
+
+Carries one short-lived PKCE authorization attempt.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|authorization_url |str |The Nexus Mods URL that the user must open.
+|code_verifier |pydantic.types.SecretStr |The secret PKCE verifier retained for the token exchange.
+|state |pydantic.types.SecretStr |The secret anti-forgery value expected on the callback.
+|===
+
+[#nexusmods-api-auth-oauth-callback-pages-oauthcallbackpages]
+== `OAuthCallbackPages`
+
+`nexusmods_api.auth.oauth_callback_pages.OAuthCallbackPages`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_callback_pages.py#L24[Source]
+
+Defines static HTML returned by OAuth loopback callback servers.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|error_html |str |Static HTML returned for a malformed or unrelated callback request.
+|success_html |str |Static HTML returned after a matching callback is captured.
+|===
+
+[#nexusmods-api-auth-oauth-client-config-oauthclientconfig]
+== `OAuthClientConfig`
+
+`nexusmods_api.auth.oauth_client_config.OAuthClientConfig`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_client_config.py#L10[Source]
+
+Defines the caller's registered Nexus Mods OAuth application.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|client_id |str |The OAuth client identifier assigned to the caller's application.
+|client_secret |pydantic.types.SecretStr \| None |An optional secret for confidential clients; public clients omit it.
+|redirect_uri |str |The exact registered callback URI.
+|scopes |tuple[str, ...] |The OAuth scopes requested from the user.
+|===
+
+[#nexusmods-api-auth-oauth-client-config-oauthclientconfig-validate-redirect-uri]
+=== `OAuthClientConfig.validate_redirect_uri`
+
+[source,python]
+----
+def validate_redirect_uri(
+    value: str,
+) -> str
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_client_config.py#L31[Source]
+
+Rejects insecure remote callback URLs.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|value |str |Registered callback URI.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|str: The validated callback URI.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If a remote HTTP callback is supplied.
+|===
+
+[#nexusmods-api-auth-oauth-credentials-oauthcredentials]
+== `OAuthCredentials`
+
+`nexusmods_api.auth.oauth_credentials.OAuthCredentials`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_credentials.py#L9[Source]
+
+Stores mutable in-memory OAuth credentials without persisting them.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|access_token |pydantic.types.SecretStr |The current bearer access token.
+|expires_at |datetime.datetime \| None |The UTC instant at which the access token expires.
+|fingerprint |pydantic.types.SecretStr \| None |An optional Nexus token fingerprint used by legacy OAuth services.
+|refresh_token |pydantic.types.SecretStr \| None |The rotating refresh token when one was issued.
+|scope |str \| None |The scopes granted by Nexus Mods.
+|token_type |str |The authorization scheme returned by Nexus Mods.
+|===
+
+[#nexusmods-api-auth-oauth-credentials-oauthcredentials-expires-within]
+=== `OAuthCredentials.expires_within`
+
+[source,python]
+----
+def expires_within(
+    seconds: float,
+    *,
+    now: datetime.datetime | None = None,
+) -> bool
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_credentials.py#L94[Source]
+
+Checks whether proactive refresh is required.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|seconds |float |Refresh safety window in seconds.
+|now |datetime.datetime \| None |Injectable current UTC time.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|bool: Whether expiry is inside the safety window.
+|===
+
+[#nexusmods-api-auth-oauth-credentials-oauthcredentials-from-token-response]
+=== `OAuthCredentials.from_token_response`
+
+[source,python]
+----
+def from_token_response(
+    payload: dict[str, object],
+    *,
+    now: datetime.datetime | None = None,
+) -> Self
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_credentials.py#L36[Source]
+
+Creates credentials from a validated token endpoint payload.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|payload |dict[str, object] |Token response payload.
+|now |datetime.datetime \| None |Injectable current UTC time.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Self: Masked OAuth credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the response has no non-empty access token.
+|===
+
+[#nexusmods-api-auth-oauth-credentials-oauthcredentials-headers]
+=== `OAuthCredentials.headers`
+
+[source,python]
+----
+def headers() -> dict[str, str]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_credentials.py#L80[Source]
+
+Builds bearer authentication headers.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|dict[str, str]: A new authorization header mapping.
+|===
+
+[#nexusmods-api-auth-oauth-credentials-oauthcredentials-rotate-from]
+=== `OAuthCredentials.rotate_from`
+
+[source,python]
+----
+def rotate_from(
+    credentials: OAuthCredentials,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_credentials.py#L115[Source]
+
+Atomically replaces values after a successful token refresh.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |OAuthCredentials |Newly issued credentials.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow]
+== `OAuthFlow`
+
+`nexusmods_api.auth.oauth_flow.OAuthFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L18[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-async-oauth-flow-asyncoauthflow,AsyncOAuthFlow>>.
+
+Implements synchronous OAuth 2 authorization-code flow with PKCE.
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-init]
+=== `OAuthFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    client_config: auth.oauth_client_config.OAuthClientConfig,
+    nexus_config: nexus_config.NexusConfig,
+    *,
+    http_client: httpx.Client | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L26[Source]
+
+Initializes a synchronous OAuth flow.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|client_config |auth.oauth_client_config.OAuthClientConfig |Registered caller application.
+|nexus_config |nexus_config.NexusConfig |Shared service configuration.
+|http_client |httpx.Client \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-close]
+=== `OAuthFlow.close`
+
+[source,python]
+----
+def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L152[Source]
+
+Closes an internally owned HTTP client.
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-create-authorization]
+=== `OAuthFlow.create_authorization`
+
+[source,python]
+----
+def create_authorization() -> auth.oauth_authorization.OAuthAuthorization
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L49[Source]
+
+Creates fresh PKCE and state secrets plus an authorization URL.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthAuthorization: Headless authorization instructions.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-exchange-callback]
+=== `OAuthFlow.exchange_callback`
+
+[source,python]
+----
+def exchange_callback(
+    callback_url: str,
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L76[Source]
+
+Validates a callback URL and exchanges its code.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|callback_url |str |Full redirect received by the caller.
+|authorization |auth.oauth_authorization.OAuthAuthorization |Original PKCE attempt.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If the callback is invalid or denied.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-exchange-code]
+=== `OAuthFlow.exchange_code`
+
+[source,python]
+----
+def exchange_code(
+    code: str,
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L105[Source]
+
+Exchanges an authorization code with its PKCE verifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|code |str |One-time authorization code.
+|authorization |auth.oauth_authorization.OAuthAuthorization |Original PKCE attempt.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-open-authorization]
+=== `OAuthFlow.open_authorization`
+
+[source,python]
+----
+def open_authorization(
+    authorization: auth.oauth_authorization.OAuthAuthorization,
+    *,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L61[Source]
+
+Opens a prepared authorization URL in the user's browser.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|authorization |auth.oauth_authorization.OAuthAuthorization |Prepared PKCE attempt.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|===
+
+[#nexusmods-api-auth-oauth-flow-oauthflow-refresh]
+=== `OAuthFlow.refresh`
+
+[source,python]
+----
+def refresh(
+    credentials: auth.oauth_credentials.OAuthCredentials,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_flow.py#L130[Source]
+
+Rotates OAuth credentials with a refresh token.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Current credentials.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If no refresh token exists.
+|===
+
+[#nexusmods-api-auth-oauth-loopback-oauthloopbackflow]
+== `OAuthLoopbackFlow`
+
+`nexusmods_api.auth.oauth_loopback.OAuthLoopbackFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_loopback.py#L15[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-async-oauth-loopback-asyncoauthloopbackflow,AsyncOAuthLoopbackFlow>>.
+
+Completes a synchronous OAuth flow through a local callback server.
+
+[#nexusmods-api-auth-oauth-loopback-oauthloopbackflow-init]
+=== `OAuthLoopbackFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    flow: auth.oauth_flow.OAuthFlow,
+    *,
+    timeout_seconds: float = 120.0,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+    callback_pages: auth.oauth_callback_pages.OAuthCallbackPages | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_loopback.py#L23[Source]
+
+Initializes a synchronous loopback helper.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|flow |auth.oauth_flow.OAuthFlow |Configured OAuth flow.
+|timeout_seconds |float |Maximum callback wait.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|callback_pages |auth.oauth_callback_pages.OAuthCallbackPages \| None |Static callback HTML.
+|===
+
+[#nexusmods-api-auth-oauth-loopback-oauthloopbackflow-authorize]
+=== `OAuthLoopbackFlow.authorize`
+
+[source,python]
+----
+def authorize(
+    redirect_uri: str,
+) -> auth.oauth_credentials.OAuthCredentials
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_loopback.py#L45[Source]
+
+Waits for one loopback redirect and exchanges its code.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|redirect_uri |str |Registered loopback redirect URI.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|OAuthCredentials: Newly issued credentials.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusOAuthError |If the redirect is unsafe, times out, or fails.
+|===
+
+[#nexusmods-api-auth-sso-config-ssoconfig]
+== `SSOConfig`
+
+`nexusmods_api.auth.sso_config.SSOConfig`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_config.py#L8[Source]
+
+Defines a registered Nexus Mods WebSocket SSO application.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|application_id |str |The application identifier assigned by Nexus Mods.
+|authorization_timeout_seconds |float |The maximum time to wait for user authorization.
+|connection_timeout_seconds |float |The maximum time to wait for the WebSocket connection.
+|ping_interval_seconds |float |The interval between WebSocket keepalive pings.
+|===
+
+[#nexusmods-api-auth-sso-flow-ssoflow]
+== `SSOFlow`
+
+`nexusmods_api.auth.sso_flow.SSOFlow`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_flow.py#L22[Source]
+
+Sync/async counterpart: <<nexusmods-api-auth-async-sso-flow-asyncssoflow,AsyncSSOFlow>>.
+
+Completes Nexus Mods WebSocket SSO synchronously.
+
+[#nexusmods-api-auth-sso-flow-ssoflow-init]
+=== `SSOFlow.__init__`
+
+[source,python]
+----
+def __init__(
+    config: auth.sso_config.SSOConfig,
+    nexus_config: nexus_config.NexusConfig | None = None,
+    *,
+    browser_opener: collections.abc.Callable[[str], bool] = webbrowser.open,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_flow.py#L29[Source]
+
+Initializes a synchronous SSO flow.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |auth.sso_config.SSOConfig |Registered SSO application configuration.
+|nexus_config |nexus_config.NexusConfig \| None |Optional service overrides.
+|browser_opener |collections.abc.Callable[[str], bool] |Injectable browser opener.
+|===
+
+[#nexusmods-api-auth-sso-flow-ssoflow-authorize]
+=== `SSOFlow.authorize`
+
+[source,python]
+----
+def authorize(
+    *,
+    open_browser: bool = True,
+) -> auth.api_key_auth.ApiKeyAuth
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_flow.py#L63[Source]
+
+Creates and completes a synchronous SSO authorization.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|open_browser |bool |Whether to open the authorization URL.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ApiKeyAuth: Newly issued application-specific API-key auth.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusSSOError |If the connection or authorization fails.
+|===
+
+[#nexusmods-api-auth-sso-flow-ssoflow-create-session]
+=== `SSOFlow.create_session`
+
+[source,python]
+----
+def create_session(
+    identifier: uuid.UUID | None = None,
+) -> auth.sso_session.SSOSession
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_flow.py#L48[Source]
+
+Creates one random SSO session and its authorization URL.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|identifier |uuid.UUID \| None |Optional deterministic test identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|SSOSession: Pending authorization session.
+|===
+
+[#nexusmods-api-auth-sso-flow-ssoflow-wait-for-api-key]
+=== `SSOFlow.wait_for_api_key`
+
+[source,python]
+----
+def wait_for_api_key(
+    session: auth.sso_session.SSOSession,
+    *,
+    open_browser: bool = True,
+) -> auth.api_key_auth.ApiKeyAuth
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_flow.py#L78[Source]
+
+Waits for Nexus Mods to issue an API key for a session.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|session |auth.sso_session.SSOSession |Pending authorization session.
+|open_browser |bool |Whether to open the authorization URL.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ApiKeyAuth: Newly issued application-specific API-key auth.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusSSOError |If the connection, browser, or response fails.
+|===
+
+[#nexusmods-api-auth-sso-session-ssosession]
+== `SSOSession`
+
+`nexusmods_api.auth.sso_session.SSOSession`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/sso_session.py#L9[Source]
+
+Identifies one pending Nexus Mods WebSocket SSO authorization.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|authorization_url |str |The URL at which the user authorizes the application.
+|identifier |uuid.UUID |The random identifier shared with Nexus Mods and the browser.
+|===

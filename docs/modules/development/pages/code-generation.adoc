@@ -11,3 +11,25 @@ Only after reviewing an upstream specification change, update the expected hash 
 generator and run `--update-spec`. Review the snapshot and generated diff together. Never
 edit files under `src/nexusmods_api/v3/generated/` manually. CI regenerates offline and
 requires an empty diff.
+
+== Python API reference generation
+
+The Antora `reference` module is generated from runtime signatures, type hints,
+Pydantic field metadata, and parsed Google-style docstrings. Regenerate it after
+changing a public API or its documentation:
+
+[source,shell]
+----
+uv run python tools/generate_api_reference.py
+----
+
+Generated pages and navigation are checked in. Verify that they are current without
+writing files:
+
+[source,shell]
+----
+uv run python tools/generate_api_reference.py --check
+----
+
+Do not edit files under `docs/modules/reference/` manually. Improve the Python source
+documentation or the generator instead.

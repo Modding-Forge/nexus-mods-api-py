@@ -1,0 +1,12 @@
+= Python API reference
+:page-generated: true
+
+The reference is generated from signatures, type hints, Pydantic field
+metadata, and Google-style docstrings in the checked-in Python sources.
+
+* xref:clients.adoc[Aggregate clients and configuration]
+* xref:authentication.adoc[Authentication]
+* xref:rest-v1.adoc[REST v1]
+* xref:graphql-v2.adoc[GraphQL v2]
+* xref:rest-v3.adoc[REST v3]
+* xref:errors.adoc[Errors]
