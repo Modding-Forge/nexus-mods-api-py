@@ -1,5 +1,7 @@
 """Copyright (c) Modding Forge."""
 
+from typing import TypeVar
+
 import httpx
 from pydantic import TypeAdapter, ValidationError
 
@@ -10,8 +12,10 @@ from ..transport.response import parse_response
 from .models.graphql_issue import GraphQLIssue
 from .models.graphql_response import GraphQLResponse
 
+ResponseT = TypeVar("ResponseT")
 
-def parse_graphql_data[ResponseT](
+
+def parse_graphql_data(
     response: httpx.Response,
     response_model: type[ResponseT],
     *,

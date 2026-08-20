@@ -2,12 +2,12 @@
 
 import threading
 from collections.abc import Callable
-from typing import Optional
+from typing import Optional, TypeAlias
 
 from .oauth_credentials import OAuthCredentials
 from .oauth_flow import OAuthFlow
 
-type CredentialCallback = Callable[[OAuthCredentials], None]
+CredentialCallback: TypeAlias = Callable[[OAuthCredentials], None]
 
 
 class OAuthAuth:

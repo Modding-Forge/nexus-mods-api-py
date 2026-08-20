@@ -1,7 +1,7 @@
 """Copyright (c) Modding Forge."""
 
-from typing import Literal
+from typing import Literal, TypeAlias
 
-type UpdatePeriod = Literal["1d", "1w", "1m"]
-type EndorsementStatus = Literal["endorse", "abstain"]
-type Changelogs = dict[str, list[str]]
+UpdatePeriod: TypeAlias = Literal["1d", "1w", "1m"]
+EndorsementStatus: TypeAlias = Literal["endorse", "abstain"]
+Changelogs: TypeAlias = dict[str, list[str]]

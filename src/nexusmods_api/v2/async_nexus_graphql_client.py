@@ -1,6 +1,6 @@
 """Copyright (c) Modding Forge."""
 
-from typing import Optional
+from typing import Optional, TypeVar
 
 import httpx
 
@@ -32,6 +32,8 @@ from .operations import (
     USER_QUERY,
 )
 from .uid import decode_mod_uid
+
+ResponseT = TypeVar("ResponseT")
 
 
 class AsyncNexusGraphQLClient:
@@ -65,7 +67,7 @@ class AsyncNexusGraphQLClient:
 
         return self.__transport.rate_limits
 
-    async def execute[ResponseT](
+    async def execute(
         self,
         document: str,
         response_model: type[ResponseT],
@@ -280,7 +282,7 @@ class AsyncNexusGraphQLClient:
         )
 
     @staticmethod
-    def __root[ResponseT](data: dict[str, ResponseT], name: str) -> ResponseT:
+    def __root(data: dict[str, ResponseT], name: str) -> ResponseT:
         """Returns a required convenience-query root field."""
 
         try:

@@ -1,6 +1,6 @@
 """Copyright (c) Modding Forge."""
 
-from typing import Optional
+from typing import Optional, TypeVar
 from urllib.parse import quote
 
 import httpx
@@ -26,6 +26,8 @@ from .models.tracked_mod import TrackedMod
 from .models.user_validation import UserValidation
 from .types import Changelogs, EndorsementStatus, UpdatePeriod
 from .validators import require_period, require_positive
+
+ResponseT = TypeVar("ResponseT")
 
 
 class NexusV1Client:
@@ -279,7 +281,7 @@ class NexusV1Client:
         require_positive(mod_id, "mod_id")
         return f"/games/{self.__segment(game_domain)}/mods/{mod_id}"
 
-    def __get[ResponseT](self, path: str, model: type[ResponseT]) -> ResponseT:
+    def __get(self, path: str, model: type[ResponseT]) -> ResponseT:
         """Sends and validates one retry-safe v1 GET request."""
 
         response: httpx.Response = self.__transport.request(

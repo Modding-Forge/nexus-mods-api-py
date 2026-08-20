@@ -1,6 +1,6 @@
 """Copyright (c) Modding Forge."""
 
-from typing import cast
+from typing import TypeVar, cast
 
 import httpx
 from pydantic import TypeAdapter, ValidationError
@@ -9,8 +9,10 @@ from ..errors.factory import sanitize_url
 from ..errors.nexus_response_validation_error import NexusResponseValidationError
 from ..types import JsonValue
 
+ResponseT = TypeVar("ResponseT")
 
-def parse_response[ResponseT](
+
+def parse_response(
     response: httpx.Response,
     response_model: type[ResponseT],
 ) -> ResponseT:
