@@ -4,6 +4,7 @@ from ....models.nexus_model import NexusModel
 
 
 class ModFileVersionsBatchRequest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionsBatchRequest schema from the pinned Nexus..."""
 
     version_ids: list[str]
+    """The mod file version ids to resolve details for."""

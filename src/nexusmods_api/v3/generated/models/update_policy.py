@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class UpdatePolicy(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Available update policies of a file resource."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

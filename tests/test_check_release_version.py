@@ -13,7 +13,16 @@ def write_versions(
     project_version: str = "1.2.3rc1",
     public_version: str = "1.2.3rc1",
 ) -> tuple[Path, Path]:
-    """Writes the minimal metadata fixtures used by release checks."""
+    """Writes the minimal metadata fixtures used by release checks.
+
+    Args:
+        root (Path): Temporary fixture directory.
+        project_version (str): Version written to project metadata.
+        public_version (str): Version written to the public module.
+
+    Returns:
+        tuple[Path, Path]: Project metadata and public-version module paths.
+    """
 
     pyproject = root / "pyproject.toml"
     version_module = root / "_version.py"

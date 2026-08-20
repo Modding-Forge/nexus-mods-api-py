@@ -34,7 +34,11 @@ class TestSyncTransport:
         requests: list[httpx.Request] = []
 
         def handler(request: httpx.Request) -> httpx.Response:
-            """Records one successful request."""
+            """Records one successful request.
+
+            Returns:
+                httpx.Response: Successful response with rate-limit metadata.
+            """
 
             requests.append(request)
             return httpx.Response(
@@ -114,7 +118,14 @@ class TestSyncTransport:
         )
 
         def handler(request: httpx.Request) -> httpx.Response:
-            """Raises one connection error followed by success."""
+            """Raises one connection error followed by success.
+
+            Returns:
+                httpx.Response: Successful response after the simulated retry.
+
+            Raises:
+                httpx.ConnectError: On the first simulated request.
+            """
 
             attempts.append(len(attempts))
             if len(attempts) == 1:
@@ -166,7 +177,11 @@ class TestSyncTransport:
         api_tokens: list[str] = []
 
         def api_handler(request: httpx.Request) -> httpx.Response:
-            """Rejects the old bearer token and accepts the rotated token."""
+            """Rejects the old bearer token and accepts the rotated token.
+
+            Returns:
+                httpx.Response: Unauthorized or successful simulated response.
+            """
 
             token: str = request.headers["Authorization"]
             api_tokens.append(token)
@@ -235,7 +250,11 @@ class TestSyncTransport:
 
         # given
         def handler(request: httpx.Request) -> httpx.Response:
-            """Raises a terminal connection error."""
+            """Raises a terminal connection error.
+
+            Raises:
+                httpx.ConnectError: On every simulated request.
+            """
 
             raise httpx.ConnectError("contains transport internals", request=request)
 

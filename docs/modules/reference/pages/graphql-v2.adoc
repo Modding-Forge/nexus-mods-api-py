@@ -1,0 +1,1017 @@
+= GraphQL v2
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient]
+== `NexusGraphQLClient`
+
+`nexusmods_api.v2.nexus_graphql_client.NexusGraphQLClient`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L39[Source]
+
+Sync/async counterpart: <<nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient,AsyncNexusGraphQLClient>>.
+
+Provides generic and convenient synchronous GraphQL v2 operations.
+
+Preserve partial data from an application-defined query
+
+[source,python]
+----
+data = client.execute(
+    document,
+    dict[str, JsonValue],
+    allow_partial=True,
+)
+issues = client.last_errors
+----
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-init]
+=== `NexusGraphQLClient.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.oauth_auth.OAuthAuth | None = None,
+    *,
+    http_client: httpx.Client | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L58[Source]
+
+Initializes a synchronous GraphQL v2 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.oauth_auth.OAuthAuth \| None |Optional authentication.
+|http_client |httpx.Client \| None |Optional caller-owned HTTP client.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-close]
+=== `NexusGraphQLClient.close`
+
+[source,python]
+----
+def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L349[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-execute]
+=== `NexusGraphQLClient.execute`
+
+[source,python]
+----
+def execute(
+    document: str,
+    response_model: type[~ResponseT],
+    *,
+    variables: dict[str, JsonValue] | None = None,
+    operation_name: str | None = None,
+    allow_partial: bool = False,
+) -> ~ResponseT
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L88[Source]
+
+Executes and validates an arbitrary GraphQL document.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|document |str |GraphQL query or mutation document.
+|response_model |type[~ResponseT] |Expected type of the `data` value.
+|variables |dict[str, JsonValue] \| None |Operation variables.
+|operation_name |str \| None |Named operation to execute.
+|allow_partial |bool |Whether data may be returned alongside issues.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ResponseT: Validated GraphQL data.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusGraphQLError |If issues exist and partial data is not allowed.
+|NexusResponseValidationError |If the response data cannot be validated.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-execute-raw]
+=== `NexusGraphQLClient.execute_raw`
+
+[source,python]
+----
+def execute_raw(
+    document: str,
+    *,
+    variables: dict[str, JsonValue] | None = None,
+    operation_name: str | None = None,
+) -> v2.models.graphql_response.GraphQLResponse
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L127[Source]
+
+Executes a document while preserving raw partial data and errors.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|document |str |GraphQL query or mutation document.
+|variables |dict[str, JsonValue] \| None |Operation variables.
+|operation_name |str \| None |Named operation to execute.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLResponse: Raw validated envelope with data and issues intact.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response is not a valid envelope.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-collection]
+=== `NexusGraphQLClient.get_collection`
+
+[source,python]
+----
+def get_collection(
+    slug: str,
+    *,
+    game_domain: str | None = None,
+) -> v2.models.graphql_collection.GraphQLCollection
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L268[Source]
+
+Returns one collection by slug.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|slug |str |Nexus Mods collection slug.
+|game_domain |str \| None |Game domain used to disambiguate the slug.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLCollection: Matching collection metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits `collection`.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-games]
+=== `NexusGraphQLClient.get_games`
+
+[source,python]
+----
+def get_games(
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLGame]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L157[Source]
+
+Returns a page of games.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|count |int |Maximum number of games requested.
+|offset |int |Zero-based result offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLGame]: Requested page and total result count.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-mod]
+=== `NexusGraphQLClient.get_mod`
+
+[source,python]
+----
+def get_mod(
+    uid: str,
+) -> v2.models.graphql_mod.GraphQLMod
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L176[Source]
+
+Returns one mod by globally unique identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|uid |str |Unsigned decimal 64-bit mod UID.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLMod: Matching mod metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the UID is not an unsigned decimal 64-bit integer.
+|NexusResponseValidationError |If the response omits the `mod` root.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-mod-files]
+=== `NexusGraphQLClient.get_mod_files`
+
+[source,python]
+----
+def get_mod_files(
+    uid: str,
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLModFile]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L231[Source]
+
+Returns a typed page of files for one mod UID.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|uid |str |Unsigned decimal 64-bit mod UID.
+|count |int |Maximum number of files in the local result slice.
+|offset |int |Zero-based local slice offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLModFile]: Locally sliced file page.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the UID is not an unsigned decimal 64-bit integer.
+|NexusResponseValidationError |If the response omits `modFiles`.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-revision]
+=== `NexusGraphQLClient.get_revision`
+
+[source,python]
+----
+def get_revision(
+    slug: str,
+    revision_number: int,
+    *,
+    game_domain: str | None = None,
+) -> v2.models.graphql_revision.GraphQLRevision
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L295[Source]
+
+Returns one numbered revision belonging to a collection slug.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|slug |str |Nexus Mods collection slug.
+|revision_number |int |Collection revision number.
+|game_domain |str \| None |Game domain used to disambiguate the slug.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLRevision: Matching collection revision.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits the revision root.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-get-user]
+=== `NexusGraphQLClient.get_user`
+
+[source,python]
+----
+def get_user(
+    user_id: int,
+) -> v2.models.graphql_user.GraphQLUser
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L328[Source]
+
+Returns one public Nexus Mods user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|user_id |int |Nexus Mods member identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLUser: Matching public user metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits the `user` root.
+|===
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-rate-limits]
+=== `NexusGraphQLClient.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L82[Source]
+
+The latest observed GraphQL rate-limit state.
+
+[#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-search-mods]
+=== `NexusGraphQLClient.search_mods`
+
+[source,python]
+----
+def search_mods(
+    query: str,
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLMod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L199[Source]
+
+Searches mods and returns one typed result page.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |str |Name search pattern passed to Nexus Mods.
+|count |int |Maximum number of mods requested.
+|offset |int |Zero-based result offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLMod]: Matching mod page.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient]
+== `AsyncNexusGraphQLClient`
+
+`nexusmods_api.v2.async_nexus_graphql_client.AsyncNexusGraphQLClient`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L39[Source]
+
+Sync/async counterpart: <<nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient,NexusGraphQLClient>>.
+
+Provides generic and convenient asynchronous GraphQL v2 operations.
+
+Preserve partial data from an application-defined query
+
+[source,python]
+----
+data = await client.execute(
+    document,
+    dict[str, JsonValue],
+    allow_partial=True,
+)
+issues = client.last_errors
+----
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-init]
+=== `AsyncNexusGraphQLClient.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.async_oauth_auth.AsyncOAuthAuth | None = None,
+    *,
+    http_client: httpx.AsyncClient | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L58[Source]
+
+Initializes an asynchronous GraphQL v2 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.async_oauth_auth.AsyncOAuthAuth \| None |Optional authentication.
+|http_client |httpx.AsyncClient \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-close]
+=== `AsyncNexusGraphQLClient.close`
+
+[source,python]
+----
+async def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L354[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-execute]
+=== `AsyncNexusGraphQLClient.execute`
+
+[source,python]
+----
+async def execute(
+    document: str,
+    response_model: type[~ResponseT],
+    *,
+    variables: dict[str, JsonValue] | None = None,
+    operation_name: str | None = None,
+    allow_partial: bool = False,
+) -> ~ResponseT
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L88[Source]
+
+Executes and validates an arbitrary GraphQL document.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|document |str |GraphQL query or mutation document.
+|response_model |type[~ResponseT] |Expected type of the `data` value.
+|variables |dict[str, JsonValue] \| None |Operation variables.
+|operation_name |str \| None |Named operation to execute.
+|allow_partial |bool |Whether data may be returned alongside issues.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ResponseT: Validated GraphQL data.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusGraphQLError |If issues exist and partial data is not allowed.
+|NexusResponseValidationError |If the response data cannot be validated.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-execute-raw]
+=== `AsyncNexusGraphQLClient.execute_raw`
+
+[source,python]
+----
+async def execute_raw(
+    document: str,
+    *,
+    variables: dict[str, JsonValue] | None = None,
+    operation_name: str | None = None,
+) -> v2.models.graphql_response.GraphQLResponse
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L127[Source]
+
+Executes a document while preserving raw partial data and errors.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|document |str |GraphQL query or mutation document.
+|variables |dict[str, JsonValue] \| None |Operation variables.
+|operation_name |str \| None |Named operation to execute.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLResponse: Raw validated envelope with data and issues intact.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response is not a valid envelope.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-collection]
+=== `AsyncNexusGraphQLClient.get_collection`
+
+[source,python]
+----
+async def get_collection(
+    slug: str,
+    *,
+    game_domain: str | None = None,
+) -> v2.models.graphql_collection.GraphQLCollection
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L273[Source]
+
+Returns one collection by slug.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|slug |str |Nexus Mods collection slug.
+|game_domain |str \| None |Game domain used to disambiguate the slug.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLCollection: Matching collection metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits `collection`.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-games]
+=== `AsyncNexusGraphQLClient.get_games`
+
+[source,python]
+----
+async def get_games(
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLGame]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L157[Source]
+
+Returns a page of games.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|count |int |Maximum number of games requested.
+|offset |int |Zero-based result offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLGame]: Requested page and total result count.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-mod]
+=== `AsyncNexusGraphQLClient.get_mod`
+
+[source,python]
+----
+async def get_mod(
+    uid: str,
+) -> v2.models.graphql_mod.GraphQLMod
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L181[Source]
+
+Returns one mod by globally unique identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|uid |str |Unsigned decimal 64-bit mod UID.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLMod: Matching mod metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the UID is not an unsigned decimal 64-bit integer.
+|NexusResponseValidationError |If the response omits the `mod` root.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-mod-files]
+=== `AsyncNexusGraphQLClient.get_mod_files`
+
+[source,python]
+----
+async def get_mod_files(
+    uid: str,
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLModFile]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L236[Source]
+
+Returns a typed page of files for one mod UID.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|uid |str |Unsigned decimal 64-bit mod UID.
+|count |int |Maximum number of files in the local result slice.
+|offset |int |Zero-based local slice offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLModFile]: Locally sliced file page.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the UID is not an unsigned decimal 64-bit integer.
+|NexusResponseValidationError |If the response omits `modFiles`.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-revision]
+=== `AsyncNexusGraphQLClient.get_revision`
+
+[source,python]
+----
+async def get_revision(
+    slug: str,
+    revision_number: int,
+    *,
+    game_domain: str | None = None,
+) -> v2.models.graphql_revision.GraphQLRevision
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L300[Source]
+
+Returns one numbered revision belonging to a collection slug.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|slug |str |Nexus Mods collection slug.
+|revision_number |int |Collection revision number.
+|game_domain |str \| None |Game domain used to disambiguate the slug.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLRevision: Matching collection revision.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits the revision root.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-get-user]
+=== `AsyncNexusGraphQLClient.get_user`
+
+[source,python]
+----
+async def get_user(
+    user_id: int,
+) -> v2.models.graphql_user.GraphQLUser
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L333[Source]
+
+Returns one public Nexus Mods user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|user_id |int |Nexus Mods member identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLUser: Matching public user metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|NexusResponseValidationError |If the response omits the `user` root.
+|===
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-rate-limits]
+=== `AsyncNexusGraphQLClient.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L82[Source]
+
+The latest observed GraphQL rate-limit state.
+
+[#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-search-mods]
+=== `AsyncNexusGraphQLClient.search_mods`
+
+[source,python]
+----
+async def search_mods(
+    query: str,
+    *,
+    count: int = 20,
+    offset: int = 0,
+) -> v2.models.graphql_page.GraphQLPage[GraphQLMod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L204[Source]
+
+Searches mods and returns one typed result page.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |str |Name search pattern passed to Nexus Mods.
+|count |int |Maximum number of mods requested.
+|offset |int |Zero-based result offset.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|GraphQLPage[GraphQLMod]: Matching mod page.
+|===
+
+[#nexusmods-api-v2-models-graphql-collection-graphqlcollection]
+== `GraphQLCollection`
+
+`nexusmods_api.v2.models.graphql_collection.GraphQLCollection`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_collection.py#L8[Source]
+
+Describes core collection metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |int |The numeric collection identifier.
+|name |str |The collection's display name.
+|slug |str |The collection slug used in Nexus Mods URLs.
+|status |str \| None |The collection's publication status, when reported.
+|summary |str \| None |The collection's short summary, when reported.
+|===
+
+[#nexusmods-api-v2-models-graphql-game-graphqlgame]
+== `GraphQLGame`
+
+`nexusmods_api.v2.models.graphql_game.GraphQLGame`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_game.py#L10[Source]
+
+Describes game metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|approved_date |str \| None |The game's approval date as returned by GraphQL, when available.
+|domain_name |str |The game domain used in Nexus Mods URLs and API paths.
+|id |int |The numeric Nexus Mods game identifier.
+|name |str |The game's display name.
+|===
+
+[#nexusmods-api-v2-models-graphql-issue-graphqlissue]
+== `GraphQLIssue`
+
+`nexusmods_api.v2.models.graphql_issue.GraphQLIssue`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_issue.py#L10[Source]
+
+Describes one standards-compatible GraphQL execution error.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|extensions |dict[str, JsonValue] \| None |The server-defined GraphQL error metadata, when reported.
+|locations |list[v2.models.graphql_location.GraphQLLocation] \| None |The query locations associated with the error, when reported.
+|message |str |The human-readable GraphQL error message.
+|path |list[str \| int] \| None |The response path at which the error occurred, when reported.
+|===
+
+[#nexusmods-api-v2-models-graphql-location-graphqllocation]
+== `GraphQLLocation`
+
+`nexusmods_api.v2.models.graphql_location.GraphQLLocation`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_location.py#L6[Source]
+
+Identifies a source position related to a GraphQL error.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|column |int |The one-based query column number.
+|line |int |The one-based query line number.
+|===
+
+[#nexusmods-api-v2-models-graphql-mod-graphqlmod]
+== `GraphQLMod`
+
+`nexusmods_api.v2.models.graphql_mod.GraphQLMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_mod.py#L10[Source]
+
+Describes core mod metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|adult_content |bool \| None |Whether Nexus Mods marks the mod as adult content, when reported.
+|mod_id |int \| None |The numeric mod identifier within its game, when reported.
+|name |str \| None |The mod's display name, when reported.
+|summary |str \| None |The mod's short summary, when reported.
+|uid |str |The globally unique GraphQL mod identifier.
+|version |str \| None |The current mod version, when reported.
+|===
+
+[#nexusmods-api-v2-models-graphql-mod-file-graphqlmodfile]
+== `GraphQLModFile`
+
+`nexusmods_api.v2.models.graphql_mod_file.GraphQLModFile`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_mod_file.py#L10[Source]
+
+Describes core mod-file metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|file_id |int \| None |The numeric file identifier within its mod, when reported.
+|name |str \| None |The file's display name, when reported.
+|size |int \| None |The file size in bytes, when reported.
+|uid |str |The globally unique GraphQL file identifier.
+|version |str \| None |The file version, when reported.
+|===
+
+[#nexusmods-api-v2-models-graphql-page-graphqlpage]
+== `GraphQLPage`
+
+`nexusmods_api.v2.models.graphql_page.GraphQLPage`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_page.py#L12[Source]
+
+Provides a typed GraphQL connection-style result page.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|nodes |list[~ItemT] |The items returned on the current GraphQL page.
+|nodes_count |int \| None |The number of nodes reported for this page, when available.
+|total_count |int |The total number of matching items across all pages.
+|===
+
+[#nexusmods-api-v2-models-graphql-response-graphqlresponse]
+== `GraphQLResponse`
+
+`nexusmods_api.v2.models.graphql_response.GraphQLResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_response.py#L10[Source]
+
+Preserves raw GraphQL data, errors, and additive extensions.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|data |JsonValue |The GraphQL response data, including partial data when errors exist.
+|errors |list[v2.models.graphql_issue.GraphQLIssue] \| None |The GraphQL issues returned alongside the data, when any exist.
+|===
+
+[#nexusmods-api-v2-models-graphql-revision-graphqlrevision]
+== `GraphQLRevision`
+
+`nexusmods_api.v2.models.graphql_revision.GraphQLRevision`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_revision.py#L10[Source]
+
+Describes core collection-revision metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|download_link |str \| None |The temporary revision download link, when available.
+|file_size |int \| None |The generated revision archive size in bytes, when available.
+|id |int |The numeric collection-revision identifier.
+|revision_number |int |The revision's monotonically increasing number.
+|status |str \| None |The revision's processing or publication status, when reported.
+|===
+
+[#nexusmods-api-v2-models-graphql-user-graphqluser]
+== `GraphQLUser`
+
+`nexusmods_api.v2.models.graphql_user.GraphQLUser`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/models/graphql_user.py#L10[Source]
+
+Describes public user metadata returned by GraphQL v2.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|avatar |str \| None |The user's avatar URL, when available.
+|member_id |int |The user's Nexus Mods member identifier.
+|name |str |The user's display name.
+|===

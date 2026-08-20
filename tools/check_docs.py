@@ -1,4 +1,4 @@
-"""Validate the lightweight Antora-compatible AsciiDoc source tree."""
+"""Copyright (c) Modding Forge."""
 
 from __future__ import annotations
 
@@ -16,7 +16,14 @@ INCLUDE_PATTERN: re.Pattern[str] = re.compile(r"include::([^\[]+)\[")
 
 
 def load_descriptor(errors: list[str]) -> dict[str, object]:
-    """Loads and validates the component descriptor."""
+    """Loads and validates the component descriptor.
+
+    Args:
+        errors (list[str]): Mutable validation error collector.
+
+    Returns:
+        dict[str, object]: Parsed descriptor, or an empty mapping when invalid.
+    """
 
     loaded: object = yaml.safe_load(DESCRIPTOR.read_text(encoding="utf-8"))
     if not isinstance(loaded, dict):
@@ -35,7 +42,15 @@ def load_descriptor(errors: list[str]) -> dict[str, object]:
 
 
 def resolve_xref(module: str, target: str) -> Path:
-    """Resolves the supported local Antora page-reference forms."""
+    """Resolves the supported local Antora page-reference forms.
+
+    Args:
+        module (str): Module containing the reference.
+        target (str): Raw Antora page target.
+
+    Returns:
+        Path: Resolved documentation source path.
+    """
 
     cleaned: str = target.split("#", maxsplit=1)[0]
     if cleaned.startswith("page$"):
@@ -48,7 +63,16 @@ def resolve_xref(module: str, target: str) -> Path:
 
 
 def resolve_include(module: str, page: Path, target: str) -> Path:
-    """Resolves supported local Antora include families."""
+    """Resolves supported local Antora include families.
+
+    Args:
+        module (str): Module containing the page.
+        page (Path): Page containing the include.
+        target (str): Raw Antora include target.
+
+    Returns:
+        Path: Resolved include source path.
+    """
 
     if "$" not in target:
         return page.parent / target
@@ -60,7 +84,15 @@ def validate_navigation(
     descriptor: dict[str, object],
     errors: list[str],
 ) -> set[Path]:
-    """Validates configured navigation files and their page references."""
+    """Validates configured navigation files and their page references.
+
+    Args:
+        descriptor (dict[str, object]): Parsed Antora component descriptor.
+        errors (list[str]): Mutable validation error collector.
+
+    Returns:
+        set[Path]: Absolute page paths referenced by navigation files.
+    """
 
     nav_value: object = descriptor.get("nav", [])
     if not isinstance(nav_value, list):
@@ -88,7 +120,12 @@ def validate_navigation(
 
 
 def validate_pages(referenced: set[Path], errors: list[str]) -> None:
-    """Validates titles, xrefs, includes, and orphan page detection."""
+    """Validates titles, xrefs, includes, and orphan page detection.
+
+    Args:
+        referenced (set[Path]): Absolute navigation-referenced page paths.
+        errors (list[str]): Mutable validation error collector.
+    """
 
     pages: list[Path] = sorted(DOCS.glob("modules/*/pages/*.adoc"))
     for page in pages:
@@ -114,7 +151,11 @@ def validate_pages(referenced: set[Path], errors: list[str]) -> None:
 
 
 def main() -> None:
-    """Runs every documentation structure check."""
+    """Runs every documentation structure check.
+
+    Raises:
+        SystemExit: If one or more documentation checks fail.
+    """
 
     errors: list[str] = []
     descriptor: dict[str, object] = load_descriptor(errors)

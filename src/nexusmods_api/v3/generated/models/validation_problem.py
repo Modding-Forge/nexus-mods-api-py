@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class ValidationProblem(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """RFC 9457 Problem Details extended with validation errors."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

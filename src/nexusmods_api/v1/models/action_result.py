@@ -9,4 +9,6 @@ class ActionResult(NexusModel):
     """Describes the result of a v1 tracking or endorsement mutation."""
 
     message: str
+    """The human-readable result message returned by Nexus Mods."""
     status: Optional[str] = None
+    """The optional machine-readable result status."""

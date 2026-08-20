@@ -113,10 +113,13 @@ def _check_sdist(sdist: Path) -> dict[str, str]:
         "PKG-INFO",
         "README.md",
         "docs/antora.yml",
+        "docs/modules/reference/nav.adoc",
+        "docs/modules/reference/pages/index.adoc",
         "pyproject.toml",
         "specs/nexusmods-v3-openapi.sha256",
         "specs/nexusmods-v3-openapi.yaml",
         "src/nexusmods_api/py.typed",
+        "tools/generate_api_reference.py",
         "tools/generate_v3.py",
     )
     for required in required_files:
@@ -127,7 +130,17 @@ def _check_sdist(sdist: Path) -> dict[str, str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Validate built artifacts and optionally write a machine-readable report."""
+    """Validate built artifacts and optionally write a machine-readable report.
+
+    Args:
+        argv (list[str] | None): Command arguments without the executable name.
+
+    Returns:
+        int: Zero after every distribution check succeeds.
+
+    Raises:
+        RuntimeError: If arguments or built distribution artifacts are invalid.
+    """
     arguments = list(sys.argv[1:] if argv is None else argv)
     directory = Path(arguments.pop(0)) if arguments else Path("dist")
     report_path: Path | None = None

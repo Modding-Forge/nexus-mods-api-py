@@ -4,7 +4,10 @@ from ....models.nexus_model import NexusModel
 
 
 class CreateUploadRequest(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreateUploadRequest schema from the pinned Nexus Mods REST..."""
 
     filename: str
+    """User-defined filename."""
+
     size_bytes: int
+    """Size of file in bytes."""

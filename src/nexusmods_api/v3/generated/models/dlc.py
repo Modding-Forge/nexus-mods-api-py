@@ -4,8 +4,13 @@ from ....models.nexus_model import NexusModel
 
 
 class Dlc(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """A DLC available for a game."""
 
     id: str
+    """The DLC identifier, scoped to the game."""
+
     name: str
+    """The DLC display name."""
+
     thumbnail_url: str
+    """Thumbnail image URL."""

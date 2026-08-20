@@ -6,7 +6,7 @@ import re
 import warnings
 from collections.abc import Callable
 from pathlib import Path
-from typing import cast
+from typing import Optional, cast
 
 import httpx
 import pytest
@@ -42,6 +42,32 @@ class TestNexusV3Client:
         assert len(generated_models.__all__) == 84
         model_class = getattr(generated_models, generated_models.__all__[0])
         assert model_class.model_config["extra"] == "allow"
+
+    def test_generated_api_has_complete_source_documentation(self) -> None:
+        """Tests generated model fields and operation methods are documented."""
+
+        # given
+        operation_names: list[str] = [
+            self.__method_name(operation.operation_id)
+            for operation in OPERATIONS.values()
+        ]
+
+        # when
+        model_descriptions: list[Optional[str]] = [
+            field.description
+            for model_name in generated_models.__all__
+            for field in getattr(generated_models, model_name).model_fields.values()
+        ]
+        operation_docstrings: list[str] = [
+            inspect.getdoc(getattr(NexusV3Client, operation_name)) or ""
+            for operation_name in operation_names
+        ]
+
+        # then
+        assert model_descriptions
+        assert all(model_descriptions)
+        assert all("Args:" in docstring for docstring in operation_docstrings)
+        assert all("Returns:" in docstring for docstring in operation_docstrings)
 
     def test_invokes_every_generated_operation(self) -> None:
         """Tests every explicit generated method against its registry metadata."""

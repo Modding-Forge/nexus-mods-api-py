@@ -1,0 +1,4091 @@
+= REST v3
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client]
+== `NexusV3Client`
+
+`nexusmods_api.v3.nexus_v3_client.NexusV3Client`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L23[Source]
+
+Sync/async counterpart: <<nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client,AsyncNexusV3Client>>.
+
+Provides generated synchronous access to every pinned REST v3 operation.
+
+Use a generated method or the typed generic executor
+
+[source,python]
+----
+game = client.get_game("skyrimspecialedition")
+result = client.request("getGame", Game, path_parameters={
+    "game_domain": "skyrimspecialedition",
+})
+----
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-init]
+=== `NexusV3Client.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.oauth_auth.OAuthAuth | None = None,
+    *,
+    http_client: httpx.Client | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L39[Source]
+
+Initializes a synchronous REST v3 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.oauth_auth.OAuthAuth \| None |Optional authentication.
+|http_client |httpx.Client \| None |Optional caller-owned HTTP client.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-add-mod-changelog-entries]
+=== `NexusV3Client.add_mod_changelog_entries`
+
+[source,python]
+----
+def add_mod_changelog_entries(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L11[Source]
+
+Add changelog entries for a mod version.
+
+Appends changelog text for a version of a mod. This is additive only:...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-close]
+=== `NexusV3Client.close`
+
+[source,python]
+----
+def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L145[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-collection]
+=== `NexusV3Client.create_collection`
+
+[source,python]
+----
+def create_collection(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L31[Source]
+
+Create a collection.
+
+Creates a collection and claims an upload using the upload_id from a...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-collection-revision]
+=== `NexusV3Client.create_collection_revision`
+
+[source,python]
+----
+def create_collection_revision(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L48[Source]
+
+Create a collection revision.
+
+Creates a collection revision and claims an upload using the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the collection this revision will belong to.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-mod-file]
+=== `NexusV3Client.create_mod_file`
+
+[source,python]
+----
+def create_mod_file(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L68[Source]
+
+Create mod file.
+
+Creates a new mod file using the data from a finalised [upload...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-mod-file-version]
+=== `NexusV3Client.create_mod_file_version`
+
+[source,python]
+----
+def create_mod_file_version(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L85[Source]
+
+Create a new mod file version.
+
+Creates a new version of an existing mod file. The upload specified...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file to add a version to.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-multipart-upload]
+=== `NexusV3Client.create_multipart_upload`
+
+[source,python]
+----
+def create_multipart_upload(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L105[Source]
+
+Create multipart upload.
+
+Creates a new multipart upload session. This allows you to upload...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-update-group-version]
+=== `NexusV3Client.create_update_group_version`
+
+[source,python]
+----
+def create_update_group_version(
+    group_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L124[Source]
+
+Create a new update group version (updates a mod file).
+
+Creates a new version of an update group (tied to a mod file), the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|group_id |str |The unique identifier for the update group.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-create-upload]
+=== `NexusV3Client.create_upload`
+
+[source,python]
+----
+def create_upload(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L148[Source]
+
+Create upload.
+
+Creates a new upload session. This allows you to upload data for a...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-edit-collection]
+=== `NexusV3Client.edit_collection`
+
+[source,python]
+----
+def edit_collection(
+    id: int,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L165[Source]
+
+Edit collection.
+
+Update the core details of a collection such as the name, summary,...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |int |The unique identifier for the collection.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-finalise-upload]
+=== `NexusV3Client.finalise_upload`
+
+[source,python]
+----
+def finalise_upload(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L185[Source]
+
+Finalise upload.
+
+Closes the upload session once all data is uploaded. Sessions must be...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the upload.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-game-dlcs]
+=== `NexusV3Client.get_game_dlcs`
+
+[source,python]
+----
+def get_game_dlcs(
+    game_domain: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L202[Source]
+
+Get available DLCs for a game.
+
+List of DLCs available for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name (e.g. `skyrimspecialedition`).
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod]
+=== `NexusV3Client.get_mod`
+
+[source,python]
+----
+def get_mod(
+    game_domain: str,
+    game_scoped_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L221[Source]
+
+Get mod.
+
+Retrieve specified mod, from a specified game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name. This is the human readable game name which appears...
+|game_scoped_id |str |The game-scoped identifier for the mod. This is the mod identifier...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file]
+=== `NexusV3Client.get_mod_file`
+
+[source,python]
+----
+def get_mod_file(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L249[Source]
+
+Get mod file.
+
+Retrieve a single mod file by its identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version]
+=== `NexusV3Client.get_mod_file_version`
+
+[source,python]
+----
+def get_mod_file_version(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L266[Source]
+
+Get mod file version.
+
+Retrieve a single mod file version by its identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-by-game-scoped-id]
+=== `NexusV3Client.get_mod_file_version_by_game_scoped_id`
+
+[source,python]
+----
+def get_mod_file_version_by_game_scoped_id(
+    game_domain: str,
+    game_scoped_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L283[Source]
+
+Get mod file version by game-scoped ID.
+
+Retrieve a specific mod file version for a game by its game-scoped...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name. This is the human readable game name which appears...
+|game_scoped_id |str |The game-scoped identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dependencies]
+=== `NexusV3Client.get_mod_file_version_dependencies`
+
+[source,python]
+----
+def get_mod_file_version_dependencies(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L310[Source]
+
+Get mod file version dependencies.
+
+Retrieve the **raw** dependencies for a given mod file version with...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dependency-candidates-batch]
+=== `NexusV3Client.get_mod_file_version_dependency_candidates_batch`
+
+[source,python]
+----
+def get_mod_file_version_dependency_candidates_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L329[Source]
+
+Batch get mod file version materialized dependency candidates.
+
+Resolves the materialized dependency candidates for a set of source...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dependency-ranges]
+=== `NexusV3Client.get_mod_file_version_dependency_ranges`
+
+[source,python]
+----
+def get_mod_file_version_dependency_ranges(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L348[Source]
+
+Get mod file version dependency ranges.
+
+Retrieve dependency ranges for a given mod file version. Each...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dependency-ranges-materialized]
+=== `NexusV3Client.get_mod_file_version_dependency_ranges_materialized`
+
+[source,python]
+----
+def get_mod_file_version_dependency_ranges_materialized(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L367[Source]
+
+Get a mod file versions materialized version-range dependencies.
+
+Retrieve materialized dependencies for a given mod file version....
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dependency-ranges-materialized-batch]
+=== `NexusV3Client.get_mod_file_version_dependency_ranges_materialized_batch`
+
+[source,python]
+----
+def get_mod_file_version_dependency_ranges_materialized_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L386[Source]
+
+Batch get mod file version materialized dependency candidates.
+
+Resolves the materialized dependency candidates for a set of source...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-version-dlc-dependencies]
+=== `NexusV3Client.get_mod_file_version_dlc_dependencies`
+
+[source,python]
+----
+def get_mod_file_version_dlc_dependencies(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L408[Source]
+
+Get mod file version DLC dependencies.
+
+Retrieve the DLC dependencies for a given mod file version.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-versions]
+=== `NexusV3Client.get_mod_file_versions`
+
+[source,python]
+----
+def get_mod_file_versions(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L427[Source]
+
+Get mod file versions.
+
+Retrieve all versions for a given mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-file-versions-batch]
+=== `NexusV3Client.get_mod_file_versions_batch`
+
+[source,python]
+----
+def get_mod_file_versions_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L444[Source]
+
+Batch get mod file version details.
+
+Resolves a set of mod file versions to their mod file (update...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mod-files]
+=== `NexusV3Client.get_mod_files`
+
+[source,python]
+----
+def get_mod_files(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L463[Source]
+
+Get mod files.
+
+Retrieve all mod files for a given mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-mods-batch]
+=== `NexusV3Client.get_mods_batch`
+
+[source,python]
+----
+def get_mods_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L480[Source]
+
+Batch get mod display details.
+
+Resolves a set of composite mod unique ids to their mod-level display...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-trending-mods]
+=== `NexusV3Client.get_trending_mods`
+
+[source,python]
+----
+def get_trending_mods(
+    game_domain: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L497[Source]
+
+Get trending mods for a game.
+
+Public feed of the top 5 trending mods for a game over the past...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name (e.g. `skyrimspecialedition`).
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-get-upload]
+=== `NexusV3Client.get_upload`
+
+[source,python]
+----
+def get_upload(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L516[Source]
+
+Get upload.
+
+Get the state of an upload session. ### Next steps * Once the `state`...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the upload.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-move-mod-file-versions]
+=== `NexusV3Client.move_mod_file_versions`
+
+[source,python]
+----
+def move_mod_file_versions(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L533[Source]
+
+Move multiple mod file versions.
+
+Moves one or more mod file versions to a new position relative to...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-move-mod-file-versions-to-new-mod-file]
+=== `NexusV3Client.move_mod_file_versions_to_new_mod_file`
+
+[source,python]
+----
+def move_mod_file_versions_to_new_mod_file(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L550[Source]
+
+Move multiple mod file versions into a new mod file.
+
+Moves one or more mod file versions into a new mod file with the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-operations]
+=== `NexusV3Client.operations`
+
+[source,python]
+----
+def operations() -> dict[str, v3.v3_operation.V3Operation]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L69[Source]
+
+A defensive copy of the generated operation registry.
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-rate-limits]
+=== `NexusV3Client.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L63[Source]
+
+The latest observed REST v3 rate-limit state.
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-request]
+=== `NexusV3Client.request`
+
+[source,python]
+----
+def request(
+    operation_id: str,
+    response_model: type[~ResponseT],
+    *,
+    path_parameters: dict[str, str | int | float | bool] | None = None,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> ~ResponseT
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L75[Source]
+
+Executes one generated operation and validates a caller-selected model.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|operation_id |str |Stable OpenAPI operation identifier.
+|response_model |type[~ResponseT] |Expected response type.
+|path_parameters |dict[str, str \| int \| float \| bool] \| None |Values for every path placeholder.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters.
+|body |JsonValue |Optional JSON request body.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ResponseT: Validated response value.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the operation or path parameters are invalid.
+|NexusResponseValidationError |If response validation fails.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-request-json]
+=== `NexusV3Client.request_json`
+
+[source,python]
+----
+def request_json(
+    operation_id: str,
+    *,
+    path_parameters: dict[str, str | int | float | bool] | None = None,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_v3_client.py#L110[Source]
+
+Executes one generated operation and returns recursive JSON data.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|operation_id |str |Stable OpenAPI operation identifier.
+|path_parameters |dict[str, str \| int \| float \| bool] \| None |Values for every path placeholder.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters.
+|body |JsonValue |Optional JSON request body.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Validated JSON, or `None` for an empty response body.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the operation or path parameters are invalid.
+|NexusResponseValidationError |If JSON validation fails.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-set-mod-file-version-dependency-dlc]
+=== `NexusV3Client.set_mod_file_version_dependency_dlc`
+
+[source,python]
+----
+def set_mod_file_version_dependency_dlc(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L569[Source]
+
+Update mod file version DLC dependencies.
+
+Replace all DLC dependency definitions for a given mod file version....
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version (i.e. the version to...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-set-mod-file-version-dependency-ranges]
+=== `NexusV3Client.set_mod_file_version_dependency_ranges`
+
+[source,python]
+----
+def set_mod_file_version_dependency_ranges(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L589[Source]
+
+Update mod file version dependency ranges.
+
+Replace all dependency range definitions for a given mod file...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version (i.e. the version to...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-toggle-legacy-mod-requirements]
+=== `NexusV3Client.toggle_legacy_mod_requirements`
+
+[source,python]
+----
+def toggle_legacy_mod_requirements(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L609[Source]
+
+Toggle legacy mod requirements for a mod.
+
+Sets whether the given mod should use the legacy mod-level...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-v3-client-nexusv3client-update-mod-file]
+=== `NexusV3Client.update_mod_file`
+
+[source,python]
+----
+def update_mod_file(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L629[Source]
+
+Update a mod file.
+
+Updates the name of an existing mod file by its ID.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier of the mod file to update.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client]
+== `AsyncNexusV3Client`
+
+`nexusmods_api.v3.async_nexus_v3_client.AsyncNexusV3Client`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L23[Source]
+
+Sync/async counterpart: <<nexusmods-api-v3-nexus-v3-client-nexusv3client,NexusV3Client>>.
+
+Provides generated asynchronous access to every pinned REST v3 operation.
+
+Use a generated method without blocking the event loop
+
+[source,python]
+----
+async with AsyncNexusV3Client(auth=auth) as client:
+    game = await client.get_game("skyrimspecialedition")
+----
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-init]
+=== `AsyncNexusV3Client.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.async_oauth_auth.AsyncOAuthAuth | None = None,
+    *,
+    http_client: httpx.AsyncClient | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L37[Source]
+
+Initializes an asynchronous REST v3 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.async_oauth_auth.AsyncOAuthAuth \| None |Optional authentication.
+|http_client |httpx.AsyncClient \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-add-mod-changelog-entries]
+=== `AsyncNexusV3Client.add_mod_changelog_entries`
+
+[source,python]
+----
+async def add_mod_changelog_entries(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L11[Source]
+
+Add changelog entries for a mod version.
+
+Appends changelog text for a version of a mod. This is additive only:...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-close]
+=== `AsyncNexusV3Client.close`
+
+[source,python]
+----
+async def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L143[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-collection]
+=== `AsyncNexusV3Client.create_collection`
+
+[source,python]
+----
+async def create_collection(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L31[Source]
+
+Create a collection.
+
+Creates a collection and claims an upload using the upload_id from a...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-collection-revision]
+=== `AsyncNexusV3Client.create_collection_revision`
+
+[source,python]
+----
+async def create_collection_revision(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L50[Source]
+
+Create a collection revision.
+
+Creates a collection revision and claims an upload using the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the collection this revision will belong to.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-mod-file]
+=== `AsyncNexusV3Client.create_mod_file`
+
+[source,python]
+----
+async def create_mod_file(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L70[Source]
+
+Create mod file.
+
+Creates a new mod file using the data from a finalised [upload...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-mod-file-version]
+=== `AsyncNexusV3Client.create_mod_file_version`
+
+[source,python]
+----
+async def create_mod_file_version(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L87[Source]
+
+Create a new mod file version.
+
+Creates a new version of an existing mod file. The upload specified...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file to add a version to.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-multipart-upload]
+=== `AsyncNexusV3Client.create_multipart_upload`
+
+[source,python]
+----
+async def create_multipart_upload(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L107[Source]
+
+Create multipart upload.
+
+Creates a new multipart upload session. This allows you to upload...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-update-group-version]
+=== `AsyncNexusV3Client.create_update_group_version`
+
+[source,python]
+----
+async def create_update_group_version(
+    group_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L126[Source]
+
+Create a new update group version (updates a mod file).
+
+Creates a new version of an update group (tied to a mod file), the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|group_id |str |The unique identifier for the update group.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-create-upload]
+=== `AsyncNexusV3Client.create_upload`
+
+[source,python]
+----
+async def create_upload(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L150[Source]
+
+Create upload.
+
+Creates a new upload session. This allows you to upload data for a...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-edit-collection]
+=== `AsyncNexusV3Client.edit_collection`
+
+[source,python]
+----
+async def edit_collection(
+    id: int,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L167[Source]
+
+Edit collection.
+
+Update the core details of a collection such as the name, summary,...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |int |The unique identifier for the collection.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-finalise-upload]
+=== `AsyncNexusV3Client.finalise_upload`
+
+[source,python]
+----
+async def finalise_upload(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L187[Source]
+
+Finalise upload.
+
+Closes the upload session once all data is uploaded. Sessions must be...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the upload.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-game-dlcs]
+=== `AsyncNexusV3Client.get_game_dlcs`
+
+[source,python]
+----
+async def get_game_dlcs(
+    game_domain: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L204[Source]
+
+Get available DLCs for a game.
+
+List of DLCs available for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name (e.g. `skyrimspecialedition`).
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod]
+=== `AsyncNexusV3Client.get_mod`
+
+[source,python]
+----
+async def get_mod(
+    game_domain: str,
+    game_scoped_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L223[Source]
+
+Get mod.
+
+Retrieve specified mod, from a specified game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name. This is the human readable game name which appears...
+|game_scoped_id |str |The game-scoped identifier for the mod. This is the mod identifier...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file]
+=== `AsyncNexusV3Client.get_mod_file`
+
+[source,python]
+----
+async def get_mod_file(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L251[Source]
+
+Get mod file.
+
+Retrieve a single mod file by its identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version]
+=== `AsyncNexusV3Client.get_mod_file_version`
+
+[source,python]
+----
+async def get_mod_file_version(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L268[Source]
+
+Get mod file version.
+
+Retrieve a single mod file version by its identifier.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-by-game-scoped-id]
+=== `AsyncNexusV3Client.get_mod_file_version_by_game_scoped_id`
+
+[source,python]
+----
+async def get_mod_file_version_by_game_scoped_id(
+    game_domain: str,
+    game_scoped_id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L285[Source]
+
+Get mod file version by game-scoped ID.
+
+Retrieve a specific mod file version for a game by its game-scoped...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name. This is the human readable game name which appears...
+|game_scoped_id |str |The game-scoped identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dependencies]
+=== `AsyncNexusV3Client.get_mod_file_version_dependencies`
+
+[source,python]
+----
+async def get_mod_file_version_dependencies(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L312[Source]
+
+Get mod file version dependencies.
+
+Retrieve the **raw** dependencies for a given mod file version with...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dependency-candidates-batch]
+=== `AsyncNexusV3Client.get_mod_file_version_dependency_candidates_batch`
+
+[source,python]
+----
+async def get_mod_file_version_dependency_candidates_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L331[Source]
+
+Batch get mod file version materialized dependency candidates.
+
+Resolves the materialized dependency candidates for a set of source...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dependency-ranges]
+=== `AsyncNexusV3Client.get_mod_file_version_dependency_ranges`
+
+[source,python]
+----
+async def get_mod_file_version_dependency_ranges(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L350[Source]
+
+Get mod file version dependency ranges.
+
+Retrieve dependency ranges for a given mod file version. Each...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dependency-ranges-materialized]
+=== `AsyncNexusV3Client.get_mod_file_version_dependency_ranges_materialized`
+
+[source,python]
+----
+async def get_mod_file_version_dependency_ranges_materialized(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L369[Source]
+
+Get a mod file versions materialized version-range dependencies.
+
+Retrieve materialized dependencies for a given mod file version....
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dependency-ranges-materialized-batch]
+=== `AsyncNexusV3Client.get_mod_file_version_dependency_ranges_materialized_batch`
+
+[source,python]
+----
+async def get_mod_file_version_dependency_ranges_materialized_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L388[Source]
+
+Batch get mod file version materialized dependency candidates.
+
+Resolves the materialized dependency candidates for a set of source...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-version-dlc-dependencies]
+=== `AsyncNexusV3Client.get_mod_file_version_dlc_dependencies`
+
+[source,python]
+----
+async def get_mod_file_version_dlc_dependencies(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L410[Source]
+
+Get mod file version DLC dependencies.
+
+Retrieve the DLC dependencies for a given mod file version.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-versions]
+=== `AsyncNexusV3Client.get_mod_file_versions`
+
+[source,python]
+----
+async def get_mod_file_versions(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L429[Source]
+
+Get mod file versions.
+
+Retrieve all versions for a given mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-file-versions-batch]
+=== `AsyncNexusV3Client.get_mod_file_versions_batch`
+
+[source,python]
+----
+async def get_mod_file_versions_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L448[Source]
+
+Batch get mod file version details.
+
+Resolves a set of mod file versions to their mod file (update...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mod-files]
+=== `AsyncNexusV3Client.get_mod_files`
+
+[source,python]
+----
+async def get_mod_files(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L467[Source]
+
+Get mod files.
+
+Retrieve all mod files for a given mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-mods-batch]
+=== `AsyncNexusV3Client.get_mods_batch`
+
+[source,python]
+----
+async def get_mods_batch(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L484[Source]
+
+Batch get mod display details.
+
+Resolves a set of composite mod unique ids to their mod-level display...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-trending-mods]
+=== `AsyncNexusV3Client.get_trending_mods`
+
+[source,python]
+----
+async def get_trending_mods(
+    game_domain: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L501[Source]
+
+Get trending mods for a game.
+
+Public feed of the top 5 trending mods for a game over the past...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Game domain name (e.g. `skyrimspecialedition`).
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-get-upload]
+=== `AsyncNexusV3Client.get_upload`
+
+[source,python]
+----
+async def get_upload(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L520[Source]
+
+Get upload.
+
+Get the state of an upload session. ### Next steps * Once the `state`...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the upload.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-move-mod-file-versions]
+=== `AsyncNexusV3Client.move_mod_file_versions`
+
+[source,python]
+----
+async def move_mod_file_versions(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L537[Source]
+
+Move multiple mod file versions.
+
+Moves one or more mod file versions to a new position relative to...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-move-mod-file-versions-to-new-mod-file]
+=== `AsyncNexusV3Client.move_mod_file_versions_to_new_mod_file`
+
+[source,python]
+----
+async def move_mod_file_versions_to_new_mod_file(
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L556[Source]
+
+Move multiple mod file versions into a new mod file.
+
+Moves one or more mod file versions into a new mod file with the...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-operations]
+=== `AsyncNexusV3Client.operations`
+
+[source,python]
+----
+def operations() -> dict[str, v3.v3_operation.V3Operation]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L67[Source]
+
+A defensive copy of the generated operation registry.
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-rate-limits]
+=== `AsyncNexusV3Client.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L61[Source]
+
+The latest observed REST v3 rate-limit state.
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-request]
+=== `AsyncNexusV3Client.request`
+
+[source,python]
+----
+async def request(
+    operation_id: str,
+    response_model: type[~ResponseT],
+    *,
+    path_parameters: dict[str, str | int | float | bool] | None = None,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> ~ResponseT
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L73[Source]
+
+Executes one generated operation and validates a caller-selected model.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|operation_id |str |Stable OpenAPI operation identifier.
+|response_model |type[~ResponseT] |Expected response type.
+|path_parameters |dict[str, str \| int \| float \| bool] \| None |Values for every path placeholder.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters.
+|body |JsonValue |Optional JSON request body.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ResponseT: Validated response value.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the operation or path parameters are invalid.
+|NexusResponseValidationError |If response validation fails.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-request-json]
+=== `AsyncNexusV3Client.request_json`
+
+[source,python]
+----
+async def request_json(
+    operation_id: str,
+    *,
+    path_parameters: dict[str, str | int | float | bool] | None = None,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/async_nexus_v3_client.py#L108[Source]
+
+Executes one generated operation and returns recursive JSON data.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|operation_id |str |Stable OpenAPI operation identifier.
+|path_parameters |dict[str, str \| int \| float \| bool] \| None |Values for every path placeholder.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters.
+|body |JsonValue |Optional JSON request body.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Validated JSON, or `None` for an empty response body.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the operation or path parameters are invalid.
+|NexusResponseValidationError |If JSON validation fails.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-set-mod-file-version-dependency-dlc]
+=== `AsyncNexusV3Client.set_mod_file_version_dependency_dlc`
+
+[source,python]
+----
+async def set_mod_file_version_dependency_dlc(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L575[Source]
+
+Update mod file version DLC dependencies.
+
+Replace all DLC dependency definitions for a given mod file version....
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version (i.e. the version to...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-set-mod-file-version-dependency-ranges]
+=== `AsyncNexusV3Client.set_mod_file_version_dependency_ranges`
+
+[source,python]
+----
+async def set_mod_file_version_dependency_ranges(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L595[Source]
+
+Update mod file version dependency ranges.
+
+Replace all dependency range definitions for a given mod file...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file version (i.e. the version to...
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-toggle-legacy-mod-requirements]
+=== `AsyncNexusV3Client.toggle_legacy_mod_requirements`
+
+[source,python]
+----
+async def toggle_legacy_mod_requirements(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L615[Source]
+
+Toggle legacy mod requirements for a mod.
+
+Sets whether the given mod should use the legacy mod-level...
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-async-nexus-v3-client-asyncnexusv3client-update-mod-file]
+=== `AsyncNexusV3Client.update_mod_file`
+
+[source,python]
+----
+async def update_mod_file(
+    id: str,
+    *,
+    query: dict[str, str | int | float | bool] | None = None,
+    body: JsonValue = None,
+) -> JsonValue
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L635[Source]
+
+Update a mod file.
+
+Updates the name of an existing mod file by its ID.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier of the mod file to update.
+|query |dict[str, str \| int \| float \| bool] \| None |Optional query parameters accepted by the pinned operation.
+|body |JsonValue |Optional JSON request body accepted by the pinned operation.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|JsonValue: Decoded response data, or `None` when the response has no body.
+|===
+
+[#nexusmods-api-v3-nexus-stability-warning-nexusstabilitywarning]
+== `NexusStabilityWarning`
+
+`nexusmods_api.v3.nexus_stability_warning.NexusStabilityWarning`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/nexus_stability_warning.py#L4[Source]
+
+Warns that an upstream endpoint is experimental or deprecated.
+
+[#nexusmods-api-v3-v3-operation-v3operation]
+== `V3Operation`
+
+`nexusmods_api.v3.v3_operation.V3Operation`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/v3_operation.py#L8[Source]
+
+Describes one operation generated from the pinned OpenAPI snapshot.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|deprecated |bool |Whether the operation is marked deprecated by Nexus Mods.
+|experimental |bool |Whether the operation is marked experimental by Nexus Mods.
+|has_body |bool |Whether the operation accepts a JSON request body.
+|method |str |The uppercase HTTP method used by the operation.
+|operation_id |str |The stable OpenAPI operation identifier.
+|path |str |The relative REST v3 path template.
+|path_parameters |tuple[str, ...] |The ordered path parameter names required by the operation.
+|===
+
+[#nexusmods-api-v3-generated-models-add-mod-changelog-entries-request-addmodchangelogentriesrequest]
+== `AddModChangelogEntriesRequest`
+
+`nexusmods_api.v3.generated.models.add_mod_changelog_entries_request.AddModChangelogEntriesRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/add_mod_changelog_entries_request.py#L6[Source]
+
+Models the AddModChangelogEntriesRequest schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|changelog |str |The changelog text to add for this version.
+|version |str |The version string these entries apply to.
+|===
+
+[#nexusmods-api-v3-generated-models-add-mod-changelog-entries-success-addmodchangelogentriessuccess]
+== `AddModChangelogEntriesSuccess`
+
+`nexusmods_api.v3.generated.models.add_mod_changelog_entries_success.AddModChangelogEntriesSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/add_mod_changelog_entries_success.py#L6[Source]
+
+Models the AddModChangelogEntriesSuccess schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|changelog |str |The changelog text that was added for this version.
+|version |str |The version string these entries apply to.
+|===
+
+[#nexusmods-api-v3-generated-models-collection-manifest-collectionmanifest]
+== `CollectionManifest`
+
+`nexusmods_api.v3.generated.models.collection_manifest.CollectionManifest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/collection_manifest.py#L7[Source]
+
+The JSON manifest that defines a collection.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|info |JsonValue |The embedded CollectionManifestInfo data for this CollectionManifest...
+|mods |list[JsonValue] |List of mod resources for the manifest.
+|===
+
+[#nexusmods-api-v3-generated-models-collection-manifest-info-collectionmanifestinfo]
+== `CollectionManifestInfo`
+
+`nexusmods_api.v3.generated.models.collection_manifest_info.CollectionManifestInfo`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/collection_manifest_info.py#L8[Source]
+
+The info section of the JSON manifest.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|author |str |The collection author's name.
+|author_url |str \| None |The url of the author's profile.
+|description |str \| None |A description of the collection.
+|domain_name |str |The domain name of the game.
+|game_versions |list[str] \| None |A list of game versions that this revision has been tested with.
+|name |str |The name of the collection.
+|summary |str \| None |A short summary of the collection.
+|===
+
+[#nexusmods-api-v3-generated-models-collection-manifest-mod-collectionmanifestmod]
+== `CollectionManifestMod`
+
+`nexusmods_api.v3.generated.models.collection_manifest_mod.CollectionManifestMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/collection_manifest_mod.py#L9[Source]
+
+Defines a mod to be used in a collection as part of the manifest.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|author |str \| None |The name of the mod author.
+|domain_name |str |The domain name of the game for the mod.
+|name |str |The name of the mod.
+|optional |bool |Whether the mod is required for this collection.
+|source |JsonValue |The embedded CollectionManifestModSource data for this...
+|version |str |The mod version.
+|===
+
+[#nexusmods-api-v3-generated-models-collection-manifest-mod-source-collectionmanifestmodsource]
+== `CollectionManifestModSource`
+
+`nexusmods_api.v3.generated.models.collection_manifest_mod_source.CollectionManifestModSource`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/collection_manifest_mod_source.py#L9[Source]
+
+Source information for a mod (nexus or other) as part of the manifest.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|adult_content |bool \| None |Does the mod include adult content.
+|file_expression |str \| None |File expression of the mod resource.
+|file_id |str \| None |The identifier of the mod file version associated with the mod in...
+|file_size |int \| None |The file size in kb.
+|logical_filename |str \| None |Logical file name of the mod resource.
+|md5 |str \| None |An MD5 hash of the file for verification.
+|mod_id |str \| None |The identifier of the mod source for this collection manifest.
+|type |JsonValue |The embedded ModSource data for this CollectionManifestModSource value.
+|update_policy |JsonValue \| None |The embedded UpdatePolicy data for this CollectionManifestModSource...
+|url |str \| None |The direct url of the file.
+|===
+
+[#nexusmods-api-v3-generated-models-collection-payload-collectionpayload]
+== `CollectionPayload`
+
+`nexusmods_api.v3.generated.models.collection_payload.CollectionPayload`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/collection_payload.py#L7[Source]
+
+The data payload used to create a collection revision.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|adult_content |bool |Whether the collection includes adult content.
+|collection_manifest |JsonValue |The embedded CollectionManifest data for this CollectionPayload value.
+|collection_schema_id |int |Collection schema id.
+|===
+
+[#nexusmods-api-v3-generated-models-create-collection-request-createcollectionrequest]
+== `CreateCollectionRequest`
+
+`nexusmods_api.v3.generated.models.create_collection_request.CreateCollectionRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_collection_request.py#L7[Source]
+
+Models the CreateCollectionRequest schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|collection_data |JsonValue |The embedded CollectionPayload data for this CreateCollectionRequest...
+|upload_id |str |The unique identifier for the upload to claim against this new...
+|===
+
+[#nexusmods-api-v3-generated-models-create-collection-revision-request-createcollectionrevisionrequest]
+== `CreateCollectionRevisionRequest`
+
+`nexusmods_api.v3.generated.models.create_collection_revision_request.CreateCollectionRevisionRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_collection_revision_request.py#L7[Source]
+
+Models the CreateCollectionRevisionRequest schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|collection_data |JsonValue |The embedded CollectionPayload data for this...
+|upload_id |str |The unique identifier for the upload to claim against this new...
+|===
+
+[#nexusmods-api-v3-generated-models-create-collection-revision-success-createcollectionrevisionsuccess]
+== `CreateCollectionRevisionSuccess`
+
+`nexusmods_api.v3.generated.models.create_collection_revision_success.CreateCollectionRevisionSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_collection_revision_success.py#L7[Source]
+
+Models the CreateCollectionRevisionSuccess schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|collection_id |str |The unique identifier for the collection this revision belongs to.
+|id |str |The unique identifier for the revision.
+|revision_number |int |The revision number.
+|revision_status |JsonValue |The embedded RevisionStatus data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-create-collection-success-createcollectionsuccess]
+== `CreateCollectionSuccess`
+
+`nexusmods_api.v3.generated.models.create_collection_success.CreateCollectionSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_collection_success.py#L7[Source]
+
+Models the CreateCollectionSuccess schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the collection.
+|revision_id |str |The unique identifier for the initial collection revision.
+|revision_number |int |The revision number.
+|revision_status |JsonValue |The embedded RevisionStatus data for this CreateCollectionSuccess value.
+|slug |str |The slug for the collection.
+|===
+
+[#nexusmods-api-v3-generated-models-create-mod-file-request-createmodfilerequest]
+== `CreateModFileRequest`
+
+`nexusmods_api.v3.generated.models.create_mod_file_request.CreateModFileRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_mod_file_request.py#L9[Source]
+
+Models the CreateModFileRequest schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|allow_mod_manager_download |bool \| None |Whether mod manager downloads are enabled for this file.
+|description |str \| None |Description of the mod file.
+|file_category |JsonValue |The embedded NewModFileCategory data for this CreateModFileRequest value.
+|mod_id |str |The unique identifier for the mod this file belongs to. * Use [get...
+|name |str |Mod file name.
+|primary_mod_manager_download |bool \| None |Whether this file is the default download for mod managers.
+|show_requirements_pop_up |bool \| None |Whether to show a requirements popup when downloading this file.
+|update_mod_version |bool \| None |Whether to update the mod's version to match this file's version.
+|upload_id |str |The unique identifier for the upload.
+|version |str |Mod file version.
+|===
+
+[#nexusmods-api-v3-generated-models-create-mod-file-success-createmodfilesuccess]
+== `CreateModFileSuccess`
+
+`nexusmods_api.v3.generated.models.create_mod_file_success.CreateModFileSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_mod_file_success.py#L7[Source]
+
+Models the CreateModFileSuccess schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-create-mod-file-version-request-createmodfileversionrequest]
+== `CreateModFileVersionRequest`
+
+`nexusmods_api.v3.generated.models.create_mod_file_version_request.CreateModFileVersionRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_mod_file_version_request.py#L9[Source]
+
+Models the CreateModFileVersionRequest schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|allow_mod_manager_download |bool \| None |Whether mod manager downloads are enabled for this file.
+|archive_existing_file |bool \| None |Whether to archive the existing file when uploading a new version.
+|description |str \| None |Description of the mod file.
+|file_category |JsonValue |The embedded NewModFileCategory data for this...
+|name |str |Mod file name.
+|previous_version_id |str \| None |The unique identifier for the mod file version this version is...
+|primary_mod_manager_download |bool \| None |Whether this file is the default download for mod managers.
+|show_requirements_pop_up |bool \| None |Whether to show a requirements popup when downloading this file.
+|update_mod_version |bool \| None |Whether to update the mod's version to match this file's version.
+|upload_id |str |The unique identifier for the upload.
+|version |str |Mod file version.
+|===
+
+[#nexusmods-api-v3-generated-models-create-mod-file-version-success-createmodfileversionsuccess]
+== `CreateModFileVersionSuccess`
+
+`nexusmods_api.v3.generated.models.create_mod_file_version_success.CreateModFileVersionSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_mod_file_version_success.py#L7[Source]
+
+Models the CreateModFileVersionSuccess schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|file |JsonValue |The embedded UploadModFile data for this CreateModFileVersionSuccess...
+|version |JsonValue |The embedded CreatedModFileVersion data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-create-multipart-upload-success-createmultipartuploadsuccess]
+== `CreateMultipartUploadSuccess`
+
+`nexusmods_api.v3.generated.models.create_multipart_upload_success.CreateMultipartUploadSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_multipart_upload_success.py#L6[Source]
+
+Models the CreateMultipartUploadSuccess schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|complete_presigned_url |str |Presigned URL to complete upload.
+|part_presigned_urls |list[str] |Presigned URLs for each upload part.
+|part_size_bytes |int |Size of each part in bytes.
+|===
+
+[#nexusmods-api-v3-generated-models-create-update-group-version-request-createupdategroupversionrequest]
+== `CreateUpdateGroupVersionRequest`
+
+`nexusmods_api.v3.generated.models.create_update_group_version_request.CreateUpdateGroupVersionRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_update_group_version_request.py#L9[Source]
+
+Models the CreateUpdateGroupVersionRequest schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|allow_mod_manager_download |bool \| None |Whether mod manager downloads are enabled for this file.
+|archive_existing_file |bool \| None |Whether to archive the existing file when uploading a new version.
+|description |str \| None |Description of the mod file.
+|file_category |JsonValue |The embedded NewModFileCategory data for this...
+|name |str |Mod file name.
+|previous_version_id |str \| None |The unique identifier for the mod file version this version is...
+|primary_mod_manager_download |bool \| None |Whether this file is the default download for mod managers.
+|show_requirements_pop_up |bool \| None |Whether to show a requirements popup when downloading this file.
+|upload_id |str |The unique identifier for the upload.
+|version |str |Mod file version.
+|===
+
+[#nexusmods-api-v3-generated-models-create-update-group-version-success-createupdategroupversionsuccess]
+== `CreateUpdateGroupVersionSuccess`
+
+`nexusmods_api.v3.generated.models.create_update_group_version_success.CreateUpdateGroupVersionSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_update_group_version_success.py#L7[Source]
+
+Models the CreateUpdateGroupVersionSuccess schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-create-upload-request-createuploadrequest]
+== `CreateUploadRequest`
+
+`nexusmods_api.v3.generated.models.create_upload_request.CreateUploadRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_upload_request.py#L6[Source]
+
+Models the CreateUploadRequest schema from the pinned Nexus Mods REST...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|filename |str |User-defined filename.
+|size_bytes |int |Size of file in bytes.
+|===
+
+[#nexusmods-api-v3-generated-models-create-upload-success-createuploadsuccess]
+== `CreateUploadSuccess`
+
+`nexusmods_api.v3.generated.models.create_upload_success.CreateUploadSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/create_upload_success.py#L6[Source]
+
+Models the CreateUploadSuccess schema from the pinned Nexus Mods REST...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|presigned_url |str |Presigned URL.
+|===
+
+[#nexusmods-api-v3-generated-models-created-mod-file-version-createdmodfileversion]
+== `CreatedModFileVersion`
+
+`nexusmods_api.v3.generated.models.created_mod_file_version.CreatedModFileVersion`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/created_mod_file_version.py#L6[Source]
+
+Models the CreatedModFileVersion schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the created mod file version.
+|position |str |Position within the mod file.
+|===
+
+[#nexusmods-api-v3-generated-models-dependency-candidate-mod-file-dependencycandidatemodfile]
+== `DependencyCandidateModFile`
+
+`nexusmods_api.v3.generated.models.dependency_candidate_mod_file.DependencyCandidateModFile`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/dependency_candidate_mod_file.py#L7[Source]
+
+A mod file with its associated mod and candidate versions.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|candidate_versions |list[JsonValue] |The embedded ModFileVersion data for this DependencyCandidateModFile...
+|id |str |The unique identifier for the mod file.
+|mod |JsonValue |The embedded MinimalMod data for this DependencyCandidateModFile value.
+|name |str |The name of the mod file.
+|===
+
+[#nexusmods-api-v3-generated-models-dlc-dlc]
+== `Dlc`
+
+`nexusmods_api.v3.generated.models.dlc.Dlc`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/dlc.py#L6[Source]
+
+A DLC available for a game.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The DLC identifier, scoped to the game.
+|name |str |The DLC display name.
+|thumbnail_url |str |Thumbnail image URL.
+|===
+
+[#nexusmods-api-v3-generated-models-edit-collection-request-editcollectionrequest]
+== `EditCollectionRequest`
+
+`nexusmods_api.v3.generated.models.edit_collection_request.EditCollectionRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/edit_collection_request.py#L8[Source]
+
+Models the EditCollectionRequest schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|category_id |int \| None |ID of the parent category.
+|description |str \| None |Description of the collection.
+|name |str \| None |Name of the collection.
+|summary |str \| None |Collection summary.
+|===
+
+[#nexusmods-api-v3-generated-models-finalise-upload-success-finaliseuploadsuccess]
+== `FinaliseUploadSuccess`
+
+`nexusmods_api.v3.generated.models.finalise_upload_success.FinaliseUploadSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/finalise_upload_success.py#L7[Source]
+
+Models the FinaliseUploadSuccess schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-game-dlcs-response-gamedlcsresponse]
+== `GameDlcsResponse`
+
+`nexusmods_api.v3.generated.models.game_dlcs_response.GameDlcsResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/game_dlcs_response.py#L7[Source]
+
+Models the GameDlcsResponse schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlcs |list[JsonValue] |The embedded Dlc data for this GameDlcsResponse value.
+|===
+
+[#nexusmods-api-v3-generated-models-get-mod-details-getmoddetails]
+== `GetModDetails`
+
+`nexusmods_api.v3.generated.models.get_mod_details.GetModDetails`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/get_mod_details.py#L7[Source]
+
+Models the GetModDetails schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-get-upload-success-getuploadsuccess]
+== `GetUploadSuccess`
+
+`nexusmods_api.v3.generated.models.get_upload_success.GetUploadSuccess`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/get_upload_success.py#L7[Source]
+
+Models the GetUploadSuccess schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-materialized-mod-file-version-dependency-materializedmodfileversiondependency]
+== `MaterializedModFileVersionDependency`
+
+`nexusmods_api.v3.generated.models.materialized_mod_file_version_dependency.MaterializedModFileVersionDependency`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/materialized_mod_file_version_dependency.py#L7[Source]
+
+A materialized dependency definition with its resolved candidate mod...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|candidate_mod_files |list[JsonValue] |The embedded DependencyCandidateModFile data for this...
+|id |str |The unique identifier for the dependency definition.
+|===
+
+[#nexusmods-api-v3-generated-models-minimal-game-minimalgame]
+== `MinimalGame`
+
+`nexusmods_api.v3.generated.models.minimal_game.MinimalGame`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/minimal_game.py#L6[Source]
+
+A minimal representation of a game.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|domain_name |str |The URL-friendly slug for the game.
+|id |str |The unique identifier for the game.
+|name |str |The name of the game.
+|===
+
+[#nexusmods-api-v3-generated-models-minimal-mod-minimalmod]
+== `MinimalMod`
+
+`nexusmods_api.v3.generated.models.minimal_mod.MinimalMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/minimal_mod.py#L9[Source]
+
+A minimal representation of a mod.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|adult_content |bool \| None |Whether the mod is marked as adult content.
+|game |JsonValue |The embedded MinimalGame data for this MinimalMod value.
+|game_scoped_id |str |The game-scoped identifier for the mod.
+|id |str |The unique identifier for the mod.
+|name |str |The name of the mod.
+|status |JsonValue \| None |The embedded ModStatus data for this MinimalMod value.
+|thumbnail_url |str \| None |The URL of the mod's thumbnail image.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-mod]
+== `Mod`
+
+`nexusmods_api.v3.generated.models.mod.Mod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod.py#L8[Source]
+
+Models the Mod schema from the pinned Nexus Mods REST v3 OpenAPI...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_id |str |The unique identifier for game this mod belongs to.
+|game_scoped_id |str |The game-scoped identifier for the mod.
+|id |str |The unique identifier for the mod.
+|name |str \| None |Mod name (only shown if mod is available).
+|===
+
+[#nexusmods-api-v3-generated-models-mod-detail-moddetail]
+== `ModDetail`
+
+`nexusmods_api.v3.generated.models.mod_detail.ModDetail`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_detail.py#L9[Source]
+
+Mod-level display details. The game-scoped mod id and game id can be...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|adult_content |bool |Whether the mod is flagged as adult content.
+|game_id |str |The id of the game this mod belongs to.
+|id |str |Composite mod UID. Echoes the request value so the caller can key...
+|name |str |Mod display name.
+|status |JsonValue |The embedded ModStatus data for this ModDetail value.
+|summary |str |Sanitised short summary (plain text, as shown on mod cards). Empty...
+|thumbnail_url |str \| None |Mod thumbnail image URL. Null when the mod has no image, or when...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-modfile]
+== `ModFile`
+
+`nexusmods_api.v3.generated.models.mod_file.ModFile`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file.py#L6[Source]
+
+A mod file - the persistent, updatable file on a mod page. Its...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the mod file.
+|name |str |The name of the mod file.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-category-modfilecategory]
+== `ModFileCategory`
+
+`nexusmods_api.v3.generated.models.mod_file_category.ModFileCategory`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_category.py#L7[Source]
+
+Models the ModFileCategory schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-modfileversion]
+== `ModFileVersion`
+
+`nexusmods_api.v3.generated.models.mod_file_version.ModFileVersion`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version.py#L9[Source]
+
+A single version of a mod file, merging the physical file and its...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|category |JsonValue |The embedded ModFileCategory data for this ModFileVersion value.
+|file |JsonValue |The embedded ModFile data for this ModFileVersion value.
+|game_scoped_id |str |The game-scoped identifier for the mod file version.
+|id |str |The unique identifier for the mod file version.
+|is_primary |bool \| None |Whether this version is the primary file for the mod. The primary...
+|name |str |The name of the mod file version.
+|position |str |Position within the mod file.
+|uploaded_at |str |The date and time the version was uploaded.
+|version |str |The version string of the mod file version.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependencies-response-modfileversiondependenciesresponse]
+== `ModFileVersionDependenciesResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependencies_response.ModFileVersionDependenciesResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependencies_response.py#L7[Source]
+
+Models the ModFileVersionDependenciesResponse schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dependency_definitions |list[JsonValue] |Raw (non-materialized) mod-file version-range dependency definitions,...
+|dlc_dependency_definitions |list[JsonValue] |DLC dependency definitions.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-candidate-modfileversiondependencycandidate]
+== `ModFileVersionDependencyCandidate`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_candidate.ModFileVersionDependencyCandidate`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_candidate.py#L7[Source]
+
+A single materialized dependency candidate row. Rows sharing the same...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|category |JsonValue |The embedded ModFileCategory data for this...
+|definition_id |str |The dependency definition id. Rows sharing this id are OR-alternatives.
+|mod_file_id |str |The mod file (update group/chain) the candidate belongs to.
+|mod_id |str |The id of the mod the candidate belongs to.
+|mod_status |JsonValue |The embedded ModStatus data for this...
+|position |str |Position within the mod file. Higher = newer within the chain.
+|source_version_id |str |The requesting (installed/enabled) mod file version id.
+|version_id |str |The candidate mod file version id.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-candidates-batch-request-modfileversiondependencycandidatesbatchrequest]
+== `ModFileVersionDependencyCandidatesBatchRequest`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_candidates_batch_request.ModFileVersionDependencyCandidatesBatchRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_candidates_batch_request.py#L8[Source]
+
+Models the ModFileVersionDependencyCandidatesBatchRequest schema from...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|page |int \| None |Page number (1-indexed).
+|page_size |int \| None |Number of candidate rows per page.
+|version_ids |list[str] |The source mod file version ids to resolve dependency candidates for....
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-candidates-batch-response-modfileversiondependencycandidatesbatchresponse]
+== `ModFileVersionDependencyCandidatesBatchResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_candidates_batch_response.ModFileVersionDependencyCandidatesBatchResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_candidates_batch_response.py#L7[Source]
+
+Models the ModFileVersionDependencyCandidatesBatchResponse schema...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|candidates |list[JsonValue] |The embedded ModFileVersionDependencyCandidate data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-definition-with-ranges-modfileversiondependencydefinitionwithranges]
+== `ModFileVersionDependencyDefinitionWithRanges`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_definition_with_ranges.ModFileVersionDependencyDefinitionWithRanges`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_definition_with_ranges.py#L7[Source]
+
+Models the ModFileVersionDependencyDefinitionWithRanges schema from...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the dependency definition.
+|ranges |list[JsonValue] |The embedded ModFileVersionDependencyRange data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-range-modfileversiondependencyrange]
+== `ModFileVersionDependencyRange`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_range.ModFileVersionDependencyRange`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_range.py#L7[Source]
+
+Models the ModFileVersionDependencyRange schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the dependency range.
+|max_version |JsonValue |The embedded ModFileVersion data for this...
+|min_version |JsonValue |The embedded ModFileVersion data for this...
+|target_mod_file |JsonValue |The embedded ModFileWithMod data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-range-definition-input-modfileversiondependencyrangedefinitioninput]
+== `ModFileVersionDependencyRangeDefinitionInput`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_range_definition_input.ModFileVersionDependencyRangeDefinitionInput`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_range_definition_input.py#L7[Source]
+
+Models the ModFileVersionDependencyRangeDefinitionInput schema from...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|ranges |list[JsonValue] |The embedded ModFileVersionDependencyRangeInput data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-range-input-modfileversiondependencyrangeinput]
+== `ModFileVersionDependencyRangeInput`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_range_input.ModFileVersionDependencyRangeInput`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_range_input.py#L8[Source]
+
+Models the ModFileVersionDependencyRangeInput schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|max_version_id |str \| None |The ID of the mod file version representing the upper bound of the...
+|min_version_id |str |The ID of the mod file version representing the lower bound of the...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-ranges-materialized-response-modfileversiondependencyrangesmaterializedresponse]
+== `ModFileVersionDependencyRangesMaterializedResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_ranges_materialized_response.ModFileVersionDependencyRangesMaterializedResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_ranges_materialized_response.py#L7[Source]
+
+Models the ModFileVersionDependencyRangesMaterializedResponse schema...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dependencies |list[JsonValue] |Materialized version-range dependencies (each stored range resolved...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dependency-ranges-response-modfileversiondependencyrangesresponse]
+== `ModFileVersionDependencyRangesResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dependency_ranges_response.ModFileVersionDependencyRangesResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dependency_ranges_response.py#L7[Source]
+
+Models the ModFileVersionDependencyRangesResponse schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dependency_definitions |list[JsonValue] |The embedded ModFileVersionDependencyDefinitionWithRanges data for...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-detail-modfileversiondetail]
+== `ModFileVersionDetail`
+
+`nexusmods_api.v3.generated.models.mod_file_version_detail.ModFileVersionDetail`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_detail.py#L6[Source]
+
+Lightweight mod file version detail used to resolve an installed...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The mod file version id.
+|mod_file_id |str |The id of the mod file (update group/chain) this version belongs to.
+|mod_id |str |The id of the mod this version belongs to.
+|name |str |The name of the mod file version.
+|position |str |Position within the mod file. Higher = newer within the chain.
+|version |str |The version string of the mod file version.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dlc-dependencies-response-modfileversiondlcdependenciesresponse]
+== `ModFileVersionDlcDependenciesResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dlc_dependencies_response.ModFileVersionDlcDependenciesResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dlc_dependencies_response.py#L7[Source]
+
+Models the ModFileVersionDlcDependenciesResponse schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlc_dependency_definitions |list[JsonValue] |DLC dependency definitions.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dlc-dependency-definition-modfileversiondlcdependencydefinition]
+== `ModFileVersionDlcDependencyDefinition`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dlc_dependency_definition.ModFileVersionDlcDependencyDefinition`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dlc_dependency_definition.py#L7[Source]
+
+Models the ModFileVersionDlcDependencyDefinition schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlc_targets |list[JsonValue] |The DLCs that satisfy this definition (OR-alternatives).
+|id |str |The unique identifier for the DLC dependency definition.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dlc-dependency-definition-input-modfileversiondlcdependencydefinitioninput]
+== `ModFileVersionDlcDependencyDefinitionInput`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dlc_dependency_definition_input.ModFileVersionDlcDependencyDefinitionInput`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dlc_dependency_definition_input.py#L6[Source]
+
+Models the ModFileVersionDlcDependencyDefinitionInput schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlc_ids |list[str] |The DLC ids that satisfy this definition (OR-alternatives). Must be...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-version-dlc-target-modfileversiondlctarget]
+== `ModFileVersionDlcTarget`
+
+`nexusmods_api.v3.generated.models.mod_file_version_dlc_target.ModFileVersionDlcTarget`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_version_dlc_target.py#L6[Source]
+
+Models the ModFileVersionDlcTarget schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlc_id |str |The DLC identifier.
+|id |str |The unique identifier for the DLC dependency target.
+|name |str |The DLC name.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-versions-batch-request-modfileversionsbatchrequest]
+== `ModFileVersionsBatchRequest`
+
+`nexusmods_api.v3.generated.models.mod_file_versions_batch_request.ModFileVersionsBatchRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_versions_batch_request.py#L6[Source]
+
+Models the ModFileVersionsBatchRequest schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|version_ids |list[str] |The mod file version ids to resolve details for.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-versions-batch-response-modfileversionsbatchresponse]
+== `ModFileVersionsBatchResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_versions_batch_response.ModFileVersionsBatchResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_versions_batch_response.py#L7[Source]
+
+Models the ModFileVersionsBatchResponse schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|versions |list[JsonValue] |The embedded ModFileVersionDetail data for this...
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-versions-response-modfileversionsresponse]
+== `ModFileVersionsResponse`
+
+`nexusmods_api.v3.generated.models.mod_file_versions_response.ModFileVersionsResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_versions_response.py#L7[Source]
+
+Models the ModFileVersionsResponse schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|versions |list[JsonValue] |The embedded ModFileVersion data for this ModFileVersionsResponse value.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-with-aggregates-modfilewithaggregates]
+== `ModFileWithAggregates`
+
+`nexusmods_api.v3.generated.models.mod_file_with_aggregates.ModFileWithAggregates`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_with_aggregates.py#L7[Source]
+
+A mod file enriched with aggregate stats across its versions.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-file-with-mod-modfilewithmod]
+== `ModFileWithMod`
+
+`nexusmods_api.v3.generated.models.mod_file_with_mod.ModFileWithMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_file_with_mod.py#L7[Source]
+
+A mod file with its associated mod.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-files-response-modfilesresponse]
+== `ModFilesResponse`
+
+`nexusmods_api.v3.generated.models.mod_files_response.ModFilesResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_files_response.py#L7[Source]
+
+Models the ModFilesResponse schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|mod_files |list[JsonValue] |The embedded ModFileWithAggregates data for this ModFilesResponse value.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-source-modsource]
+== `ModSource`
+
+`nexusmods_api.v3.generated.models.mod_source.ModSource`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_source.py#L7[Source]
+
+Used to define the source of a mod. Useful for informing Collections...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-mod-status-modstatus]
+== `ModStatus`
+
+`nexusmods_api.v3.generated.models.mod_status.ModStatus`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mod_status.py#L7[Source]
+
+The effective visibility status of a mod.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-mods-batch-request-modsbatchrequest]
+== `ModsBatchRequest`
+
+`nexusmods_api.v3.generated.models.mods_batch_request.ModsBatchRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mods_batch_request.py#L6[Source]
+
+Models the ModsBatchRequest schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|mod_ids |list[str] |Composite mod UIDs (gameId << 32 \| modId) to resolve. Same id space...
+|===
+
+[#nexusmods-api-v3-generated-models-mods-batch-response-modsbatchresponse]
+== `ModsBatchResponse`
+
+`nexusmods_api.v3.generated.models.mods_batch_response.ModsBatchResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/mods_batch_response.py#L7[Source]
+
+Models the ModsBatchResponse schema from the pinned Nexus Mods REST...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|mods |list[JsonValue] |The embedded ModDetail data for this ModsBatchResponse value.
+|===
+
+[#nexusmods-api-v3-generated-models-move-mod-file-versions-request-movemodfileversionsrequest]
+== `MoveModFileVersionsRequest`
+
+`nexusmods_api.v3.generated.models.move_mod_file_versions_request.MoveModFileVersionsRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/move_mod_file_versions_request.py#L7[Source]
+
+Models the MoveModFileVersionsRequest schema from the pinned Nexus...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|target |JsonValue |The embedded MoveToPosition data for this MoveModFileVersionsRequest...
+|version_ids |list[str] |The unique identifiers for the mod file versions to move. Versions...
+|===
+
+[#nexusmods-api-v3-generated-models-move-mod-file-versions-response-movemodfileversionsresponse]
+== `MoveModFileVersionsResponse`
+
+`nexusmods_api.v3.generated.models.move_mod_file_versions_response.MoveModFileVersionsResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/move_mod_file_versions_response.py#L9[Source]
+
+The result of a bulk move operation.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|deleted_source_mod_file_ids |list[str] \| None |A list of IDs for any source mod files that were automatically...
+|modified_source_mod_files |list[JsonValue] \| None |A list of source mod files that had versions removed but still...
+|target_mod_file |JsonValue |The embedded ModFileWithAggregates data for this...
+|versions |list[JsonValue] |The updated versions reflecting their new mod file and order.
+|===
+
+[#nexusmods-api-v3-generated-models-move-mod-file-versions-to-new-mod-file-request-movemodfileversionstonewmodfilerequest]
+== `MoveModFileVersionsToNewModFileRequest`
+
+`nexusmods_api.v3.generated.models.move_mod_file_versions_to_new_mod_file_request.MoveModFileVersionsToNewModFileRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/move_mod_file_versions_to_new_mod_file_request.py#L6[Source]
+
+Models the MoveModFileVersionsToNewModFileRequest schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|mod_file_name |str |The name of the new mod file.
+|version_ids |list[str] |The unique identifiers for the mod file versions to move. Versions...
+|===
+
+[#nexusmods-api-v3-generated-models-move-mod-file-versions-to-new-mod-file-response-movemodfileversionstonewmodfileresponse]
+== `MoveModFileVersionsToNewModFileResponse`
+
+`nexusmods_api.v3.generated.models.move_mod_file_versions_to_new_mod_file_response.MoveModFileVersionsToNewModFileResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/move_mod_file_versions_to_new_mod_file_response.py#L9[Source]
+
+The result of a bulk move operation.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|deleted_source_mod_file_ids |list[str] \| None |A list of IDs for any source mod files that were automatically...
+|modified_source_mod_files |list[JsonValue] \| None |A list of source mod files that had versions removed but still...
+|new_mod_file |JsonValue |The embedded ModFileWithAggregates data for this...
+|versions |list[JsonValue] |The updated versions reflecting their new mod file and order.
+|===
+
+[#nexusmods-api-v3-generated-models-move-to-position-movetoposition]
+== `MoveToPosition`
+
+`nexusmods_api.v3.generated.models.move_to_position.MoveToPosition`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/move_to_position.py#L7[Source]
+
+Place the moved versions earlier (`before`) or later (`after`) with...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|relative_placement |JsonValue |The embedded RelativePlacement data for this MoveToPosition value.
+|target_version_id |str |The unique identifier of the version to position relative to.
+|===
+
+[#nexusmods-api-v3-generated-models-new-mod-file-category-newmodfilecategory]
+== `NewModFileCategory`
+
+`nexusmods_api.v3.generated.models.new_mod_file_category.NewModFileCategory`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/new_mod_file_category.py#L7[Source]
+
+Models the NewModFileCategory schema from the pinned Nexus Mods REST...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-pagination-meta-paginationmeta]
+== `PaginationMeta`
+
+`nexusmods_api.v3.generated.models.pagination_meta.PaginationMeta`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/pagination_meta.py#L6[Source]
+
+Pagination metadata for paginated responses.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|page |int |Current page number (1-indexed).
+|page_size |int |Number of items per page.
+|total_count |int |Total number of items matching the query across all pages.
+|===
+
+[#nexusmods-api-v3-generated-models-problem-details-problemdetails]
+== `ProblemDetails`
+
+`nexusmods_api.v3.generated.models.problem_details.ProblemDetails`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/problem_details.py#L6[Source]
+
+An RFC 9457 Problem Details object.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|detail |str |A human-readable explanation specific to this occurrence of the problem.
+|instance |str |A URI reference that identifies the specific occurrence of the problem.
+|status |int |The HTTP status code.
+|title |str |A short, human-readable summary of the problem type.
+|type |str |A URI reference that identifies the problem type.
+|===
+
+[#nexusmods-api-v3-generated-models-relative-placement-relativeplacement]
+== `RelativePlacement`
+
+`nexusmods_api.v3.generated.models.relative_placement.RelativePlacement`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/relative_placement.py#L7[Source]
+
+`before`: earlier than the target. `after`: later than the target.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-revision-status-revisionstatus]
+== `RevisionStatus`
+
+`nexusmods_api.v3.generated.models.revision_status.RevisionStatus`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/revision_status.py#L7[Source]
+
+The status of a collection revision.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-toggle-legacy-mod-requirements-request-togglelegacymodrequirementsrequest]
+== `ToggleLegacyModRequirementsRequest`
+
+`nexusmods_api.v3.generated.models.toggle_legacy_mod_requirements_request.ToggleLegacyModRequirementsRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/toggle_legacy_mod_requirements_request.py#L6[Source]
+
+Models the ToggleLegacyModRequirementsRequest schema from the pinned...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|enabled |bool |Whether legacy mod-level requirements should be used for this mod.
+|===
+
+[#nexusmods-api-v3-generated-models-trending-mod-trendingmod]
+== `TrendingMod`
+
+`nexusmods_api.v3.generated.models.trending_mod.TrendingMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/trending_mod.py#L8[Source]
+
+A trending mod entry in the public marketing feed.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|author |str \| None |The display name of the user who uploaded the mod.
+|mod_page_url |str |Canonical URL of the mod page on nexusmods.com.
+|name |str |The mod name.
+|picture_url |str \| None |URL of the mod's main image.
+|summary |str \| None |Short summary shown on the mod listing.
+|===
+
+[#nexusmods-api-v3-generated-models-trending-mods-response-trendingmodsresponse]
+== `TrendingModsResponse`
+
+`nexusmods_api.v3.generated.models.trending_mods_response.TrendingModsResponse`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/trending_mods_response.py#L7[Source]
+
+Models the TrendingModsResponse schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|mods |list[JsonValue] |The embedded TrendingMod data for this TrendingModsResponse value.
+|===
+
+[#nexusmods-api-v3-generated-models-update-mod-file-request-updatemodfilerequest]
+== `UpdateModFileRequest`
+
+`nexusmods_api.v3.generated.models.update_mod_file_request.UpdateModFileRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/update_mod_file_request.py#L6[Source]
+
+Models the UpdateModFileRequest schema from the pinned Nexus Mods...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|name |str |The name of the mod file.
+|===
+
+[#nexusmods-api-v3-generated-models-update-mod-file-version-dependency-ranges-request-updatemodfileversiondependencyrangesrequest]
+== `UpdateModFileVersionDependencyRangesRequest`
+
+`nexusmods_api.v3.generated.models.update_mod_file_version_dependency_ranges_request.UpdateModFileVersionDependencyRangesRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/update_mod_file_version_dependency_ranges_request.py#L7[Source]
+
+Models the UpdateModFileVersionDependencyRangesRequest schema from...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dependency_definitions |list[JsonValue] |The embedded ModFileVersionDependencyRangeDefinitionInput data for...
+|===
+
+[#nexusmods-api-v3-generated-models-update-mod-file-version-dlc-dependencies-request-updatemodfileversiondlcdependenciesrequest]
+== `UpdateModFileVersionDlcDependenciesRequest`
+
+`nexusmods_api.v3.generated.models.update_mod_file_version_dlc_dependencies_request.UpdateModFileVersionDlcDependenciesRequest`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/update_mod_file_version_dlc_dependencies_request.py#L7[Source]
+
+Models the UpdateModFileVersionDlcDependenciesRequest schema from the...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|dlc_dependency_definitions |list[JsonValue] |The full set of DLC dependency definitions for the version. Replaces...
+|===
+
+[#nexusmods-api-v3-generated-models-update-policy-updatepolicy]
+== `UpdatePolicy`
+
+`nexusmods_api.v3.generated.models.update_policy.UpdatePolicy`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/update_policy.py#L7[Source]
+
+Available update policies of a file resource.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-upload-upload]
+== `Upload`
+
+`nexusmods_api.v3.generated.models.upload.Upload`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/upload.py#L7[Source]
+
+Models the Upload schema from the pinned Nexus Mods REST v3 OpenAPI...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the upload.
+|state |JsonValue |The embedded UploadState data for this Upload value.
+|user |JsonValue |The embedded UploadUser data for this Upload value.
+|===
+
+[#nexusmods-api-v3-generated-models-upload-mod-file-uploadmodfile]
+== `UploadModFile`
+
+`nexusmods_api.v3.generated.models.upload_mod_file.UploadModFile`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/upload_mod_file.py#L7[Source]
+
+Models the UploadModFile schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|file_category |JsonValue |The embedded NewModFileCategory data for this UploadModFile value.
+|game_scoped_id |str |The game-scoped identifier for the mod file.
+|id |str |The unique identifier for the mod file.
+|name |str |Mod file name.
+|===
+
+[#nexusmods-api-v3-generated-models-upload-state-uploadstate]
+== `UploadState`
+
+`nexusmods_api.v3.generated.models.upload_state.UploadState`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/upload_state.py#L7[Source]
+
+Models the UploadState schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-upload-user-uploaduser]
+== `UploadUser`
+
+`nexusmods_api.v3.generated.models.upload_user.UploadUser`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/upload_user.py#L6[Source]
+
+Models the UploadUser schema from the pinned Nexus Mods REST v3...
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|id |str |The unique identifier for the user who owns this upload.
+|===
+
+[#nexusmods-api-v3-generated-models-validation-problem-validationproblem]
+== `ValidationProblem`
+
+`nexusmods_api.v3.generated.models.validation_problem.ValidationProblem`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/validation_problem.py#L7[Source]
+
+RFC 9457 Problem Details extended with validation errors.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|root |JsonValue |The unstructured value returned for this OpenAPI schema.
+|===
+
+[#nexusmods-api-v3-generated-models-validation-problem-item-validationproblemitem]
+== `ValidationProblemItem`
+
+`nexusmods_api.v3.generated.models.validation_problem_item.ValidationProblemItem`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/models/validation_problem_item.py#L6[Source]
+
+A single validation error with a JSON pointer to the problematic field.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|detail |str |Human-readable description of the validation error.
+|pointer |str |A JSON Pointer (RFC 6901) to the field that caused the error.
+|===

@@ -1,0 +1,364 @@
+= Aggregate clients and configuration
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient]
+== `AsyncNexusClient`
+
+`nexusmods_api.async_nexus_client.AsyncNexusClient`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L15[Source]
+
+Sync/async counterpart: <<nexusmods-api-nexus-client-nexusclient,NexusClient>>.
+
+Lazily aggregates all asynchronous Nexus Mods API clients.
+
+Access only the API versions an application needs
+
+[source,python]
+----
+async with AsyncNexusClient(
+    auth=ApiKeyAuth.from_value(api_key)
+) as client:
+    games = await client.v1.games()
+----
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-init]
+=== `AsyncNexusClient.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.async_oauth_auth.AsyncOAuthAuth | None = None,
+    *,
+    http_client: httpx.AsyncClient | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L34[Source]
+
+Initializes an aggregate without creating any API subclient.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.async_oauth_auth.AsyncOAuthAuth \| None |Optional authentication.
+|http_client |httpx.AsyncClient \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-close]
+=== `AsyncNexusClient.close`
+
+[source,python]
+----
+async def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L92[Source]
+
+Closes only subclients that were actually created.
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-graphql]
+=== `AsyncNexusClient.graphql`
+
+[source,python]
+----
+def graphql() -> v2.async_nexus_graphql_client.AsyncNexusGraphQLClient
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L66[Source]
+
+The lazily created GraphQL v2 client.
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-v1]
+=== `AsyncNexusClient.v1`
+
+[source,python]
+----
+def v1() -> v1.async_nexus_v1_client.AsyncNexusV1Client
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L56[Source]
+
+The lazily created REST v1 client.
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-v2]
+=== `AsyncNexusClient.v2`
+
+[source,python]
+----
+def v2() -> v2.async_nexus_graphql_client.AsyncNexusGraphQLClient
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L76[Source]
+
+The GraphQL v2 client under its version alias.
+
+[#nexusmods-api-async-nexus-client-asyncnexusclient-v3]
+=== `AsyncNexusClient.v3`
+
+[source,python]
+----
+def v3() -> v3.async_nexus_v3_client.AsyncNexusV3Client
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/async_nexus_client.py#L82[Source]
+
+The lazily created REST v3 client.
+
+[#nexusmods-api-nexus-client-nexusclient]
+== `NexusClient`
+
+`nexusmods_api.nexus_client.NexusClient`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L15[Source]
+
+Sync/async counterpart: <<nexusmods-api-async-nexus-client-asyncnexusclient,AsyncNexusClient>>.
+
+Lazily aggregates all synchronous Nexus Mods API clients.
+
+Access only the API versions an application needs
+
+[source,python]
+----
+with NexusClient(auth=ApiKeyAuth.from_value(api_key)) as client:
+    games = client.v1.games()
+----
+
+[#nexusmods-api-nexus-client-nexusclient-init]
+=== `NexusClient.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.oauth_auth.OAuthAuth | None = None,
+    *,
+    http_client: httpx.Client | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L32[Source]
+
+Initializes an aggregate without creating any API subclient.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.oauth_auth.OAuthAuth \| None |Optional authentication.
+|http_client |httpx.Client \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-nexus-client-nexusclient-close]
+=== `NexusClient.close`
+
+[source,python]
+----
+def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L90[Source]
+
+Closes only subclients that were actually created.
+
+[#nexusmods-api-nexus-client-nexusclient-graphql]
+=== `NexusClient.graphql`
+
+[source,python]
+----
+def graphql() -> v2.nexus_graphql_client.NexusGraphQLClient
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L64[Source]
+
+The lazily created GraphQL v2 client.
+
+[#nexusmods-api-nexus-client-nexusclient-v1]
+=== `NexusClient.v1`
+
+[source,python]
+----
+def v1() -> v1.nexus_v1_client.NexusV1Client
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L54[Source]
+
+The lazily created REST v1 client.
+
+[#nexusmods-api-nexus-client-nexusclient-v2]
+=== `NexusClient.v2`
+
+[source,python]
+----
+def v2() -> v2.nexus_graphql_client.NexusGraphQLClient
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L74[Source]
+
+The GraphQL v2 client under its version alias.
+
+[#nexusmods-api-nexus-client-nexusclient-v3]
+=== `NexusClient.v3`
+
+[source,python]
+----
+def v3() -> v3.nexus_v3_client.NexusV3Client
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_client.py#L80[Source]
+
+The lazily created REST v3 client.
+
+[#nexusmods-api-nexus-config-nexusconfig]
+== `NexusConfig`
+
+`nexusmods_api.nexus_config.NexusConfig`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_config.py#L6[Source]
+
+Defines application identity and shared client network behavior.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|application_name |str |The application name reported to Nexus Mods.
+|application_version |str |The semantic application version reported to Nexus Mods.
+|backoff_base_seconds |float |The base delay used for exponential retry backoff.
+|low_limit_threshold |int |The remaining request count that enables adaptive pacing.
+|max_retries |int |The maximum number of retries for a retry-safe request.
+|oauth_base_url |str |The Nexus Mods OAuth service base URL.
+|oauth_refresh_leeway_seconds |float |The safety window before proactive OAuth token refresh.
+|pressure_interval_seconds |float |The minimum interval between requests while a limit is low.
+|protocol_version |str |The compatibility protocol version reported to Nexus Mods.
+|sso_url |str |The Nexus Mods WebSocket SSO endpoint URL.
+|timeout_seconds |float |The timeout applied to individual HTTP operations.
+|v1_base_url |str |The Nexus Mods REST API v1 base URL.
+|v2_url |str |The Nexus Mods GraphQL API v2 endpoint URL.
+|v3_base_url |str |The Nexus Mods REST API v3 base URL.
+|warn_on_unstable |bool |Whether unstable API operations emit a warning on first use.
+|===
+
+[#nexusmods-api-nexus-config-nexusconfig-validate-http-url]
+=== `NexusConfig.validate_http_url`
+
+[source,python]
+----
+def validate_http_url(
+    value: str,
+) -> str
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_config.py#L59[Source]
+
+Validates and normalizes an HTTP service URL.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|value |str |Service URL supplied by the caller.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|str: The URL without a trailing slash.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If a non-local service URL does not use HTTPS.
+|===
+
+[#nexusmods-api-nexus-config-nexusconfig-validate-websocket-url]
+=== `NexusConfig.validate_websocket_url`
+
+[source,python]
+----
+def validate_websocket_url(
+    value: str,
+) -> str
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/nexus_config.py#L84[Source]
+
+Validates and normalizes a WebSocket service URL.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|value |str |WebSocket URL supplied by the caller.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|str: The URL without a trailing slash.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If a non-local WebSocket URL does not use WSS.
+|===
+
+[#nexusmods-api-models-rate-limit-state-ratelimitstate]
+== `RateLimitState`
+
+`nexusmods_api.models.rate_limit_state.RateLimitState`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/models/rate_limit_state.py#L8[Source]
+
+Stores the latest rate-limit values observed by a client.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|daily_limit |int \| None |The server-reported daily request limit.
+|daily_remaining |int \| None |The server-reported number of daily requests remaining.
+|hourly_limit |int \| None |The server-reported hourly request limit.
+|hourly_remaining |int \| None |The server-reported number of hourly requests remaining.
+|retry_after_seconds |float \| None |The latest retry delay requested by Nexus Mods.
+|===
+
+[#nexusmods-api-models-rate-limit-state-ratelimitstate-under-pressure]
+=== `RateLimitState.under_pressure`
+
+[source,python]
+----
+def under_pressure(
+    threshold: int,
+) -> bool
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/models/rate_limit_state.py#L31[Source]
+
+Checks whether either remaining request budget is low.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|threshold |int |Remaining request count considered low.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|bool: Whether an observed budget is at or below the threshold.
+|===

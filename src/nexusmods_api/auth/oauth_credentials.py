@@ -48,6 +48,9 @@ class OAuthCredentials(BaseModel):
 
         Returns:
             Self: Masked OAuth credentials.
+
+        Raises:
+            ValueError: If the response has no non-empty access token.
         """
 
         access_token: object = payload.get("access_token")

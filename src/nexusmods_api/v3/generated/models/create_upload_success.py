@@ -4,6 +4,7 @@ from ....models.nexus_model import NexusModel
 
 
 class CreateUploadSuccess(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the CreateUploadSuccess schema from the pinned Nexus Mods REST..."""
 
     presigned_url: str
+    """Presigned URL."""

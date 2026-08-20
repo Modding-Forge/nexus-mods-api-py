@@ -9,6 +9,7 @@ uv run ruff check src tests tools
 uv run pyright
 uv run pytest --cov=nexusmods_api --cov-branch
 uv run python tools/check_docs.py
+uv run python tools/generate_api_reference.py --check
 uv run python tools/generate_v3.py
 git diff --exit-code -- src/nexusmods_api/v3/generated
 ----

@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class GameDlcsResponse(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the GameDlcsResponse schema from the pinned Nexus Mods REST v3..."""
 
     dlcs: list[JsonValue]
+    """The embedded Dlc data for this GameDlcsResponse value."""

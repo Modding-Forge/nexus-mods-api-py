@@ -5,7 +5,10 @@ from ....types import JsonValue
 
 
 class ModFileVersionDependenciesResponse(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionDependenciesResponse schema from the pinned..."""
 
     dependency_definitions: list[JsonValue]
+    """Raw (non-materialized) mod-file version-range dependency definitions,..."""
+
     dlc_dependency_definitions: list[JsonValue]
+    """DLC dependency definitions."""

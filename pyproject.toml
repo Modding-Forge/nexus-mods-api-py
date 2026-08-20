@@ -82,7 +82,22 @@ line-length = 90
 target-version = "py312"
 
 [tool.ruff.lint]
-select = ["ANN", "B", "D", "E", "F", "I", "RUF", "UP", "W"]
+explicit-preview-rules = true
+preview = true
+select = [
+    "ANN",
+    "B",
+    "D",
+    "D421",
+    "DOC201",
+    "DOC501",
+    "E",
+    "F",
+    "I",
+    "RUF",
+    "UP",
+    "W",
+]
 ignore = ["D202", "UP040", "UP045", "UP046", "UP047"]
 
 [tool.ruff.lint.pydocstyle]

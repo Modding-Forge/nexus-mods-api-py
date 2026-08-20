@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class RevisionStatus(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """The status of a collection revision."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

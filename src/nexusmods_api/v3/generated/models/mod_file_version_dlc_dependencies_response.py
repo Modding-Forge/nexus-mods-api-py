@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class ModFileVersionDlcDependenciesResponse(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the ModFileVersionDlcDependenciesResponse schema from the..."""
 
     dlc_dependency_definitions: list[JsonValue]
+    """DLC dependency definitions."""

@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class RelativePlacement(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """`before`: earlier than the target. `after`: later than the target."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

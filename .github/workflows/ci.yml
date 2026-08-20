@@ -46,7 +46,9 @@ jobs:
         run: uv run pyright
 
       - name: Check AsciiDoc documentation
-        run: uv run python tools/check_docs.py
+        run: |
+          uv run python tools/generate_api_reference.py --check
+          uv run python tools/check_docs.py
 
       - name: Verify generated REST v3 sources
         run: |

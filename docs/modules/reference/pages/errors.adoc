@@ -1,0 +1,337 @@
+= Errors
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-errors-nexus-api-error-nexusapierror]
+== `NexusApiError`
+
+`nexusmods_api.errors.nexus_api_error.NexusApiError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L8[Source]
+
+Provides the sanitized base error for the Nexus Mods client.
+
+[#nexusmods-api-errors-nexus-api-error-nexusapierror-init]
+=== `NexusApiError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-authentication-error-nexusauthenticationerror]
+== `NexusAuthenticationError`
+
+`nexusmods_api.errors.nexus_authentication_error.NexusAuthenticationError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_authentication_error.py#L6[Source]
+
+Indicates rejected or insufficient Nexus Mods authentication.
+
+[#nexusmods-api-errors-nexus-authentication-error-nexusauthenticationerror-init]
+=== `NexusAuthenticationError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-graphql-error-nexusgraphqlerror]
+== `NexusGraphQLError`
+
+`nexusmods_api.errors.nexus_graphql_error.NexusGraphQLError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_graphql_error.py#L6[Source]
+
+Reports one or more errors returned by the GraphQL endpoint.
+
+[#nexusmods-api-errors-nexus-graphql-error-nexusgraphqlerror-init]
+=== `NexusGraphQLError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-http-error-nexushttperror]
+== `NexusHttpError`
+
+`nexusmods_api.errors.nexus_http_error.NexusHttpError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_http_error.py#L6[Source]
+
+Indicates a final unsuccessful Nexus Mods HTTP response.
+
+[#nexusmods-api-errors-nexus-http-error-nexushttperror-init]
+=== `NexusHttpError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-oauth-error-nexusoautherror]
+== `NexusOAuthError`
+
+`nexusmods_api.errors.nexus_oauth_error.NexusOAuthError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_oauth_error.py#L6[Source]
+
+Reports a sanitized OAuth authorization or token failure.
+
+[#nexusmods-api-errors-nexus-oauth-error-nexusoautherror-init]
+=== `NexusOAuthError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-rate-limit-error-nexusratelimiterror]
+== `NexusRateLimitError`
+
+`nexusmods_api.errors.nexus_rate_limit_error.NexusRateLimitError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_rate_limit_error.py#L6[Source]
+
+Indicates that the Nexus Mods request limit was exhausted.
+
+[#nexusmods-api-errors-nexus-rate-limit-error-nexusratelimiterror-init]
+=== `NexusRateLimitError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-response-validation-error-nexusresponsevalidationerror]
+== `NexusResponseValidationError`
+
+`nexusmods_api.errors.nexus_response_validation_error.NexusResponseValidationError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_response_validation_error.py#L6[Source]
+
+Indicates that an upstream payload violated its response model.
+
+[#nexusmods-api-errors-nexus-response-validation-error-nexusresponsevalidationerror-init]
+=== `NexusResponseValidationError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-sso-error-nexusssoerror]
+== `NexusSSOError`
+
+`nexusmods_api.errors.nexus_sso_error.NexusSSOError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_sso_error.py#L6[Source]
+
+Indicates a failed Nexus Mods WebSocket SSO authorization.
+
+[#nexusmods-api-errors-nexus-sso-error-nexusssoerror-init]
+=== `NexusSSOError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===
+
+[#nexusmods-api-errors-nexus-transport-error-nexustransporterror]
+== `NexusTransportError`
+
+`nexusmods_api.errors.nexus_transport_error.NexusTransportError`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_transport_error.py#L6[Source]
+
+Indicates that an HTTP exchange could not be completed.
+
+[#nexusmods-api-errors-nexus-transport-error-nexustransporterror-init]
+=== `NexusTransportError.__init__`
+
+[source,python]
+----
+def __init__(
+    message: str,
+    *,
+    status_code: int | None = None,
+    request_url: str | None = None,
+    payload: JsonValue = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/errors/nexus_api_error.py#L18[Source]
+
+Initializes a sanitized Nexus Mods client error.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |Safe human-readable error message.
+|status_code |int \| None |Associated HTTP status code.
+|request_url |str \| None |Request URL without query parameters.
+|payload |JsonValue |Optional structured safe error payload.
+|===

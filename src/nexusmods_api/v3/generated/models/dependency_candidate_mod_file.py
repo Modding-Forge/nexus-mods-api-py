@@ -5,9 +5,16 @@ from ....types import JsonValue
 
 
 class DependencyCandidateModFile(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """A mod file with its associated mod and candidate versions."""
 
     candidate_versions: list[JsonValue]
+    """The embedded ModFileVersion data for this DependencyCandidateModFile..."""
+
     id: str
+    """The unique identifier for the mod file."""
+
     mod: JsonValue
+    """The embedded MinimalMod data for this DependencyCandidateModFile value."""
+
     name: str
+    """The name of the mod file."""

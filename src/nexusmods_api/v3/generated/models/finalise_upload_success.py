@@ -5,6 +5,7 @@ from ....types import JsonValue
 
 
 class FinaliseUploadSuccess(NexusModel):
-    """Provides a generated Pydantic response model."""
+    """Models the FinaliseUploadSuccess schema from the pinned Nexus Mods..."""
 
     root: JsonValue = None
+    """The unstructured value returned for this OpenAPI schema."""

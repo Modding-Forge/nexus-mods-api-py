@@ -12,7 +12,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def read_project_version(pyproject: Path) -> str:
-    """Reads the canonical distribution version from project metadata."""
+    """Reads the canonical distribution version from project metadata.
+
+    Args:
+        pyproject (Path): Project metadata file.
+
+    Returns:
+        str: Non-empty canonical project version.
+
+    Raises:
+        RuntimeError: If the project table or version is invalid.
+    """
 
     document: dict[str, object] = tomllib.loads(pyproject.read_text(encoding="utf-8"))
     raw_project = document.get("project")
@@ -26,7 +36,17 @@ def read_project_version(pyproject: Path) -> str:
 
 
 def read_public_version(module: Path) -> str:
-    """Reads the public version constant without executing package code."""
+    """Reads the public version constant without executing package code.
+
+    Args:
+        module (Path): Python module containing `__version__`.
+
+    Returns:
+        str: Literal public package version.
+
+    Raises:
+        RuntimeError: If no literal `__version__` assignment exists.
+    """
 
     syntax = ast.parse(module.read_text(encoding="utf-8"), filename=str(module))
     for statement in syntax.body:
@@ -49,7 +69,19 @@ def check_release_version(
     pyproject: Path = ROOT / "pyproject.toml",
     version_module: Path = ROOT / "src" / "nexusmods_api" / "_version.py",
 ) -> str:
-    """Checks that a release input, metadata, and public version all agree."""
+    """Checks that a release input, metadata, and public version all agree.
+
+    Args:
+        release (str): Version or v-prefixed tag requested for release.
+        pyproject (Path): Project metadata file.
+        version_module (Path): Module containing the public version.
+
+    Returns:
+        str: Validated canonical project version.
+
+    Raises:
+        RuntimeError: If any version differs from the others.
+    """
 
     project_version = read_project_version(pyproject)
     public_version = read_public_version(version_module)
@@ -71,7 +103,14 @@ def check_release_version(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Validates the release version supplied by GitHub Actions."""
+    """Validates the release version supplied by GitHub Actions.
+
+    Args:
+        argv (list[str] | None): Command arguments without the executable name.
+
+    Returns:
+        int: Zero after the release version is validated.
+    """
 
     parser = argparse.ArgumentParser()
     parser.add_argument("release", help="Version or v-prefixed Git tag to validate")

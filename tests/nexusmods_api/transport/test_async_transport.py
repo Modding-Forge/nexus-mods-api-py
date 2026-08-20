@@ -33,7 +33,11 @@ class TestAsyncTransport:
         requests: list[httpx.Request] = []
 
         async def handler(request: httpx.Request) -> httpx.Response:
-            """Records one successful asynchronous request."""
+            """Records one successful asynchronous request.
+
+            Returns:
+                httpx.Response: Successful response with rate-limit metadata.
+            """
 
             requests.append(request)
             return httpx.Response(
@@ -80,7 +84,11 @@ class TestAsyncTransport:
             delays.append(delay)
 
         async def handler(request: httpx.Request) -> httpx.Response:
-            """Returns a connection error, a 503, and then success."""
+            """Returns a connection error, a 503, and then success.
+
+            Raises:
+                httpx.ConnectError: On the first simulated request.
+            """
 
             attempts.append(len(attempts))
             if len(attempts) == 1:
@@ -118,7 +126,11 @@ class TestAsyncTransport:
             return httpx.Response(401, json={"detail": "Unauthorized"})
 
         async def failure_handler(request: httpx.Request) -> httpx.Response:
-            """Raises a terminal asynchronous connection error."""
+            """Raises a terminal asynchronous connection error.
+
+            Raises:
+                httpx.ConnectError: On every simulated request.
+            """
 
             raise httpx.ConnectError("internal detail", request=request)
 
@@ -148,7 +160,11 @@ class TestAsyncTransport:
         api_tokens: list[str] = []
 
         async def api_handler(request: httpx.Request) -> httpx.Response:
-            """Rejects the old bearer token and accepts the rotated token."""
+            """Rejects the old bearer token and accepts the rotated token.
+
+            Returns:
+                httpx.Response: Unauthorized or successful simulated response.
+            """
 
             token: str = request.headers["Authorization"]
             api_tokens.append(token)

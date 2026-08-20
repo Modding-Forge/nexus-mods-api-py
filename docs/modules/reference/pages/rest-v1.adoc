@@ -1,0 +1,1644 @@
+= REST v1
+:page-generated: true
+
+This page is generated from the public Python API. Do not edit it by hand.
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client]
+== `NexusV1Client`
+
+`nexusmods_api.v1.nexus_v1_client.NexusV1Client`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L33[Source]
+
+Sync/async counterpart: <<nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client,AsyncNexusV1Client>>.
+
+Provides a hand-written synchronous client for the REST v1 API.
+
+Read a mod with an application-specific API key
+
+[source,python]
+----
+auth = ApiKeyAuth.from_value(api_key)
+with NexusV1Client(auth=auth) as client:
+    mod = client.get_mod("skyrimspecialedition", 266)
+----
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-init]
+=== `NexusV1Client.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.oauth_auth.OAuthAuth | None = None,
+    *,
+    http_client: httpx.Client | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L47[Source]
+
+Initializes a synchronous REST v1 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.oauth_auth.OAuthAuth \| None |Optional authentication.
+|http_client |httpx.Client \| None |Optional caller-owned HTTP client.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-close]
+=== `NexusV1Client.close`
+
+[source,python]
+----
+def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L412[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-changelogs]
+=== `NexusV1Client.get_changelogs`
+
+[source,python]
+----
+def get_changelogs(
+    game_domain: str,
+    mod_id: int,
+) -> dict[str, list[str]]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L257[Source]
+
+Returns version-keyed changelog entries for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Changelogs: Changelog lines grouped by mod version.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-colour-schemes]
+=== `NexusV1Client.get_colour_schemes`
+
+[source,python]
+----
+def get_colour_schemes() -> list[v1.models.colour_scheme.ColourScheme]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L192[Source]
+
+Returns legacy Nexus Mods colour schemes.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[ColourScheme]: Available legacy colour schemes.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-download-links]
+=== `NexusV1Client.get_download_links`
+
+[source,python]
+----
+def get_download_links(
+    game_domain: str,
+    mod_id: int,
+    file_id: int,
+    *,
+    key: str | None = None,
+    expires: int | None = None,
+) -> list[v1.models.download_link.DownloadLink]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L310[Source]
+
+Returns short-lived mirrors for a mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|file_id |int |Positive file identifier.
+|key |str \| None |Premium download key from a Nexus Mods URL.
+|expires |int \| None |Expiry timestamp paired with `key`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[DownloadLink]: Short-lived download mirror links.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If an identifier is invalid or only one URL token is given.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-endorsements]
+=== `NexusV1Client.get_endorsements`
+
+[source,python]
+----
+def get_endorsements() -> list[v1.models.endorsement.Endorsement]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L183[Source]
+
+Returns endorsements by the authenticated user.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Endorsement]: User endorsements, or an empty list when absent.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-file]
+=== `NexusV1Client.get_file`
+
+[source,python]
+----
+def get_file(
+    game_domain: str,
+    mod_id: int,
+    file_id: int,
+) -> v1.models.mod_file.ModFile
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L291[Source]
+
+Returns metadata for one mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|file_id |int |Positive file identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ModFile: Matching file metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If either identifier is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-game]
+=== `NexusV1Client.get_game`
+
+[source,python]
+----
+def get_game(
+    game_domain: str,
+) -> v1.models.game.Game
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L201[Source]
+
+Returns metadata and categories for one game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Game: Matching game metadata and categories.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-games]
+=== `NexusV1Client.get_games`
+
+[source,python]
+----
+def get_games() -> list[v1.models.game.Game]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L138[Source]
+
+Returns all games supported by Nexus Mods.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Game]: Supported games, or an empty list when none are returned.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-latest-added]
+=== `NexusV1Client.get_latest_added`
+
+[source,python]
+----
+def get_latest_added(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L147[Source]
+
+Returns the latest added mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Recently added mods from the cached v1 feed.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-latest-updated]
+=== `NexusV1Client.get_latest_updated`
+
+[source,python]
+----
+def get_latest_updated(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L159[Source]
+
+Returns the latest updated mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Recently updated mods from the cached v1 feed.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-mod]
+=== `NexusV1Client.get_mod`
+
+[source,python]
+----
+def get_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.mod.Mod
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L240[Source]
+
+Returns metadata for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Mod: Matching mod metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-mod-files]
+=== `NexusV1Client.get_mod_files`
+
+[source,python]
+----
+def get_mod_files(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.mod_files.ModFiles
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L274[Source]
+
+Returns all files and replacement links for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ModFiles: Current files and their replacement relationships.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-tracked-mods]
+=== `NexusV1Client.get_tracked_mods`
+
+[source,python]
+----
+def get_tracked_mods() -> list[v1.models.tracked_mod.TrackedMod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L97[Source]
+
+Returns all mods tracked by the authenticated user.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[TrackedMod]: Tracked mods, or an empty list when none exist.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-trending]
+=== `NexusV1Client.get_trending`
+
+[source,python]
+----
+def get_trending(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L171[Source]
+
+Returns currently trending mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Mods from the current cached trending feed.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-get-updated-mods]
+=== `NexusV1Client.get_updated_mods`
+
+[source,python]
+----
+def get_updated_mods(
+    game_domain: str,
+    period: Literal['1d', '1w', '1m'],
+) -> list[v1.models.mod_update.ModUpdate]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L213[Source]
+
+Returns mods with activity in a cached recent period.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|period |Literal['1d', '1w', '1m'] |Supported update window.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[ModUpdate]: Mods active within the selected cached period.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `period` is not supported by REST v1.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-rate-limits]
+=== `NexusV1Client.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L70[Source]
+
+The latest observed REST rate-limit state.
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-search-file-by-md5]
+=== `NexusV1Client.search_file_by_md5`
+
+[source,python]
+----
+def search_file_by_md5(
+    game_domain: str,
+    md5_hash: str,
+) -> list[v1.models.md5_result.MD5Result]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L354[Source]
+
+Finds mod files matching an MD5 digest.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|md5_hash |str |MD5 digest to look up.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[MD5Result]: Matching files; a 404 response becomes an empty list.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If a URL path value is empty.
+|NexusHttpError |If Nexus Mods returns an error other than 404.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-set-mod-endorsement]
+=== `NexusV1Client.set_mod_endorsement`
+
+[source,python]
+----
+def set_mod_endorsement(
+    game_domain: str,
+    mod_id: int,
+    version: str,
+    status: Literal['endorse', 'abstain'],
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L380[Source]
+
+Endorses or abstains from endorsing one installed mod version.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|version |str |Installed mod version.
+|status |Literal['endorse', 'abstain'] |Either `endorse` or `abstain`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the identifier or endorsement status is invalid.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-track-mod]
+=== `NexusV1Client.track_mod`
+
+[source,python]
+----
+def track_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L106[Source]
+
+Tracks a mod for the authenticated user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-untrack-mod]
+=== `NexusV1Client.untrack_mod`
+
+[source,python]
+----
+def untrack_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L122[Source]
+
+Stops tracking a mod for the authenticated user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-nexus-v1-client-nexusv1client-validate-api-key]
+=== `NexusV1Client.validate_api_key`
+
+[source,python]
+----
+def validate_api_key(
+    api_key: str | None = None,
+) -> v1.models.user_validation.UserValidation
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/nexus_v1_client.py#L76[Source]
+
+Validates the configured or explicitly supplied API key.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|api_key |str \| None |One-off key overriding configured authentication.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|UserValidation: The authenticated user's account details.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client]
+== `AsyncNexusV1Client`
+
+`nexusmods_api.v1.async_nexus_v1_client.AsyncNexusV1Client`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L33[Source]
+
+Sync/async counterpart: <<nexusmods-api-v1-nexus-v1-client-nexusv1client,NexusV1Client>>.
+
+Provides a hand-written asynchronous client for the REST v1 API.
+
+Read a mod without blocking the event loop
+
+[source,python]
+----
+auth = ApiKeyAuth.from_value(api_key)
+async with AsyncNexusV1Client(auth=auth) as client:
+    mod = await client.get_mod("skyrimspecialedition", 266)
+----
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-init]
+=== `AsyncNexusV1Client.__init__`
+
+[source,python]
+----
+def __init__(
+    config: nexus_config.NexusConfig | None = None,
+    auth: auth.api_key_auth.ApiKeyAuth | auth.async_oauth_auth.AsyncOAuthAuth | None = None,
+    *,
+    http_client: httpx.AsyncClient | None = None,
+) -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L47[Source]
+
+Initializes an asynchronous REST v1 client.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|config |nexus_config.NexusConfig \| None |Shared client configuration.
+|auth |auth.api_key_auth.ApiKeyAuth \| auth.async_oauth_auth.AsyncOAuthAuth \| None |Optional authentication.
+|http_client |httpx.AsyncClient \| None |Optional caller-owned client.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-close]
+=== `AsyncNexusV1Client.close`
+
+[source,python]
+----
+async def close() -> None
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L427[Source]
+
+Closes internally owned HTTP resources.
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-changelogs]
+=== `AsyncNexusV1Client.get_changelogs`
+
+[source,python]
+----
+async def get_changelogs(
+    game_domain: str,
+    mod_id: int,
+) -> dict[str, list[str]]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L259[Source]
+
+Returns version-keyed changelog entries for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Changelogs: Changelog lines grouped by mod version.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-colour-schemes]
+=== `AsyncNexusV1Client.get_colour_schemes`
+
+[source,python]
+----
+async def get_colour_schemes() -> list[v1.models.colour_scheme.ColourScheme]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L195[Source]
+
+Returns legacy Nexus Mods colour schemes.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[ColourScheme]: Available legacy colour schemes.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-download-links]
+=== `AsyncNexusV1Client.get_download_links`
+
+[source,python]
+----
+async def get_download_links(
+    game_domain: str,
+    mod_id: int,
+    file_id: int,
+    *,
+    key: str | None = None,
+    expires: int | None = None,
+) -> list[v1.models.download_link.DownloadLink]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L321[Source]
+
+Returns short-lived mirrors for a mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|file_id |int |Positive file identifier.
+|key |str \| None |Premium download key from a Nexus Mods URL.
+|expires |int \| None |Expiry timestamp paired with `key`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[DownloadLink]: Short-lived download mirror links.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If an identifier is invalid or only one URL token is given.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-endorsements]
+=== `AsyncNexusV1Client.get_endorsements`
+
+[source,python]
+----
+async def get_endorsements() -> list[v1.models.endorsement.Endorsement]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L186[Source]
+
+Returns endorsements by the authenticated user.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Endorsement]: User endorsements, or an empty list when absent.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-file]
+=== `AsyncNexusV1Client.get_file`
+
+[source,python]
+----
+async def get_file(
+    game_domain: str,
+    mod_id: int,
+    file_id: int,
+) -> v1.models.mod_file.ModFile
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L297[Source]
+
+Returns metadata for one mod file.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|file_id |int |Positive file identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ModFile: Matching file metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If either identifier is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-game]
+=== `AsyncNexusV1Client.get_game`
+
+[source,python]
+----
+async def get_game(
+    game_domain: str,
+) -> v1.models.game.Game
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L204[Source]
+
+Returns metadata and categories for one game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Game: Matching game metadata and categories.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-games]
+=== `AsyncNexusV1Client.get_games`
+
+[source,python]
+----
+async def get_games() -> list[v1.models.game.Game]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L141[Source]
+
+Returns all games supported by Nexus Mods.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Game]: Supported games, or an empty list when none are returned.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-latest-added]
+=== `AsyncNexusV1Client.get_latest_added`
+
+[source,python]
+----
+async def get_latest_added(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L150[Source]
+
+Returns the latest added mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Recently added mods from the cached v1 feed.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-latest-updated]
+=== `AsyncNexusV1Client.get_latest_updated`
+
+[source,python]
+----
+async def get_latest_updated(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L162[Source]
+
+Returns the latest updated mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Recently updated mods from the cached v1 feed.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-mod]
+=== `AsyncNexusV1Client.get_mod`
+
+[source,python]
+----
+async def get_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.mod.Mod
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L243[Source]
+
+Returns metadata for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|Mod: Matching mod metadata.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-mod-files]
+=== `AsyncNexusV1Client.get_mod_files`
+
+[source,python]
+----
+async def get_mod_files(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.mod_files.ModFiles
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L280[Source]
+
+Returns all files and replacement links for one mod.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ModFiles: Current files and their replacement relationships.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-tracked-mods]
+=== `AsyncNexusV1Client.get_tracked_mods`
+
+[source,python]
+----
+async def get_tracked_mods() -> list[v1.models.tracked_mod.TrackedMod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L100[Source]
+
+Returns all mods tracked by the authenticated user.
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[TrackedMod]: Tracked mods, or an empty list when none exist.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-trending]
+=== `AsyncNexusV1Client.get_trending`
+
+[source,python]
+----
+async def get_trending(
+    game_domain: str,
+) -> list[v1.models.mod.Mod]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L174[Source]
+
+Returns currently trending mods for a game.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[Mod]: Mods from the current cached trending feed.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-get-updated-mods]
+=== `AsyncNexusV1Client.get_updated_mods`
+
+[source,python]
+----
+async def get_updated_mods(
+    game_domain: str,
+    period: Literal['1d', '1w', '1m'],
+) -> list[v1.models.mod_update.ModUpdate]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L216[Source]
+
+Returns mods with activity in a cached recent period.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|period |Literal['1d', '1w', '1m'] |Supported update window.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[ModUpdate]: Mods active within the selected cached period.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `period` is not supported by REST v1.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-rate-limits]
+=== `AsyncNexusV1Client.rate_limits`
+
+[source,python]
+----
+def rate_limits() -> models.rate_limit_state.RateLimitState
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L70[Source]
+
+The latest observed REST rate-limit state.
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-search-file-by-md5]
+=== `AsyncNexusV1Client.search_file_by_md5`
+
+[source,python]
+----
+async def search_file_by_md5(
+    game_domain: str,
+    md5_hash: str,
+) -> list[v1.models.md5_result.MD5Result]
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L365[Source]
+
+Finds mod files matching an MD5 digest.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|md5_hash |str |MD5 digest to look up.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|list[MD5Result]: Matching files; a 404 response becomes an empty list.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If a URL path value is empty.
+|NexusHttpError |If Nexus Mods returns an error other than 404.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-set-mod-endorsement]
+=== `AsyncNexusV1Client.set_mod_endorsement`
+
+[source,python]
+----
+async def set_mod_endorsement(
+    game_domain: str,
+    mod_id: int,
+    version: str,
+    status: Literal['endorse', 'abstain'],
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L395[Source]
+
+Endorses or abstains from endorsing one installed mod version.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|version |str |Installed mod version.
+|status |Literal['endorse', 'abstain'] |Either `endorse` or `abstain`.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If the identifier or endorsement status is invalid.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-track-mod]
+=== `AsyncNexusV1Client.track_mod`
+
+[source,python]
+----
+async def track_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L109[Source]
+
+Tracks a mod for the authenticated user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-untrack-mod]
+=== `AsyncNexusV1Client.untrack_mod`
+
+[source,python]
+----
+async def untrack_mod(
+    game_domain: str,
+    mod_id: int,
+) -> v1.models.action_result.ActionResult
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L125[Source]
+
+Stops tracking a mod for the authenticated user.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|game_domain |str |Nexus Mods game domain.
+|mod_id |int |Positive mod identifier.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|ActionResult: Nexus Mods mutation result.
+|===
+
+.Raises
+[cols="1,1",options="header"]
+|===
+|Exception |Condition
+|ValueError |If `mod_id` is not a positive integer.
+|===
+
+[#nexusmods-api-v1-async-nexus-v1-client-asyncnexusv1client-validate-api-key]
+=== `AsyncNexusV1Client.validate_api_key`
+
+[source,python]
+----
+async def validate_api_key(
+    api_key: str | None = None,
+) -> v1.models.user_validation.UserValidation
+----
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/async_nexus_v1_client.py#L76[Source]
+
+Validates the configured or explicitly supplied API key.
+
+.Parameters
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|api_key |str \| None |One-off key overriding configured authentication.
+|===
+
+.Returns
+[cols="1",options="header"]
+|===
+|Type and behavior
+|UserValidation: The authenticated user's account details.
+|===
+
+[#nexusmods-api-v1-models-action-result-actionresult]
+== `ActionResult`
+
+`nexusmods_api.v1.models.action_result.ActionResult`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/action_result.py#L8[Source]
+
+Describes the result of a v1 tracking or endorsement mutation.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|message |str |The human-readable result message returned by Nexus Mods.
+|status |str \| None |The optional machine-readable result status.
+|===
+
+[#nexusmods-api-v1-models-colour-scheme-colourscheme]
+== `ColourScheme`
+
+`nexusmods_api.v1.models.colour_scheme.ColourScheme`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/colour_scheme.py#L6[Source]
+
+Describes one legacy Nexus Mods site colour scheme.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|darker_colour |str |The darker accent colour value supplied by Nexus Mods.
+|id |int |The unique colour-scheme identifier.
+|name |str |The display name of the colour scheme.
+|primary_colour |str |The primary colour value supplied by Nexus Mods.
+|secondary_colour |str |The secondary colour value supplied by Nexus Mods.
+|===
+
+[#nexusmods-api-v1-models-download-link-downloadlink]
+== `DownloadLink`
+
+`nexusmods_api.v1.models.download_link.DownloadLink`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/download_link.py#L8[Source]
+
+Provides one short-lived download mirror URL.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|name |str |The download server's display name.
+|short_name |str |The download server's short name.
+|uri |str |The temporary download URI.
+|===
+
+[#nexusmods-api-v1-models-endorsement-endorsement]
+== `Endorsement`
+
+`nexusmods_api.v1.models.endorsement.Endorsement`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/endorsement.py#L9[Source]
+
+Describes one endorsement by the authenticated user.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|date |datetime.datetime |The date and time at which the endorsement was recorded.
+|domain_name |str |The Nexus Mods game domain containing the mod.
+|mod_id |int |The endorsed mod identifier.
+|status |str |The current endorsement status.
+|version |str \| None |The mod version endorsed by the user, when reported.
+|===
+
+[#nexusmods-api-v1-models-file-update-fileupdate]
+== `FileUpdate`
+
+`nexusmods_api.v1.models.file_update.FileUpdate`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/file_update.py#L8[Source]
+
+Links a replacement mod file to its previous version.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|new_file_id |int |The identifier of the replacement file.
+|new_file_name |str |The name of the replacement file.
+|old_file_id |int |The identifier of the superseded file.
+|old_file_name |str |The name of the superseded file.
+|uploaded_time |str \| None |The replacement file's formatted upload time, when reported.
+|uploaded_timestamp |int \| None |The replacement file's Unix upload timestamp, when reported.
+|===
+
+[#nexusmods-api-v1-models-game-game]
+== `Game`
+
+`nexusmods_api.v1.models.game.Game`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/game.py#L9[Source]
+
+Describes a game and, when requested, its mod categories.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|categories |list[v1.models.game_category.GameCategory] \| None |The game's mod categories, when requested from the API.
+|domain_name |str |The game domain used in Nexus Mods URLs and API paths.
+|downloads |int \| None |The total number of downloads for the game, when reported.
+|file_count |int \| None |The number of files hosted for the game, when reported.
+|forum_url |str \| None |The Nexus Mods forum URL for the game, when available.
+|genre |str \| None |The game's genre, when reported.
+|id |int |The unique Nexus Mods game identifier.
+|mods |int \| None |The number of mods hosted for the game, when reported.
+|name |str |The game's display name.
+|name_lower |str \| None |The normalized lowercase game name, when reported.
+|nexusmods_url |str \| None |The Nexus Mods landing-page URL for the game, when available.
+|===
+
+[#nexusmods-api-v1-models-game-category-gamecategory]
+== `GameCategory`
+
+`nexusmods_api.v1.models.game_category.GameCategory`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/game_category.py#L8[Source]
+
+Describes one Nexus Mods category for a game.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|category_id |int |The unique game-category identifier.
+|name |str |The display name of the game category.
+|parent_category |int \| bool \| None |The parent category identifier, or a false value for a root category.
+|===
+
+[#nexusmods-api-v1-models-md5-result-md5result]
+== `MD5Result`
+
+`nexusmods_api.v1.models.md5_result.MD5Result`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/md5_result.py#L8[Source]
+
+Links an MD5 match to its mod and file metadata.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|file_details |v1.models.mod_file.ModFile |The matching file metadata.
+|mod |v1.models.mod.Mod |The mod associated with the matching file hash.
+|===
+
+[#nexusmods-api-v1-models-mod-mod]
+== `Mod`
+
+`nexusmods_api.v1.models.mod.Mod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/mod.py#L8[Source]
+
+Describes Nexus Mods REST v1 mod metadata.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|author |str \| None |The mod author name, when reported.
+|available |bool \| None |Whether the mod is currently available, when reported.
+|category_id |int |The identifier of the mod's category.
+|contains_adult_content |bool |Whether Nexus Mods marks the mod as adult content.
+|created_timestamp |int \| None |The mod's Unix creation timestamp, when reported.
+|description |str \| None |The mod's full description, when reported.
+|domain_name |str |The Nexus Mods game domain containing the mod.
+|endorsement_count |int \| None |The number of user endorsements, when reported.
+|game_id |int |The numeric Nexus Mods game identifier.
+|mod_downloads |int \| None |The mod's total download count, when reported.
+|mod_id |int |The mod identifier within its game domain.
+|mod_unique_downloads |int \| None |The mod's unique download count, when reported.
+|name |str \| None |The mod's display name, when reported.
+|picture_url |str \| None |The mod's primary image URL, when available.
+|status |str \| None |The mod's publication status, when reported.
+|summary |str \| None |The mod's short summary, when reported.
+|uid |int \| None |The globally unique Nexus Mods entity identifier, when reported.
+|updated_timestamp |int \| None |The mod's Unix update timestamp, when reported.
+|uploaded_by |str \| None |The uploader's display name, when reported.
+|uploaded_users_profile_url |str \| None |The uploader's profile URL, when reported.
+|version |str \| None |The current mod version, when reported.
+|===
+
+[#nexusmods-api-v1-models-mod-file-modfile]
+== `ModFile`
+
+`nexusmods_api.v1.models.mod_file.ModFile`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/mod_file.py#L8[Source]
+
+Describes one downloadable Nexus Mods file.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|category_id |int |The numeric file-category identifier.
+|category_name |str |The file category's display name.
+|changelog_html |str \| None |The file changelog as HTML, when supplied.
+|content_preview_link |str \| None |The endpoint for previewing archive contents, when available.
+|description |str \| None |The file's description, when supplied.
+|external_virus_scan_url |str \| None |The external virus-scan result URL, when available.
+|file_id |int |The file identifier within its mod.
+|file_name |str \| None |The stored file name, when reported.
+|id |list[int] \| None |The composite legacy identifiers returned by some v1 endpoints.
+|is_primary |bool \| None |Whether the file is the mod's primary download, when reported.
+|mod_version |str \| None |The associated mod version, when reported.
+|name |str |The file's display name.
+|size |int \| None |The file size in bytes, when reported.
+|size_kb |int \| None |The file size in kibibytes, when reported.
+|uid |int \| None |The globally unique Nexus Mods entity identifier, when reported.
+|uploaded_time |str \| None |The file's formatted upload time, when reported.
+|uploaded_timestamp |int \| None |The file's Unix upload timestamp, when reported.
+|version |str \| None |The file version, when reported.
+|===
+
+[#nexusmods-api-v1-models-mod-files-modfiles]
+== `ModFiles`
+
+`nexusmods_api.v1.models.mod_files.ModFiles`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/mod_files.py#L8[Source]
+
+Groups all files and author-declared file replacements for a mod.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|file_updates |list[v1.models.file_update.FileUpdate] |The replacement relationships between old and current files.
+|files |list[v1.models.mod_file.ModFile] |The files currently exposed for the mod.
+|===
+
+[#nexusmods-api-v1-models-mod-update-modupdate]
+== `ModUpdate`
+
+`nexusmods_api.v1.models.mod_update.ModUpdate`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/mod_update.py#L6[Source]
+
+Describes recent activity for one mod.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|latest_file_update |int |The Unix timestamp of the mod's latest file update.
+|latest_mod_activity |int |The Unix timestamp of the mod's latest activity.
+|mod_id |int |The identifier of the updated mod.
+|===
+
+[#nexusmods-api-v1-models-tracked-mod-trackedmod]
+== `TrackedMod`
+
+`nexusmods_api.v1.models.tracked_mod.TrackedMod`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/tracked_mod.py#L6[Source]
+
+Identifies a mod tracked by the authenticated user.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|domain_name |str |The Nexus Mods game domain containing the tracked mod.
+|mod_id |int |The tracked mod identifier.
+|===
+
+[#nexusmods-api-v1-models-user-validation-uservalidation]
+== `UserValidation`
+
+`nexusmods_api.v1.models.user_validation.UserValidation`
+
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v1/models/user_validation.py#L8[Source]
+
+Describes the account associated with an API key.
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|email |str |The email address associated with the authenticated account.
+|is_premium |bool |Whether the user has an active premium membership.
+|is_supporter |bool |Whether the user is a Nexus Mods supporter.
+|key |str \| None |The legacy echoed key value, when returned by Nexus Mods.
+|name |str |The authenticated user's display name.
+|profile_url |str \| None |The user's public profile URL, when available.
+|user_id |int |The authenticated user's Nexus Mods member identifier.
+|===

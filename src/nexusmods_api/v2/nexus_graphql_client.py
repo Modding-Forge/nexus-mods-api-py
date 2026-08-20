@@ -37,11 +37,23 @@ ResponseT = TypeVar("ResponseT")
 
 
 class NexusGraphQLClient:
-    """Provides generic and convenient synchronous GraphQL v2 operations."""
+    """Provides generic and convenient synchronous GraphQL v2 operations.
+
+    Examples:
+        Preserve partial data from an application-defined query::
+
+            data = client.execute(
+                document,
+                dict[str, JsonValue],
+                allow_partial=True,
+            )
+            issues = client.last_errors
+    """
 
     __transport: SyncTransport
     __url: str
     last_errors: tuple[GraphQLIssue, ...]
+    """The issues returned by the most recent GraphQL operation."""
 
     def __init__(
         self,
@@ -50,7 +62,13 @@ class NexusGraphQLClient:
         *,
         http_client: Optional[httpx.Client] = None,
     ) -> None:
-        """Initializes a synchronous GraphQL v2 client."""
+        """Initializes a synchronous GraphQL v2 client.
+
+        Args:
+            config (Optional[NexusConfig]): Shared client configuration.
+            auth (Optional[ApiKeyAuth | OAuthAuth]): Optional authentication.
+            http_client (Optional[httpx.Client]): Optional caller-owned HTTP client.
+        """
 
         resolved: NexusConfig = config or NexusConfig()
         self.__url = resolved.v2_url
@@ -63,7 +81,7 @@ class NexusGraphQLClient:
 
     @property
     def rate_limits(self) -> RateLimitState:
-        """Returns the latest observed GraphQL rate-limit state."""
+        """The latest observed GraphQL rate-limit state."""
 
         return self.__transport.rate_limits
 
@@ -76,7 +94,22 @@ class NexusGraphQLClient:
         operation_name: Optional[str] = None,
         allow_partial: bool = False,
     ) -> ResponseT:
-        """Executes and validates an arbitrary GraphQL document."""
+        """Executes and validates an arbitrary GraphQL document.
+
+        Args:
+            document (str): GraphQL query or mutation document.
+            response_model (type[ResponseT]): Expected type of the `data` value.
+            variables (Optional[dict[str, JsonValue]]): Operation variables.
+            operation_name (Optional[str]): Named operation to execute.
+            allow_partial (bool): Whether data may be returned alongside issues.
+
+        Returns:
+            ResponseT: Validated GraphQL data.
+
+        Raises:
+            NexusGraphQLError: If issues exist and partial data is not allowed.
+            NexusResponseValidationError: If the response data cannot be validated.
+        """
 
         response: httpx.Response = self.__request(
             document,
@@ -98,7 +131,19 @@ class NexusGraphQLClient:
         variables: Optional[dict[str, JsonValue]] = None,
         operation_name: Optional[str] = None,
     ) -> GraphQLResponse:
-        """Executes a document while preserving raw partial data and errors."""
+        """Executes a document while preserving raw partial data and errors.
+
+        Args:
+            document (str): GraphQL query or mutation document.
+            variables (Optional[dict[str, JsonValue]]): Operation variables.
+            operation_name (Optional[str]): Named operation to execute.
+
+        Returns:
+            GraphQLResponse: Raw validated envelope with data and issues intact.
+
+        Raises:
+            NexusResponseValidationError: If the response is not a valid envelope.
+        """
 
         response: httpx.Response = self.__request(
             document,
@@ -110,7 +155,15 @@ class NexusGraphQLClient:
         return envelope
 
     def get_games(self, *, count: int = 20, offset: int = 0) -> GraphQLPage[GraphQLGame]:
-        """Returns a page of games."""
+        """Returns a page of games.
+
+        Args:
+            count (int): Maximum number of games requested.
+            offset (int): Zero-based result offset.
+
+        Returns:
+            GraphQLPage[GraphQLGame]: Requested page and total result count.
+        """
 
         data: dict[str, GraphQLPage[GraphQLGame]] = self.execute(
             GAMES_QUERY,
@@ -123,8 +176,15 @@ class NexusGraphQLClient:
     def get_mod(self, uid: str) -> GraphQLMod:
         """Returns one mod by globally unique identifier.
 
+        Args:
+            uid (str): Unsigned decimal 64-bit mod UID.
+
+        Returns:
+            GraphQLMod: Matching mod metadata.
+
         Raises:
             ValueError: If the UID is not an unsigned decimal 64-bit integer.
+            NexusResponseValidationError: If the response omits the `mod` root.
         """
 
         game_id, mod_id = decode_mod_uid(uid)
@@ -143,7 +203,16 @@ class NexusGraphQLClient:
         count: int = 20,
         offset: int = 0,
     ) -> GraphQLPage[GraphQLMod]:
-        """Searches mods and returns one typed result page."""
+        """Searches mods and returns one typed result page.
+
+        Args:
+            query (str): Name search pattern passed to Nexus Mods.
+            count (int): Maximum number of mods requested.
+            offset (int): Zero-based result offset.
+
+        Returns:
+            GraphQLPage[GraphQLMod]: Matching mod page.
+        """
 
         data: dict[str, GraphQLPage[GraphQLMod]] = self.execute(
             SEARCH_MODS_QUERY,
@@ -168,8 +237,17 @@ class NexusGraphQLClient:
     ) -> GraphQLPage[GraphQLModFile]:
         """Returns a typed page of files for one mod UID.
 
+        Args:
+            uid (str): Unsigned decimal 64-bit mod UID.
+            count (int): Maximum number of files in the local result slice.
+            offset (int): Zero-based local slice offset.
+
+        Returns:
+            GraphQLPage[GraphQLModFile]: Locally sliced file page.
+
         Raises:
             ValueError: If the UID is not an unsigned decimal 64-bit integer.
+            NexusResponseValidationError: If the response omits `modFiles`.
         """
 
         game_id, mod_id = decode_mod_uid(uid)
@@ -193,7 +271,18 @@ class NexusGraphQLClient:
         *,
         game_domain: Optional[str] = None,
     ) -> GraphQLCollection:
-        """Returns one collection by slug."""
+        """Returns one collection by slug.
+
+        Args:
+            slug (str): Nexus Mods collection slug.
+            game_domain (Optional[str]): Game domain used to disambiguate the slug.
+
+        Returns:
+            GraphQLCollection: Matching collection metadata.
+
+        Raises:
+            NexusResponseValidationError: If the response omits `collection`.
+        """
 
         data: dict[str, GraphQLCollection] = self.execute(
             COLLECTION_QUERY,
@@ -210,7 +299,19 @@ class NexusGraphQLClient:
         *,
         game_domain: Optional[str] = None,
     ) -> GraphQLRevision:
-        """Returns one numbered revision belonging to a collection slug."""
+        """Returns one numbered revision belonging to a collection slug.
+
+        Args:
+            slug (str): Nexus Mods collection slug.
+            revision_number (int): Collection revision number.
+            game_domain (Optional[str]): Game domain used to disambiguate the slug.
+
+        Returns:
+            GraphQLRevision: Matching collection revision.
+
+        Raises:
+            NexusResponseValidationError: If the response omits the revision root.
+        """
 
         data: dict[str, GraphQLRevision] = self.execute(
             REVISION_QUERY,
@@ -225,7 +326,17 @@ class NexusGraphQLClient:
         return self.__root(data, "collectionRevision")
 
     def get_user(self, user_id: int) -> GraphQLUser:
-        """Returns one public Nexus Mods user."""
+        """Returns one public Nexus Mods user.
+
+        Args:
+            user_id (int): Nexus Mods member identifier.
+
+        Returns:
+            GraphQLUser: Matching public user metadata.
+
+        Raises:
+            NexusResponseValidationError: If the response omits the `user` root.
+        """
 
         data: dict[str, GraphQLUser] = self.execute(
             USER_QUERY,
@@ -241,7 +352,11 @@ class NexusGraphQLClient:
         self.__transport.close()
 
     def __enter__(self) -> "NexusGraphQLClient":
-        """Enters the synchronous client context."""
+        """Enters the synchronous client context.
+
+        Returns:
+            NexusGraphQLClient: This open GraphQL client.
+        """
 
         return self
 
@@ -251,7 +366,13 @@ class NexusGraphQLClient:
         exception: Optional[BaseException],
         traceback: Optional[object],
     ) -> None:
-        """Leaves the client context and releases owned resources."""
+        """Leaves the client context and releases owned resources.
+
+        Args:
+            exception_type (Optional[type[BaseException]]): Raised exception type.
+            exception (Optional[BaseException]): Raised exception instance.
+            traceback (Optional[object]): Raised exception traceback.
+        """
 
         self.close()
 
@@ -261,7 +382,16 @@ class NexusGraphQLClient:
         variables: Optional[dict[str, JsonValue]],
         operation_name: Optional[str],
     ) -> httpx.Response:
-        """Sends one retry-safe GraphQL query request."""
+        """Sends one retry-safe GraphQL query request.
+
+        Args:
+            document (str): GraphQL document.
+            variables (Optional[dict[str, JsonValue]]): Operation variables.
+            operation_name (Optional[str]): Named operation to execute.
+
+        Returns:
+            httpx.Response: Successful raw HTTP response.
+        """
 
         payload: dict[str, JsonValue] = {
             "query": document,
@@ -278,7 +408,18 @@ class NexusGraphQLClient:
 
     @staticmethod
     def __root(data: dict[str, ResponseT], name: str) -> ResponseT:
-        """Returns a required convenience-query root field."""
+        """Returns a required convenience-query root field.
+
+        Args:
+            data (dict[str, ResponseT]): Validated GraphQL data mapping.
+            name (str): Required root field name.
+
+        Returns:
+            ResponseT: Value stored under `name`.
+
+        Raises:
+            NexusResponseValidationError: If the root field is absent.
+        """
 
         try:
             return data[name]
