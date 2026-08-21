@@ -77,6 +77,13 @@ Sync/async counterpart: <<nexusmods-api-auth-oauth-auth-oauthauth,OAuthAuth>>.
 
 Coordinates asynchronous bearer headers and coalesced token rotation.
 
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Mutable in-memory OAuth credentials shared across requests.
+|===
+
 [#nexusmods-api-auth-async-oauth-auth-asyncoauthauth-init]
 === `AsyncOAuthAuth.__init__`
 
@@ -91,7 +98,7 @@ def __init__(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L22[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L23[Source]
 
 Initializes asynchronous OAuth request authentication.
 
@@ -113,7 +120,7 @@ Initializes asynchronous OAuth request authentication.
 def headers() -> dict[str, str]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L45[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L46[Source]
 
 Builds current bearer headers.
 
@@ -134,7 +141,7 @@ async def refresh_after_unauthorized(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L72[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L73[Source]
 
 Refreshes only if another request has not already rotated the token.
 
@@ -153,7 +160,7 @@ Refreshes only if another request has not already rotated the token.
 async def refresh_if_required() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L63[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L64[Source]
 
 Proactively refreshes once when the token approaches expiry.
 
@@ -165,7 +172,7 @@ Proactively refreshes once when the token approaches expiry.
 def token_marker() -> str
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L54[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/async_oauth_auth.py#L55[Source]
 
 Returns the current token for internal stale-response detection.
 
@@ -594,6 +601,13 @@ Sync/async counterpart: <<nexusmods-api-auth-async-oauth-auth-asyncoauthauth,Asy
 
 Coordinates synchronous bearer headers and coalesced token rotation.
 
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|credentials |auth.oauth_credentials.OAuthCredentials |Mutable in-memory OAuth credentials shared across requests.
+|===
+
 [#nexusmods-api-auth-oauth-auth-oauthauth-init]
 === `OAuthAuth.__init__`
 
@@ -608,7 +622,7 @@ def __init__(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L22[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L23[Source]
 
 Initializes synchronous OAuth request authentication.
 
@@ -630,7 +644,7 @@ Initializes synchronous OAuth request authentication.
 def headers() -> dict[str, str]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L45[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L46[Source]
 
 Builds current bearer headers.
 
@@ -651,7 +665,7 @@ def refresh_after_unauthorized(
 ) -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L72[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L73[Source]
 
 Refreshes only if another request has not already rotated the token.
 
@@ -670,7 +684,7 @@ Refreshes only if another request has not already rotated the token.
 def refresh_if_required() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L63[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L64[Source]
 
 Proactively refreshes once when the token approaches expiry.
 
@@ -682,7 +696,7 @@ Proactively refreshes once when the token approaches expiry.
 def token_marker() -> str
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L54[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/auth/oauth_auth.py#L55[Source]
 
 Returns the current token for internal stale-response detection.
 

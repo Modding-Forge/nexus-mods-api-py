@@ -14,8 +14,8 @@ from collections.abc import Callable, Iterable
 from functools import cache
 from importlib.metadata import files
 from pathlib import Path
-from types import ModuleType
-from typing import Any, Optional, cast
+from types import ModuleType, UnionType
+from typing import Any, Optional, Union, cast, get_args, get_origin
 
 from pydantic import BaseModel
 
@@ -332,6 +332,14 @@ def annotation_text(value: object) -> str:
         return value
     if value is None or value is type(None):
         return "None"
+    origin: object = get_origin(value)
+    union_origins: tuple[object, ...] = (
+        cast(object, Union),
+        cast(object, UnionType),
+    )
+    if origin in union_origins:
+        arguments: tuple[object, ...] = get_args(value)
+        return " | ".join(annotation_text(argument) for argument in arguments)
     text: str = str(value)
     text = text.replace("typing.", "")
     text = text.replace("<class '", "").replace("'>", "")
@@ -462,17 +470,14 @@ def class_fields(model: type[Any]) -> list[tuple[str, str, str]]:
                     f"public field {qualified_name(model)}.{name} has no doc"
                 )
             rows[name] = (name, annotation_text(field.annotation), description)
-    annotations: object = vars(model).get("__annotations__", {})
-    if isinstance(annotations, dict):
-        for name, value in cast(dict[str, object], annotations).items():
-            if name.startswith("_") or name in rows:
-                continue
-            description = source_docs.get(name)
-            if not description:
-                raise RuntimeError(
-                    f"public field {qualified_name(model)}.{name} has no doc"
-                )
-            rows[name] = (name, annotation_text(value), description)
+    annotations: dict[str, object] = inspect.get_annotations(model)
+    for name, value in annotations.items():
+        if name.startswith("_") or name in rows:
+            continue
+        description = source_docs.get(name)
+        if not description:
+            raise RuntimeError(f"public field {qualified_name(model)}.{name} has no doc")
+        rows[name] = (name, annotation_text(value), description)
     return [rows[name] for name in sorted(rows)]
 
 

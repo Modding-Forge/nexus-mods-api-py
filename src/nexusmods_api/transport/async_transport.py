@@ -25,6 +25,8 @@ class AsyncTransport:
         "Proxy-Authorization",
         "apikey",
     )
+    """Headers that must never be forwarded to an unrelated host."""
+
     RETRYABLE_STATUS_CODES: frozenset[int] = frozenset(
         {
             httpx.codes.TOO_MANY_REQUESTS,
@@ -33,6 +35,7 @@ class AsyncTransport:
             httpx.codes.GATEWAY_TIMEOUT,
         }
     )
+    """HTTP status codes eligible for safe request retries."""
 
     __auth: Optional[ApiKeyAuth | AsyncOAuthAuth]
     __client: httpx.AsyncClient
@@ -41,6 +44,7 @@ class AsyncTransport:
     __owns_client: bool
     __sleep: AsyncSleepCallback
     rate_limits: RateLimitState
+    """Rate-limit state observed from the latest Nexus Mods response."""
 
     def __init__(
         self,

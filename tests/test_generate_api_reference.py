@@ -1,14 +1,46 @@
 """Copyright (c) Modding Forge."""
 
 from pathlib import Path
+from typing import Optional
 
 from pytest import MonkeyPatch
 
+from nexusmods_api.auth.async_oauth_auth import AsyncOAuthAuth
 from tools import generate_api_reference
 
 
 class TestGenerateApiReference:
     """Tests parsed and deterministic Antora API reference generation."""
+
+    def test_normalizes_nullable_annotations(self) -> None:
+        """Tests stable nullable type rendering across Python versions."""
+
+        # given
+        nullable_alias: object = Optional[str]
+        nullable_union: object = str | None
+        multi_type_union: object = str | int | None
+
+        # when / then
+        assert generate_api_reference.annotation_text(nullable_alias) == "str | None"
+        assert generate_api_reference.annotation_text(nullable_union) == "str | None"
+        assert (
+            generate_api_reference.annotation_text(multi_type_union) == "str | int | None"
+        )
+
+    def test_reads_lazily_evaluated_class_annotations(self) -> None:
+        """Tests documented fields across Python annotation implementations."""
+
+        # given / when
+        fields: list[tuple[str, str, str]] = generate_api_reference.class_fields(
+            AsyncOAuthAuth
+        )
+
+        # then
+        assert (
+            "credentials",
+            "auth.oauth_credentials.OAuthCredentials",
+            "Mutable in-memory OAuth credentials shared across requests.",
+        ) in fields
 
     def test_converts_upstream_markdown_to_asciidoc(self) -> None:
         """Tests links, headings, lists, emphasis, and fenced source blocks."""
