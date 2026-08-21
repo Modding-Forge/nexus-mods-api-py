@@ -7,6 +7,15 @@ https://semver.org/[Semantic Versioning], including pre-release identifiers.
 
 No changes yet.
 
+== 1.1.1 - 2026-08-21
+
+* Added direct links from public REST v1, GraphQL v2, and REST v3 API documentation to
+  the matching official Nexus Mods operations and queries.
+* Preserved complete OpenAPI descriptions in generated REST v3 model fields and client
+  methods instead of truncating longer documentation.
+* Converted embedded upstream GitHub-flavored Markdown to native AsciiDoc with Pandoc,
+  including headings, lists, links, emphasis, and fenced code blocks.
+
 == 1.1.0 - 2026-08-20
 
 * Added synchronous and asynchronous convenience methods that retrieve and flatten mod

@@ -66,7 +66,7 @@ class TestSyncTransport:
         assert response.status_code == 200
         assert requests[0].headers["apikey"] == self.API_KEY
         assert requests[0].headers["application-name"] == "test-app"
-        assert requests[0].headers["user-agent"] == ("test-app/1.1.0 nexus-mods-api")
+        assert requests[0].headers["user-agent"] == ("test-app/1.1.1 nexus-mods-api")
         assert transport.rate_limits.hourly_remaining == 99
         assert transport.rate_limits.daily_remaining == 999
 

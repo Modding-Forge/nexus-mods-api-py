@@ -26,5 +26,5 @@ Validate the intended version or tag before creating it:
 
 [source,shell]
 ----
-uv run python tools/check_release_version.py v1.1.0
+uv run python tools/check_release_version.py v1.1.1
 ----
