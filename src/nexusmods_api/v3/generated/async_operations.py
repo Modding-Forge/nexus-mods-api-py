@@ -15,6 +15,9 @@ class GeneratedAsyncOperations:
 
         Appends changelog text for a version of a mod. This is additive only:...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ad\
+dModChangelogEntries
+
         Args:
             id: The unique identifier for the mod.
             query: Optional query parameters accepted by the pinned operation.
@@ -35,6 +38,9 @@ class GeneratedAsyncOperations:
 
         Creates a collection and claims an upload using the upload_id from a...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/collections/opera\
+tion/createCollection
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -53,6 +59,9 @@ class GeneratedAsyncOperations:
         """Create a collection revision.
 
         Creates a collection revision and claims an upload using the...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/collections/opera\
+tion/createCollectionRevision
 
         Args:
             id: The unique identifier for the collection this revision will belong to.
@@ -74,6 +83,9 @@ class GeneratedAsyncOperations:
 
         Creates a new mod file using the data from a finalised [upload...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operati\
+on/createModFile
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -90,6 +102,9 @@ class GeneratedAsyncOperations:
         """Create a new mod file version.
 
         Creates a new version of an existing mod file. The upload specified...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operati\
+on/createModFileVersion
 
         Args:
             id: The unique identifier for the mod file to add a version to.
@@ -110,6 +125,9 @@ class GeneratedAsyncOperations:
         """Create multipart upload.
 
         Creates a new multipart upload session. This allows you to upload...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation\
+/createMultipartUpload
 
         Args:
             query: Optional query parameters accepted by the pinned operation.
@@ -134,6 +152,9 @@ class GeneratedAsyncOperations:
 
         Creates a new version of an update group (tied to a mod file), the...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operati\
+on/createUpdateGroupVersion
+
         Args:
             group_id: The unique identifier for the update group.
             query: Optional query parameters accepted by the pinned operation.
@@ -154,6 +175,9 @@ class GeneratedAsyncOperations:
 
         Creates a new upload session. This allows you to upload data for a...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation\
+/createUpload
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -170,6 +194,9 @@ class GeneratedAsyncOperations:
         """Edit collection.
 
         Update the core details of a collection such as the name, summary,...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/collections/opera\
+tion/editCollection
 
         Args:
             id: The unique identifier for the collection.
@@ -191,6 +218,9 @@ class GeneratedAsyncOperations:
 
         Closes the upload session once all data is uploaded. Sessions must be...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation\
+/finaliseUpload
+
         Args:
             id: The unique identifier for the upload.
             query: Optional query parameters accepted by the pinned operation.
@@ -207,6 +237,9 @@ class GeneratedAsyncOperations:
         """Get available DLCs for a game.
 
         List of DLCs available for a game.
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tGameDlcs
 
         Args:
             game_domain: Game domain name (e.g. `skyrimspecialedition`).
@@ -230,6 +263,9 @@ class GeneratedAsyncOperations:
         """Get mod.
 
         Retrieve specified mod, from a specified game.
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tMod
 
         Args:
             game_domain: Game domain name. This is the human readable game name which
@@ -255,6 +291,9 @@ class GeneratedAsyncOperations:
 
         Retrieve a single mod file by its identifier.
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFile
+
         Args:
             id: The unique identifier for the mod file.
             query: Optional query parameters accepted by the pinned operation.
@@ -271,6 +310,9 @@ class GeneratedAsyncOperations:
         """Get mod file version.
 
         Retrieve a single mod file version by its identifier.
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersion
 
         Args:
             id: The unique identifier for the mod file version.
@@ -292,6 +334,9 @@ class GeneratedAsyncOperations:
         """Get mod file version by game-scoped ID.
 
         Retrieve a specific mod file version for a game by its game-scoped...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionByGameScopedId
 
         Args:
             game_domain: Game domain name. This is the human readable game name which
@@ -316,6 +361,9 @@ class GeneratedAsyncOperations:
 
         Retrieve the **raw** dependencies for a given mod file version with...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDependencies
+
         Args:
             id: The unique identifier for the mod file version.
             query: Optional query parameters accepted by the pinned operation.
@@ -334,6 +382,9 @@ class GeneratedAsyncOperations:
         """Batch get mod file version materialized dependency candidates.
 
         Resolves the materialized dependency candidates for a set of source...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDependencyCandidatesBatch
 
         Args:
             query: Optional query parameters accepted by the pinned operation.
@@ -354,6 +405,9 @@ class GeneratedAsyncOperations:
 
         Retrieve dependency ranges for a given mod file version. Each...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDependencyRanges
+
         Args:
             id: The unique identifier for the mod file version.
             query: Optional query parameters accepted by the pinned operation.
@@ -373,6 +427,9 @@ class GeneratedAsyncOperations:
 
         Retrieve materialized dependencies for a given mod file version....
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDependencyRangesMaterialized
+
         Args:
             id: The unique identifier for the mod file version.
             query: Optional query parameters accepted by the pinned operation.
@@ -391,6 +448,9 @@ class GeneratedAsyncOperations:
         """Batch get mod file version materialized dependency candidates.
 
         Resolves the materialized dependency candidates for a set of source...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDependencyRangesMaterializedBatch
 
         Args:
             query: Optional query parameters accepted by the pinned operation.
@@ -414,6 +474,9 @@ class GeneratedAsyncOperations:
 
         Retrieve the DLC dependencies for a given mod file version.
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionDlcDependencies
+
         Args:
             id: The unique identifier for the mod file version.
             query: Optional query parameters accepted by the pinned operation.
@@ -432,6 +495,9 @@ class GeneratedAsyncOperations:
         """Get mod file versions.
 
         Retrieve all versions for a given mod file.
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersions
 
         Args:
             id: The unique identifier for the mod file.
@@ -452,6 +518,9 @@ class GeneratedAsyncOperations:
 
         Resolves a set of mod file versions to their mod file (update...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFileVersionsBatch
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -471,6 +540,9 @@ class GeneratedAsyncOperations:
 
         Retrieve all mod files for a given mod.
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModFiles
+
         Args:
             id: The unique identifier for the mod.
             query: Optional query parameters accepted by the pinned operation.
@@ -488,6 +560,9 @@ class GeneratedAsyncOperations:
 
         Resolves a set of composite mod unique ids to their mod-level display...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tModsBatch
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -504,6 +579,9 @@ class GeneratedAsyncOperations:
         """Get trending mods for a game.
 
         Public feed of the top 5 trending mods for a game over the past...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/ge\
+tTrendingMods
 
         Args:
             game_domain: Game domain name (e.g. `skyrimspecialedition`).
@@ -524,6 +602,9 @@ class GeneratedAsyncOperations:
 
         Get the state of an upload session. ### Next steps * Once the `state`...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation\
+/getUpload
+
         Args:
             id: The unique identifier for the upload.
             query: Optional query parameters accepted by the pinned operation.
@@ -540,6 +621,9 @@ class GeneratedAsyncOperations:
         """Move multiple mod file versions.
 
         Moves one or more mod file versions to a new position relative to...
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/mo\
+veModFileVersions
 
         Args:
             query: Optional query parameters accepted by the pinned operation.
@@ -560,6 +644,9 @@ class GeneratedAsyncOperations:
 
         Moves one or more mod file versions into a new mod file with the...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/mo\
+veModFileVersionsToNewModFile
+
         Args:
             query: Optional query parameters accepted by the pinned operation.
             body: Optional JSON request body accepted by the pinned operation.
@@ -578,6 +665,9 @@ class GeneratedAsyncOperations:
         """Update mod file version DLC dependencies.
 
         Replace all DLC dependency definitions for a given mod file version....
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/se\
+tModFileVersionDependencyDlc
 
         Args:
             id: The unique identifier for the mod file version (i.e. the version to...
@@ -599,6 +689,9 @@ class GeneratedAsyncOperations:
 
         Replace all dependency range definitions for a given mod file...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/se\
+tModFileVersionDependencyRanges
+
         Args:
             id: The unique identifier for the mod file version (i.e. the version to...
             query: Optional query parameters accepted by the pinned operation.
@@ -619,6 +712,9 @@ class GeneratedAsyncOperations:
 
         Sets whether the given mod should use the legacy mod-level...
 
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/to\
+ggleLegacyModRequirements
+
         Args:
             id: The unique identifier for the mod.
             query: Optional query parameters accepted by the pinned operation.
@@ -638,6 +734,9 @@ class GeneratedAsyncOperations:
         """Update a mod file.
 
         Updates the name of an existing mod file by its ID.
+
+        Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/up\
+dateModFile
 
         Args:
             id: The unique identifier of the mod file to update.

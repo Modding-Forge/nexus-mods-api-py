@@ -68,6 +68,15 @@ class TestNexusV3Client:
         assert all(model_descriptions)
         assert all("Args:" in docstring for docstring in operation_docstrings)
         assert all("Returns:" in docstring for docstring in operation_docstrings)
+        assert all(
+            "Original API documentation: https://api-docs.nexusmods.com/#tag/"
+            in docstring
+            for docstring in operation_docstrings
+        )
+        assert (
+            "https://api-docs.nexusmods.com/#tag/mods/operation/getMod"
+            in (inspect.getdoc(NexusV3Client.get_mod) or "")
+        )
 
     def test_invokes_every_generated_operation(self) -> None:
         """Tests every explicit generated method against its registry metadata."""

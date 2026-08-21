@@ -63,6 +63,9 @@ class TestGenerateApiReference:
         assert "NexusV3Client.add_mod_changelog_entries" in rest_v3
         assert "Values for every path placeholder." in rest_v3
         assert "link:https://github.com/Modding-Forge/" in rest_v3
+        assert (
+            "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in rest_v3
+        )
 
     def test_detects_and_repairs_reference_drift(
         self,
