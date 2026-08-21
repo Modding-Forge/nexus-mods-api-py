@@ -69,6 +69,8 @@ Add changelog entries for a mod version.
 
 Appends changelog text for a version of a mod. This is additive only:...
 
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/addModChangelogEntries
+
 .Parameters
 [cols="1,1,1",options="header"]
 |===
@@ -109,11 +111,13 @@ def create_collection(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L31[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L34[Source]
 
 Create a collection.
 
 Creates a collection and claims an upload using the upload_id from a...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -143,11 +147,13 @@ def create_collection_revision(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L48[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L54[Source]
 
 Create a collection revision.
 
 Creates a collection revision and claims an upload using the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollectionRevision
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -177,11 +183,13 @@ def create_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L68[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L77[Source]
 
 Create mod file.
 
 Creates a new mod file using the data from a finalised [upload...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -211,11 +219,13 @@ def create_mod_file_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L85[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L97[Source]
 
 Create a new mod file version.
 
 Creates a new version of an existing mod file. The upload specified...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFileVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -245,11 +255,13 @@ def create_multipart_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L105[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L120[Source]
 
 Create multipart upload.
 
 Creates a new multipart upload session. This allows you to upload...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -279,11 +291,13 @@ def create_update_group_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L124[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L142[Source]
 
 Create a new update group version (updates a mod file).
 
 Creates a new version of an update group (tied to a mod file), the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createUpdateGroupVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -313,11 +327,13 @@ def create_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L148[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L169[Source]
 
 Create upload.
 
 Creates a new upload session. This allows you to upload data for a...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -347,11 +363,13 @@ def edit_collection(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L165[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L189[Source]
 
 Edit collection.
 
 Update the core details of a collection such as the name, summary,...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/editCollection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -381,11 +399,13 @@ def finalise_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L185[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L212[Source]
 
 Finalise upload.
 
 Closes the upload session once all data is uploaded. Sessions must be...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -414,11 +434,13 @@ def get_game_dlcs(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L202[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L232[Source]
 
 Get available DLCs for a game.
 
 List of DLCs available for a game.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getGameDlcs
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -448,11 +470,13 @@ def get_mod(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L221[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L254[Source]
 
 Get mod.
 
 Retrieve specified mod, from a specified game.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getMod
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -482,11 +506,13 @@ def get_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L249[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L285[Source]
 
 Get mod file.
 
 Retrieve a single mod file by its identifier.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -515,11 +541,13 @@ def get_mod_file_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L266[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L305[Source]
 
 Get mod file version.
 
 Retrieve a single mod file version by its identifier.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -549,11 +577,13 @@ def get_mod_file_version_by_game_scoped_id(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L283[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L325[Source]
 
 Get mod file version by game-scoped ID.
 
 Retrieve a specific mod file version for a game by its game-scoped...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionByGameScopedId
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -583,11 +613,13 @@ def get_mod_file_version_dependencies(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L310[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L355[Source]
 
 Get mod file version dependencies.
 
 Retrieve the **raw** dependencies for a given mod file version with...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencies
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -616,11 +648,13 @@ def get_mod_file_version_dependency_candidates_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L329[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L377[Source]
 
 Batch get mod file version materialized dependency candidates.
 
 Resolves the materialized dependency candidates for a set of source...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyCandidatesBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -649,11 +683,13 @@ def get_mod_file_version_dependency_ranges(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L348[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L399[Source]
 
 Get mod file version dependency ranges.
 
 Retrieve dependency ranges for a given mod file version. Each...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRanges
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -682,11 +718,13 @@ def get_mod_file_version_dependency_ranges_materialized(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L367[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L421[Source]
 
 Get a mod file versions materialized version-range dependencies.
 
 Retrieve materialized dependencies for a given mod file version....
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRangesMaterialized
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -715,11 +753,13 @@ def get_mod_file_version_dependency_ranges_materialized_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L386[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L443[Source]
 
 Batch get mod file version materialized dependency candidates.
 
 Resolves the materialized dependency candidates for a set of source...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRangesMaterializedBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -748,11 +788,13 @@ def get_mod_file_version_dlc_dependencies(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L408[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L468[Source]
 
 Get mod file version DLC dependencies.
 
 Retrieve the DLC dependencies for a given mod file version.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDlcDependencies
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -781,11 +823,13 @@ def get_mod_file_versions(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L427[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L490[Source]
 
 Get mod file versions.
 
 Retrieve all versions for a given mod file.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersions
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -814,11 +858,13 @@ def get_mod_file_versions_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L444[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L510[Source]
 
 Batch get mod file version details.
 
 Resolves a set of mod file versions to their mod file (update...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionsBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -847,11 +893,13 @@ def get_mod_files(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L463[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L532[Source]
 
 Get mod files.
 
 Retrieve all mod files for a given mod.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFiles
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -880,11 +928,13 @@ def get_mods_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L480[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L552[Source]
 
 Batch get mod display details.
 
 Resolves a set of composite mod unique ids to their mod-level display...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModsBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -913,11 +963,13 @@ def get_trending_mods(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L497[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L572[Source]
 
 Get trending mods for a game.
 
 Public feed of the top 5 trending mods for a game over the past...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getTrendingMods
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -946,11 +998,13 @@ def get_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L516[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L594[Source]
 
 Get upload.
 
 Get the state of an upload session. ### Next steps * Once the `state`...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -979,11 +1033,13 @@ def move_mod_file_versions(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L533[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L614[Source]
 
 Move multiple mod file versions.
 
 Moves one or more mod file versions to a new position relative to...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersions
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1012,11 +1068,13 @@ def move_mod_file_versions_to_new_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L550[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L634[Source]
 
 Move multiple mod file versions into a new mod file.
 
 Moves one or more mod file versions into a new mod file with the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersionsToNewModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1158,11 +1216,13 @@ def set_mod_file_version_dependency_dlc(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L569[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L656[Source]
 
 Update mod file version DLC dependencies.
 
 Replace all DLC dependency definitions for a given mod file version....
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/setModFileVersionDependencyDlc
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1193,11 +1253,13 @@ def set_mod_file_version_dependency_ranges(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L589[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L679[Source]
 
 Update mod file version dependency ranges.
 
 Replace all dependency range definitions for a given mod file...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/setModFileVersionDependencyRanges
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1228,11 +1290,13 @@ def toggle_legacy_mod_requirements(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L609[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L702[Source]
 
 Toggle legacy mod requirements for a mod.
 
 Sets whether the given mod should use the legacy mod-level...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/toggleLegacyModRequirements
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1263,11 +1327,13 @@ def update_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L629[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/sync_operations.py#L725[Source]
 
 Update a mod file.
 
 Updates the name of an existing mod file by its ID.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/updateModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1349,6 +1415,8 @@ Add changelog entries for a mod version.
 
 Appends changelog text for a version of a mod. This is additive only:...
 
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/addModChangelogEntries
+
 .Parameters
 [cols="1,1,1",options="header"]
 |===
@@ -1389,11 +1457,13 @@ async def create_collection(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L31[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L34[Source]
 
 Create a collection.
 
 Creates a collection and claims an upload using the upload_id from a...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1423,11 +1493,13 @@ async def create_collection_revision(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L50[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L56[Source]
 
 Create a collection revision.
 
 Creates a collection revision and claims an upload using the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollectionRevision
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1457,11 +1529,13 @@ async def create_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L70[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L79[Source]
 
 Create mod file.
 
 Creates a new mod file using the data from a finalised [upload...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1491,11 +1565,13 @@ async def create_mod_file_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L87[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L99[Source]
 
 Create a new mod file version.
 
 Creates a new version of an existing mod file. The upload specified...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFileVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1525,11 +1601,13 @@ async def create_multipart_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L107[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L122[Source]
 
 Create multipart upload.
 
 Creates a new multipart upload session. This allows you to upload...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1559,11 +1637,13 @@ async def create_update_group_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L126[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L144[Source]
 
 Create a new update group version (updates a mod file).
 
 Creates a new version of an update group (tied to a mod file), the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createUpdateGroupVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1593,11 +1673,13 @@ async def create_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L150[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L171[Source]
 
 Create upload.
 
 Creates a new upload session. This allows you to upload data for a...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1627,11 +1709,13 @@ async def edit_collection(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L167[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L191[Source]
 
 Edit collection.
 
 Update the core details of a collection such as the name, summary,...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/editCollection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1661,11 +1745,13 @@ async def finalise_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L187[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L214[Source]
 
 Finalise upload.
 
 Closes the upload session once all data is uploaded. Sessions must be...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1694,11 +1780,13 @@ async def get_game_dlcs(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L204[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L234[Source]
 
 Get available DLCs for a game.
 
 List of DLCs available for a game.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getGameDlcs
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1728,11 +1816,13 @@ async def get_mod(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L223[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L256[Source]
 
 Get mod.
 
 Retrieve specified mod, from a specified game.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getMod
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1762,11 +1852,13 @@ async def get_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L251[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L287[Source]
 
 Get mod file.
 
 Retrieve a single mod file by its identifier.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1795,11 +1887,13 @@ async def get_mod_file_version(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L268[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L307[Source]
 
 Get mod file version.
 
 Retrieve a single mod file version by its identifier.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersion
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1829,11 +1923,13 @@ async def get_mod_file_version_by_game_scoped_id(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L285[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L327[Source]
 
 Get mod file version by game-scoped ID.
 
 Retrieve a specific mod file version for a game by its game-scoped...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionByGameScopedId
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1863,11 +1959,13 @@ async def get_mod_file_version_dependencies(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L312[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L357[Source]
 
 Get mod file version dependencies.
 
 Retrieve the **raw** dependencies for a given mod file version with...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencies
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1896,11 +1994,13 @@ async def get_mod_file_version_dependency_candidates_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L331[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L379[Source]
 
 Batch get mod file version materialized dependency candidates.
 
 Resolves the materialized dependency candidates for a set of source...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyCandidatesBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1929,11 +2029,13 @@ async def get_mod_file_version_dependency_ranges(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L350[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L401[Source]
 
 Get mod file version dependency ranges.
 
 Retrieve dependency ranges for a given mod file version. Each...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRanges
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1962,11 +2064,13 @@ async def get_mod_file_version_dependency_ranges_materialized(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L369[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L423[Source]
 
 Get a mod file versions materialized version-range dependencies.
 
 Retrieve materialized dependencies for a given mod file version....
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRangesMaterialized
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -1995,11 +2099,13 @@ async def get_mod_file_version_dependency_ranges_materialized_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L388[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L445[Source]
 
 Batch get mod file version materialized dependency candidates.
 
 Resolves the materialized dependency candidates for a set of source...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencyRangesMaterializedBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2028,11 +2134,13 @@ async def get_mod_file_version_dlc_dependencies(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L410[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L470[Source]
 
 Get mod file version DLC dependencies.
 
 Retrieve the DLC dependencies for a given mod file version.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDlcDependencies
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2061,11 +2169,13 @@ async def get_mod_file_versions(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L429[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L492[Source]
 
 Get mod file versions.
 
 Retrieve all versions for a given mod file.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersions
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2094,11 +2204,13 @@ async def get_mod_file_versions_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L448[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L514[Source]
 
 Batch get mod file version details.
 
 Resolves a set of mod file versions to their mod file (update...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionsBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2127,11 +2239,13 @@ async def get_mod_files(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L467[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L536[Source]
 
 Get mod files.
 
 Retrieve all mod files for a given mod.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFiles
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2160,11 +2274,13 @@ async def get_mods_batch(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L484[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L556[Source]
 
 Batch get mod display details.
 
 Resolves a set of composite mod unique ids to their mod-level display...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModsBatch
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2193,11 +2309,13 @@ async def get_trending_mods(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L501[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L576[Source]
 
 Get trending mods for a game.
 
 Public feed of the top 5 trending mods for a game over the past...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getTrendingMods
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2226,11 +2344,13 @@ async def get_upload(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L520[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L598[Source]
 
 Get upload.
 
 Get the state of an upload session. ### Next steps * Once the `state`...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2259,11 +2379,13 @@ async def move_mod_file_versions(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L537[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L618[Source]
 
 Move multiple mod file versions.
 
 Moves one or more mod file versions to a new position relative to...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersions
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2292,11 +2414,13 @@ async def move_mod_file_versions_to_new_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L556[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L640[Source]
 
 Move multiple mod file versions into a new mod file.
 
 Moves one or more mod file versions into a new mod file with the...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersionsToNewModFile
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2438,11 +2562,13 @@ async def set_mod_file_version_dependency_dlc(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L575[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L662[Source]
 
 Update mod file version DLC dependencies.
 
 Replace all DLC dependency definitions for a given mod file version....
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/setModFileVersionDependencyDlc
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2473,11 +2599,13 @@ async def set_mod_file_version_dependency_ranges(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L595[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L685[Source]
 
 Update mod file version dependency ranges.
 
 Replace all dependency range definitions for a given mod file...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/setModFileVersionDependencyRanges
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2508,11 +2636,13 @@ async def toggle_legacy_mod_requirements(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L615[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L708[Source]
 
 Toggle legacy mod requirements for a mod.
 
 Sets whether the given mod should use the legacy mod-level...
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/toggleLegacyModRequirements
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -2543,11 +2673,13 @@ async def update_mod_file(
 ) -> JsonValue
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L635[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v3/generated/async_operations.py#L731[Source]
 
 Update a mod file.
 
 Updates the name of an existing mod file by its ID.
+
+Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/updateModFile
 
 .Parameters
 [cols="1,1,1",options="header"]

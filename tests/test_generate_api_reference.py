@@ -55,6 +55,14 @@ class TestGenerateApiReference:
         rest_v3: str = next(
             content for path, content in generated.items() if path.name == "rest-v3.adoc"
         )
+        graphql_v2: str = next(
+            content
+            for path, content in generated.items()
+            if path.name == "graphql-v2.adoc"
+        )
+        rest_v1: str = next(
+            content for path, content in generated.items() if path.name == "rest-v1.adoc"
+        )
 
         # then
         assert "The application-specific personal Nexus Mods API key." in authentication
@@ -63,6 +71,13 @@ class TestGenerateApiReference:
         assert "NexusV3Client.add_mod_changelog_entries" in rest_v3
         assert "Values for every path placeholder." in rest_v3
         assert "link:https://github.com/Modding-Forge/" in rest_v3
+        assert "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in rest_v3
+        assert "https://graphql.nexusmods.com/#query-games" in graphql_v2
+        assert (
+            "https://app.swaggerhub.com/apis-docs/NexusMods/"
+            "nexus-mods_public_api_params_in_form_data/1.0#/Games/"
+            "get_v1_games.json" in rest_v1
+        )
 
     def test_detects_and_repairs_reference_drift(
         self,

@@ -11,10 +11,12 @@ import textwrap
 import urllib.request
 from pathlib import Path
 from typing import Optional, cast
+from urllib.parse import quote
 
 import yaml
 
 SOURCE_URL: str = "https://api.nexusmods.com/openapi.yaml"
+DOCUMENTATION_URL: str = "https://api-docs.nexusmods.com"
 EXPECTED_SHA256: str = "15a82a80cc3e0ec1a47f7ae50ca6a0236eb6fccf84a298b06eb02b6db978e644"
 HTTP_METHODS: tuple[str, ...] = ("get", "post", "put", "patch", "delete")
 ROOT: Path = Path(__file__).resolve().parents[1]
@@ -123,6 +125,56 @@ def append_doc_entry(
     lines.append(f"{prefix}{wrapped[0]}")
     continuation: str = " " * len(prefix)
     lines.extend(f"{continuation}{line}" for line in wrapped[1:])
+
+
+def append_documentation_link(lines: list[str], url: str) -> None:
+    """Appends an upstream link without exceeding the source line limit.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        url (str): Absolute upstream documentation URL.
+    """
+
+    indentation: str = "        "
+    remaining: str = f"Original API documentation: {url}"
+    width: int = 90 - len(indentation)
+    while len(remaining) > width:
+        lines.append(f"{indentation}{remaining[: width - 1]}\\")
+        remaining = remaining[width - 1 :]
+        indentation = ""
+        width = 90
+    lines.append(f"{indentation}{remaining}")
+
+
+def operation_documentation_url(
+    operation: dict[str, object],
+    operation_id: str,
+) -> str:
+    """Builds the official documentation URL for one OpenAPI operation.
+
+    Args:
+        operation (dict[str, object]): OpenAPI operation containing optional tags.
+        operation_id (str): Stable OpenAPI operation identifier.
+
+    Returns:
+        str: Deep link to the operation in the official Nexus Mods documentation.
+    """
+
+    tags: object = operation.get("tags", [])
+    tag: Optional[str] = (
+        next(
+            (item for item in cast(list[object], tags) if isinstance(item, str)),
+            None,
+        )
+        if isinstance(tags, list)
+        else None
+    )
+    if tag is None:
+        return DOCUMENTATION_URL
+    return (
+        f"{DOCUMENTATION_URL}/#tag/{quote(tag, safe='')}/operation/"
+        f"{quote(operation_id, safe='')}"
+    )
 
 
 def snake_case(value: str) -> str:
@@ -408,6 +460,10 @@ def operation_records(spec: dict[str, object]) -> list[dict[str, object]]:
                         operation_map.get("description"),
                         f"Calls the {operation_id} REST v3 operation",
                     ),
+                    "documentation_url": operation_documentation_url(
+                        operation_map,
+                        operation_id,
+                    ),
                     "has_body": "requestBody" in operation_map,
                     "deprecated": bool(operation_map.get("deprecated", False)),
                     "experimental": any(
@@ -509,6 +565,8 @@ def generate_mixin(
         if description != record["summary"]:
             lines.append(f"        {description}")
             lines.append("")
+        append_documentation_link(lines, cast(str, record["documentation_url"]))
+        lines.append("")
         lines.append("        Args:")
         for name, _, parameter_description in parameters:
             append_doc_entry(
