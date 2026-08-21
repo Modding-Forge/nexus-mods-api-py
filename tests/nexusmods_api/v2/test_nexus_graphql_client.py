@@ -1,5 +1,6 @@
 """Copyright (c) Modding Forge."""
 
+import inspect
 import json
 from typing import cast
 
@@ -12,6 +13,7 @@ from nexusmods_api.errors.nexus_response_validation_error import (
 )
 from nexusmods_api.nexus_config import NexusConfig
 from nexusmods_api.types import JsonValue
+from nexusmods_api.v2.async_nexus_graphql_client import AsyncNexusGraphQLClient
 from nexusmods_api.v2.nexus_graphql_client import NexusGraphQLClient
 
 from .payloads import operation_payload
@@ -19,6 +21,36 @@ from .payloads import operation_payload
 
 class TestNexusGraphQLClient:
     """Tests the generic and convenient synchronous GraphQL v2 surface."""
+
+    def test_endpoint_docstrings_link_official_queries(self) -> None:
+        """Tests official GraphQL links and sync/async documentation parity."""
+
+        # given
+        links: dict[str, str] = {
+            "execute": "https://graphql.nexusmods.com/#introduction",
+            "execute_raw": "https://graphql.nexusmods.com/#introduction",
+            "get_games": "https://graphql.nexusmods.com/#query-games",
+            "get_mod": "https://graphql.nexusmods.com/#query-mod",
+            "search_mods": "https://graphql.nexusmods.com/#query-mods",
+            "get_mod_files": "https://graphql.nexusmods.com/#query-modFiles",
+            "get_collection": "https://graphql.nexusmods.com/#query-collection",
+            "get_revision": ("https://graphql.nexusmods.com/#query-collectionRevision"),
+            "get_user": "https://graphql.nexusmods.com/#query-user",
+        }
+
+        # when
+        sync_docs: dict[str, str] = {
+            name: inspect.getdoc(getattr(NexusGraphQLClient, name)) or ""
+            for name in links
+        }
+        async_docs: dict[str, str] = {
+            name: inspect.getdoc(getattr(AsyncNexusGraphQLClient, name)) or ""
+            for name in links
+        }
+
+        # then
+        assert all(link in sync_docs[name] for name, link in links.items())
+        assert sync_docs == async_docs
 
     def test_executes_all_convenience_queries(self) -> None:
         """Tests typed convenience roots, variables, and pagination."""

@@ -60,7 +60,7 @@ Initializes a synchronous GraphQL v2 client.
 def close() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L349[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L367[Source]
 
 Closes internally owned HTTP resources.
 
@@ -82,6 +82,8 @@ def execute(
 link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L88[Source]
 
 Executes and validates an arbitrary GraphQL document.
+
+Original API documentation: https://graphql.nexusmods.com/#introduction
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -122,9 +124,11 @@ def execute_raw(
 ) -> v2.models.graphql_response.GraphQLResponse
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L127[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L129[Source]
 
 Executes a document while preserving raw partial data and errors.
+
+Original API documentation: https://graphql.nexusmods.com/#introduction
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -161,9 +165,11 @@ def get_collection(
 ) -> v2.models.graphql_collection.GraphQLCollection
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L268[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L280[Source]
 
 Returns one collection by slug.
+
+Original API documentation: https://graphql.nexusmods.com/#query-collection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -199,9 +205,11 @@ def get_games(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLGame]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L157[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L161[Source]
 
 Returns a page of games.
+
+Original API documentation: https://graphql.nexusmods.com/#query-games
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -228,9 +236,11 @@ def get_mod(
 ) -> v2.models.graphql_mod.GraphQLMod
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L176[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L182[Source]
 
 Returns one mod by globally unique identifier.
+
+Original API documentation: https://graphql.nexusmods.com/#query-mod
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -267,9 +277,11 @@ def get_mod_files(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLModFile]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L231[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L241[Source]
 
 Returns a typed page of files for one mod UID.
+
+Original API documentation: https://graphql.nexusmods.com/#query-modFiles
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -308,9 +320,11 @@ def get_revision(
 ) -> v2.models.graphql_revision.GraphQLRevision
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L295[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L309[Source]
 
 Returns one numbered revision belonging to a collection slug.
+
+Original API documentation: https://graphql.nexusmods.com/#query-collectionRevision
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -345,9 +359,11 @@ def get_user(
 ) -> v2.models.graphql_user.GraphQLUser
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L328[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L344[Source]
 
 Returns one public Nexus Mods user.
+
+Original API documentation: https://graphql.nexusmods.com/#query-user
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -395,9 +411,11 @@ def search_mods(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLMod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L199[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/nexus_graphql_client.py#L207[Source]
 
 Searches mods and returns one typed result page.
+
+Original API documentation: https://graphql.nexusmods.com/#query-mods
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -472,7 +490,7 @@ Initializes an asynchronous GraphQL v2 client.
 async def close() -> None
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L354[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L372[Source]
 
 Closes internally owned HTTP resources.
 
@@ -494,6 +512,8 @@ async def execute(
 link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L88[Source]
 
 Executes and validates an arbitrary GraphQL document.
+
+Original API documentation: https://graphql.nexusmods.com/#introduction
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -534,9 +554,11 @@ async def execute_raw(
 ) -> v2.models.graphql_response.GraphQLResponse
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L127[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L129[Source]
 
 Executes a document while preserving raw partial data and errors.
+
+Original API documentation: https://graphql.nexusmods.com/#introduction
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -573,9 +595,11 @@ async def get_collection(
 ) -> v2.models.graphql_collection.GraphQLCollection
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L273[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L285[Source]
 
 Returns one collection by slug.
+
+Original API documentation: https://graphql.nexusmods.com/#query-collection
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -611,9 +635,11 @@ async def get_games(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLGame]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L157[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L161[Source]
 
 Returns a page of games.
+
+Original API documentation: https://graphql.nexusmods.com/#query-games
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -640,9 +666,11 @@ async def get_mod(
 ) -> v2.models.graphql_mod.GraphQLMod
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L181[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L187[Source]
 
 Returns one mod by globally unique identifier.
+
+Original API documentation: https://graphql.nexusmods.com/#query-mod
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -679,9 +707,11 @@ async def get_mod_files(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLModFile]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L236[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L246[Source]
 
 Returns a typed page of files for one mod UID.
+
+Original API documentation: https://graphql.nexusmods.com/#query-modFiles
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -720,9 +750,11 @@ async def get_revision(
 ) -> v2.models.graphql_revision.GraphQLRevision
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L300[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L314[Source]
 
 Returns one numbered revision belonging to a collection slug.
+
+Original API documentation: https://graphql.nexusmods.com/#query-collectionRevision
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -757,9 +789,11 @@ async def get_user(
 ) -> v2.models.graphql_user.GraphQLUser
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L333[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L349[Source]
 
 Returns one public Nexus Mods user.
+
+Original API documentation: https://graphql.nexusmods.com/#query-user
 
 .Parameters
 [cols="1,1,1",options="header"]
@@ -807,9 +841,11 @@ async def search_mods(
 ) -> v2.models.graphql_page.GraphQLPage[GraphQLMod]
 ----
 
-link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L204[Source]
+link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmods_api/v2/async_nexus_graphql_client.py#L212[Source]
 
 Searches mods and returns one typed result page.
+
+Original API documentation: https://graphql.nexusmods.com/#query-mods
 
 .Parameters
 [cols="1,1,1",options="header"]

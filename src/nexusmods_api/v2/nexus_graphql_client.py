@@ -96,6 +96,8 @@ class NexusGraphQLClient:
     ) -> ResponseT:
         """Executes and validates an arbitrary GraphQL document.
 
+        Original API documentation: https://graphql.nexusmods.com/#introduction
+
         Args:
             document (str): GraphQL query or mutation document.
             response_model (type[ResponseT]): Expected type of the `data` value.
@@ -133,6 +135,8 @@ class NexusGraphQLClient:
     ) -> GraphQLResponse:
         """Executes a document while preserving raw partial data and errors.
 
+        Original API documentation: https://graphql.nexusmods.com/#introduction
+
         Args:
             document (str): GraphQL query or mutation document.
             variables (Optional[dict[str, JsonValue]]): Operation variables.
@@ -157,6 +161,8 @@ class NexusGraphQLClient:
     def get_games(self, *, count: int = 20, offset: int = 0) -> GraphQLPage[GraphQLGame]:
         """Returns a page of games.
 
+        Original API documentation: https://graphql.nexusmods.com/#query-games
+
         Args:
             count (int): Maximum number of games requested.
             offset (int): Zero-based result offset.
@@ -175,6 +181,8 @@ class NexusGraphQLClient:
 
     def get_mod(self, uid: str) -> GraphQLMod:
         """Returns one mod by globally unique identifier.
+
+        Original API documentation: https://graphql.nexusmods.com/#query-mod
 
         Args:
             uid (str): Unsigned decimal 64-bit mod UID.
@@ -204,6 +212,8 @@ class NexusGraphQLClient:
         offset: int = 0,
     ) -> GraphQLPage[GraphQLMod]:
         """Searches mods and returns one typed result page.
+
+        Original API documentation: https://graphql.nexusmods.com/#query-mods
 
         Args:
             query (str): Name search pattern passed to Nexus Mods.
@@ -236,6 +246,8 @@ class NexusGraphQLClient:
         offset: int = 0,
     ) -> GraphQLPage[GraphQLModFile]:
         """Returns a typed page of files for one mod UID.
+
+        Original API documentation: https://graphql.nexusmods.com/#query-modFiles
 
         Args:
             uid (str): Unsigned decimal 64-bit mod UID.
@@ -273,6 +285,8 @@ class NexusGraphQLClient:
     ) -> GraphQLCollection:
         """Returns one collection by slug.
 
+        Original API documentation: https://graphql.nexusmods.com/#query-collection
+
         Args:
             slug (str): Nexus Mods collection slug.
             game_domain (Optional[str]): Game domain used to disambiguate the slug.
@@ -301,6 +315,8 @@ class NexusGraphQLClient:
     ) -> GraphQLRevision:
         """Returns one numbered revision belonging to a collection slug.
 
+        Original API documentation: https://graphql.nexusmods.com/#query-collectionRevision
+
         Args:
             slug (str): Nexus Mods collection slug.
             revision_number (int): Collection revision number.
@@ -327,6 +343,8 @@ class NexusGraphQLClient:
 
     def get_user(self, user_id: int) -> GraphQLUser:
         """Returns one public Nexus Mods user.
+
+        Original API documentation: https://graphql.nexusmods.com/#query-user
 
         Args:
             user_id (int): Nexus Mods member identifier.
