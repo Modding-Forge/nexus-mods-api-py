@@ -7,34 +7,52 @@ from ....types import JsonValue
 
 
 class CreateModFileRequest(NexusModel):
-    """Models the CreateModFileRequest schema from the pinned Nexus Mods..."""
+    """Models the CreateModFileRequest REST v3 schema.
+
+    Models the CreateModFileRequest schema from the pinned Nexus Mods REST v3 OpenAPI do\
+cument.
+    """
 
     allow_mod_manager_download: Optional[bool] = None
-    """Whether mod manager downloads are enabled for this file."""
+    """Whether mod manager downloads are enabled for this file.
+    """
 
     description: Optional[str] = None
-    """Description of the mod file."""
+    """Description of the mod file.
+    """
 
     file_category: JsonValue
-    """The embedded NewModFileCategory data for this CreateModFileRequest value."""
+    """The embedded NewModFileCategory data for this CreateModFileRequest value.
+    """
 
     mod_id: str
-    """The unique identifier for the mod this file belongs to. * Use [get..."""
+    """The unique identifier for the mod this file belongs to.
+
+    * Use [get mod](#tag/mods/operation/getMod) to get the game scoped ID for a mod usin\
+g the data from a site URL e.g.
+      `/skyrimspecialedition/mods/12604`.
+    """
 
     name: str
-    """Mod file name."""
+    """Mod file name.
+    """
 
     primary_mod_manager_download: Optional[bool] = None
-    """Whether this file is the default download for mod managers."""
+    """Whether this file is the default download for mod managers.
+    """
 
     show_requirements_pop_up: Optional[bool] = None
-    """Whether to show a requirements popup when downloading this file."""
+    """Whether to show a requirements popup when downloading this file.
+    """
 
     update_mod_version: Optional[bool] = None
-    """Whether to update the mod's version to match this file's version."""
+    """Whether to update the mod's version to match this file's version.
+    """
 
     upload_id: str
-    """The unique identifier for the upload."""
+    """The unique identifier for the upload.
+    """
 
     version: str
-    """Mod file version."""
+    """Mod file version.
+    """

@@ -28,20 +28,21 @@ COPYRIGHT: str = '"""Copyright (c) Modding Forge."""\n\n'
 
 
 def prose(value: object, fallback: str) -> str:
-    """Normalizes upstream prose into one concise sentence.
+    """Normalizes upstream prose without discarding content.
 
     Args:
         value (object): Optional OpenAPI description or summary value.
         fallback (str): Sentence used when the schema provides no prose.
 
     Returns:
-        str: A whitespace-normalized sentence ending in punctuation.
+        str: Complete normalized prose ending in punctuation when appropriate.
     """
 
     source: str = value if isinstance(value, str) and value.strip() else fallback
-    normalized: str = " ".join(source.split())
-    shortened: str = textwrap.shorten(normalized, width=72, placeholder="...")
-    return shortened if shortened.endswith((".", "!", "?")) else f"{shortened}."
+    normalized: str = "\n".join(line.rstrip() for line in source.strip().splitlines())
+    if normalized.endswith((".", "!", "?", "```")):
+        return normalized
+    return f"{normalized}."
 
 
 def reference_name(schema: dict[str, object]) -> Optional[str]:
@@ -119,12 +120,116 @@ def append_doc_entry(
         description (str): Human-readable entry description.
     """
 
-    prefix: str = f"{indentation}{label}: "
-    content_width: int = max(20, 90 - len(prefix))
-    wrapped: list[str] = textwrap.wrap(description, width=content_width)
-    lines.append(f"{prefix}{wrapped[0]}")
-    continuation: str = " " * len(prefix)
-    lines.extend(f"{continuation}{line}" for line in wrapped[1:])
+    entry_prefix: str = f"{label}: "
+    content_width: int = max(20, 90 - len(indentation) - len(entry_prefix))
+    normalized: str = " ".join(description.split())
+    wrapped: list[str] = textwrap.wrap(
+        normalized,
+        width=content_width,
+        break_long_words=False,
+        break_on_hyphens=False,
+    )
+    append_doc_line(lines, indentation, f"{entry_prefix}{wrapped[0]}")
+    continuation: str = f"{indentation}{' ' * len(entry_prefix)}"
+    for line in wrapped[1:]:
+        append_doc_line(lines, continuation, line)
+
+
+def append_doc_line(lines: list[str], indentation: str, text: str) -> None:
+    """Appends one runtime docstring line within the source line limit.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        indentation (str): Initial Python and docstring indentation.
+        text (str): Runtime text that must remain on one logical line.
+    """
+
+    remaining: str = text
+    current_indentation: str = indentation
+    while len(current_indentation) + len(remaining) > 89:
+        available: int = 88 - len(current_indentation)
+        lines.append(f"{current_indentation}{remaining[:available]}\\")
+        remaining = remaining[available:]
+        current_indentation = ""
+    lines.append(f"{current_indentation}{remaining}")
+
+
+def append_doc_prose(lines: list[str], indentation: str, text: str) -> None:
+    """Appends complete wrapped prose while retaining upstream paragraphs.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        indentation (str): Python and docstring indentation.
+        text (str): Complete normalized prose to append.
+    """
+
+    for source_line in text.splitlines():
+        if not source_line:
+            lines.append("")
+            continue
+        append_doc_line(lines, indentation, source_line)
+
+
+def append_block_docstring(
+    lines: list[str],
+    indentation: str,
+    description: str,
+) -> None:
+    """Appends a complete standalone multiline docstring.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        indentation (str): Python indentation for the string literal.
+        description (str): Complete docstring prose.
+    """
+
+    append_docstring_start(lines, indentation, description)
+    lines.append(f'{indentation}"""')
+
+
+def append_model_docstring(
+    lines: list[str],
+    model_name: str,
+    description: str,
+) -> None:
+    """Appends a complete Pydantic model docstring with a concise summary.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        model_name (str): Public generated model name.
+        description (str): Complete model description from the OpenAPI document.
+    """
+
+    indentation: str = "    "
+    inline: str = f'{indentation}"""{description}"""'
+    if "\n" not in description and len(inline) <= 90:
+        lines.append(inline)
+        return
+    summary: str = f"Models the {model_name} REST v3 schema."
+    append_doc_line(lines, indentation, f'"""{summary}')
+    lines.append("")
+    append_doc_prose(lines, indentation, description)
+    lines.append(f'{indentation}"""')
+
+
+def append_docstring_start(
+    lines: list[str],
+    indentation: str,
+    summary: str,
+) -> None:
+    """Appends an opening delimiter and complete wrapped summary.
+
+    Args:
+        lines (list[str]): Mutable generated source lines.
+        indentation (str): Python indentation for the string literal.
+        summary (str): Complete docstring summary text.
+    """
+
+    source_lines: list[str] = summary.splitlines()
+    first_line: str = source_lines[0]
+    append_doc_line(lines, indentation, f'"""{first_line}')
+    if len(source_lines) > 1:
+        append_doc_prose(lines, indentation, "\n".join(source_lines[1:]))
 
 
 def append_documentation_link(lines: list[str], url: str) -> None:
@@ -135,15 +240,7 @@ def append_documentation_link(lines: list[str], url: str) -> None:
         url (str): Absolute upstream documentation URL.
     """
 
-    indentation: str = "        "
-    remaining: str = f"Original API documentation: {url}"
-    width: int = 90 - len(indentation)
-    while len(remaining) > width:
-        lines.append(f"{indentation}{remaining[: width - 1]}\\")
-        remaining = remaining[width - 1 :]
-        indentation = ""
-        width = 90
-    lines.append(f"{indentation}{remaining}")
+    append_doc_line(lines, "        ", f"Original API documentation: {url}")
 
 
 def operation_documentation_url(
@@ -368,11 +465,13 @@ def generate_model(schema_name: str, schema: dict[str, object]) -> tuple[str, st
             "OpenAPI document"
         ),
     )
-    lines.append(f'    """{model_description}"""')
+    append_model_docstring(lines, model_name, model_description)
     lines.append("")
     if fields:
         for declaration, description in fields:
-            lines.extend([declaration, f'    """{description}"""', ""])
+            lines.append(declaration)
+            append_block_docstring(lines, "    ", description)
+            lines.append("")
         lines.pop()
     else:
         lines.extend(
@@ -559,11 +658,11 @@ def generate_mixin(
         lines.append(
             f"    {prefix} {record['name']}({', '.join(signature_parts)}) -> JsonValue:"
         )
-        lines.append(f'        """{record["summary"]}')
+        append_docstring_start(lines, "        ", cast(str, record["summary"]))
         lines.append("")
         description: str = cast(str, record["description"])
         if description != record["summary"]:
-            lines.append(f"        {description}")
+            append_doc_prose(lines, "        ", description)
             lines.append("")
         append_documentation_link(lines, cast(str, record["documentation_url"]))
         lines.append("")

@@ -5,10 +5,17 @@ from ....types import JsonValue
 
 
 class MaterializedModFileVersionDependency(NexusModel):
-    """A materialized dependency definition with its resolved candidate mod..."""
+    """Models the MaterializedModFileVersionDependency REST v3 schema.
+
+    A materialized dependency definition with its resolved candidate mod files and versi\
+ons.
+    """
 
     candidate_mod_files: list[JsonValue]
-    """The embedded DependencyCandidateModFile data for this..."""
+    """The embedded DependencyCandidateModFile data for this MaterializedModFileVersionD\
+ependency value.
+    """
 
     id: str
-    """The unique identifier for the dependency definition."""
+    """The unique identifier for the dependency definition.
+    """

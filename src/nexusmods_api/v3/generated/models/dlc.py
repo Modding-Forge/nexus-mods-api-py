@@ -7,10 +7,13 @@ class Dlc(NexusModel):
     """A DLC available for a game."""
 
     id: str
-    """The DLC identifier, scoped to the game."""
+    """The DLC identifier, scoped to the game.
+    """
 
     name: str
-    """The DLC display name."""
+    """The DLC display name.
+    """
 
     thumbnail_url: str
-    """Thumbnail image URL."""
+    """Thumbnail image URL.
+    """

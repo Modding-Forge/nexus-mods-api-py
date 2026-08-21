@@ -8,7 +8,9 @@ class CollectionManifest(NexusModel):
     """The JSON manifest that defines a collection."""
 
     info: JsonValue
-    """The embedded CollectionManifestInfo data for this CollectionManifest..."""
+    """The embedded CollectionManifestInfo data for this CollectionManifest value.
+    """
 
     mods: list[JsonValue]
-    """List of mod resources for the manifest."""
+    """List of mod resources for the manifest.
+    """

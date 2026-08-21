@@ -10,6 +10,48 @@ from tools import generate_api_reference
 class TestGenerateApiReference:
     """Tests parsed and deterministic Antora API reference generation."""
 
+    def test_converts_upstream_markdown_to_asciidoc(self) -> None:
+        """Tests links, headings, lists, emphasis, and fenced source blocks."""
+
+        # given
+        markdown: str = "\n".join(
+            [
+                "### Next steps",
+                "",
+                "**Deprecated** in favor of [get mod](#tag/mods/operation/getMod).",
+                "",
+                "* Upload every part.",
+                "   * Retain its `ETag`.",
+                "  Continue the preceding sentence without a literal block.",
+                "",
+                "```xml",
+                "<CompleteMultipartUpload />",
+                "```",
+            ]
+        )
+
+        # when
+        asciidoc: list[str] = generate_api_reference.markdown_to_asciidoc(
+            markdown
+        ).splitlines()
+
+        # then
+        assert asciidoc == [
+            "==== Next steps",
+            "",
+            "*Deprecated* in favor of "
+            "https://api-docs.nexusmods.com/#tag/mods/operation/getMod[get mod].",
+            "",
+            "* Upload every part.",
+            "** Retain its `ETag`. Continue the preceding sentence without a literal "
+            "block.",
+            "",
+            "[source,xml]",
+            "----",
+            "<CompleteMultipartUpload />",
+            "----",
+        ]
+
     def test_parses_google_docstring_sections(self) -> None:
         """Tests prose, continued arguments, returns, and exceptions."""
 
@@ -72,6 +114,13 @@ class TestGenerateApiReference:
         assert "Values for every path placeholder." in rest_v3
         assert "link:https://github.com/Modding-Forge/" in rest_v3
         assert "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in rest_v3
+        assert "Note that this is for entirely new files" in rest_v3
+        assert "</CompleteMultipartUpload>" in rest_v3
+        assert "==== Next steps" in rest_v3
+        assert "[source,xml]" in rest_v3
+        assert "*Deprecated* since 2026-06-11" in rest_v3
+        assert "[upload session](#tag/" not in rest_v3
+        assert "```xml" not in rest_v3
         assert "https://graphql.nexusmods.com/#query-games" in graphql_v2
         assert (
             "https://app.swaggerhub.com/apis-docs/NexusMods/"

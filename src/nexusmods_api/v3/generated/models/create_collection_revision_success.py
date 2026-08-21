@@ -5,16 +5,24 @@ from ....types import JsonValue
 
 
 class CreateCollectionRevisionSuccess(NexusModel):
-    """Models the CreateCollectionRevisionSuccess schema from the pinned..."""
+    """Models the CreateCollectionRevisionSuccess REST v3 schema.
+
+    Models the CreateCollectionRevisionSuccess schema from the pinned Nexus Mods REST v3\
+ OpenAPI document.
+    """
 
     collection_id: str
-    """The unique identifier for the collection this revision belongs to."""
+    """The unique identifier for the collection this revision belongs to.
+    """
 
     id: str
-    """The unique identifier for the revision."""
+    """The unique identifier for the revision.
+    """
 
     revision_number: int
-    """The revision number."""
+    """The revision number.
+    """
 
     revision_status: JsonValue
-    """The embedded RevisionStatus data for this..."""
+    """The embedded RevisionStatus data for this CreateCollectionRevisionSuccess value.
+    """

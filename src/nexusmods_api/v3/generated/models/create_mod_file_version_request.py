@@ -7,37 +7,52 @@ from ....types import JsonValue
 
 
 class CreateModFileVersionRequest(NexusModel):
-    """Models the CreateModFileVersionRequest schema from the pinned Nexus..."""
+    """Models the CreateModFileVersionRequest REST v3 schema.
+
+    Models the CreateModFileVersionRequest schema from the pinned Nexus Mods REST v3 Ope\
+nAPI document.
+    """
 
     allow_mod_manager_download: Optional[bool] = None
-    """Whether mod manager downloads are enabled for this file."""
+    """Whether mod manager downloads are enabled for this file.
+    """
 
     archive_existing_file: Optional[bool] = None
-    """Whether to archive the existing file when uploading a new version."""
+    """Whether to archive the existing file when uploading a new version.
+    """
 
     description: Optional[str] = None
-    """Description of the mod file."""
+    """Description of the mod file.
+    """
 
     file_category: JsonValue
-    """The embedded NewModFileCategory data for this..."""
+    """The embedded NewModFileCategory data for this CreateModFileVersionRequest value.
+    """
 
     name: str
-    """Mod file name."""
+    """Mod file name.
+    """
 
     previous_version_id: Optional[str] = None
-    """The unique identifier for the mod file version this version is..."""
+    """The unique identifier for the mod file version this version is replacing.
+    """
 
     primary_mod_manager_download: Optional[bool] = None
-    """Whether this file is the default download for mod managers."""
+    """Whether this file is the default download for mod managers.
+    """
 
     show_requirements_pop_up: Optional[bool] = None
-    """Whether to show a requirements popup when downloading this file."""
+    """Whether to show a requirements popup when downloading this file.
+    """
 
     update_mod_version: Optional[bool] = None
-    """Whether to update the mod's version to match this file's version."""
+    """Whether to update the mod's version to match this file's version.
+    """
 
     upload_id: str
-    """The unique identifier for the upload."""
+    """The unique identifier for the upload.
+    """
 
     version: str
-    """Mod file version."""
+    """Mod file version.
+    """

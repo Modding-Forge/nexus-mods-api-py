@@ -5,10 +5,17 @@ from ....types import JsonValue
 
 
 class CreateModFileVersionSuccess(NexusModel):
-    """Models the CreateModFileVersionSuccess schema from the pinned Nexus..."""
+    """Models the CreateModFileVersionSuccess REST v3 schema.
+
+    Models the CreateModFileVersionSuccess schema from the pinned Nexus Mods REST v3 Ope\
+nAPI document.
+    """
 
     file: JsonValue
-    """The embedded UploadModFile data for this CreateModFileVersionSuccess..."""
+    """The embedded UploadModFile data for this CreateModFileVersionSuccess value.
+    """
 
     version: JsonValue
-    """The embedded CreatedModFileVersion data for this..."""
+    """The embedded CreatedModFileVersion data for this CreateModFileVersionSuccess valu\
+e.
+    """

@@ -15,8 +15,10 @@ requires an empty diff.
 == Python API reference generation
 
 The Antora `reference` module is generated from runtime signatures, type hints,
-Pydantic field metadata, and parsed Google-style docstrings. Regenerate it after
-changing a public API or its documentation:
+Pydantic field metadata, and parsed Google-style docstrings. The locked
+`pypandoc-binary` development dependency supplies Pandoc, which converts embedded
+GitHub-flavored Markdown to AsciiDoc. Regenerate the reference after changing a
+public API or its documentation:
 
 [source,shell]
 ----

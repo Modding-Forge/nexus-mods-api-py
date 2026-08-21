@@ -10,19 +10,26 @@ class CollectionManifestMod(NexusModel):
     """Defines a mod to be used in a collection as part of the manifest."""
 
     author: Optional[str] = None
-    """The name of the mod author."""
+    """The name of the mod author.
+    """
 
     domain_name: str
-    """The domain name of the game for the mod."""
+    """The domain name of the game for the mod.
+    """
 
     name: str
-    """The name of the mod."""
+    """The name of the mod.
+    """
 
     optional: bool
-    """Whether the mod is required for this collection."""
+    """Whether the mod is required for this collection.
+    """
 
     source: JsonValue
-    """The embedded CollectionManifestModSource data for this..."""
+    """The embedded CollectionManifestModSource data for this CollectionManifestMod valu\
+e.
+    """
 
     version: str
-    """The mod version."""
+    """The mod version.
+    """

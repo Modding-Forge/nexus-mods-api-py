@@ -8,8 +8,11 @@ import importlib
 import inspect
 import pkgutil
 import re
+import subprocess
 import textwrap
 from collections.abc import Callable, Iterable
+from functools import cache
+from importlib.metadata import files
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Optional, cast
@@ -32,10 +35,15 @@ from nexusmods_api.v3.v3_operation import V3Operation
 ROOT: Path = Path(__file__).resolve().parents[1]
 OUTPUT: Path = ROOT / "docs" / "modules" / "reference"
 SOURCE_URL: str = "https://github.com/Modding-Forge/nexus-mods-api-py/blob/master"
+UPSTREAM_API_DOCS_URL: str = "https://api-docs.nexusmods.com/"
 SECTION_PATTERN: re.Pattern[str] = re.compile(r"^(Args|Returns|Raises|Examples):\s*$")
 ENTRY_PATTERN: re.Pattern[str] = re.compile(
     r"^\s*(\*{0,2}[A-Za-z_][A-Za-z0-9_]*)"
     r"(?:\s*\([^)]*\))?:\s*(.*)$"
+)
+MARKDOWN_PATTERN: re.Pattern[str] = re.compile(
+    r"(?m)(^[ \t]*(?:#{1,6}\s|```|[*+-]\s|\d+\.\s)|"
+    r"\[[^]]+]\([^)]+\)|\*\*.+?\*\*)"
 )
 PageSpec = tuple[str, str, list[type[Any]]]
 DocSections = dict[str, list[str]]
@@ -539,17 +547,86 @@ def validate_parameters(
             raise RuntimeError(f"public parameter {identifier} has no doc")
 
 
-def escape_table(value: str) -> str:
+def escape_table(value: str, *, convert_markdown: bool = False) -> str:
     """Escapes a value for an AsciiDoc table cell.
 
     Args:
         value (str): Raw table value.
+        convert_markdown (bool): Whether Pandoc must convert markup in the value.
 
     Returns:
         str: Single-line escaped cell text.
     """
 
-    return " ".join(value.split()).replace("|", "\\|")
+    converted: str = markdown_to_asciidoc(value) if convert_markdown else value
+    normalized: str = " ".join(converted.split())
+    without_block_markers: str = re.sub(
+        r"(^|\s)\*+ (?=\S)",
+        r"\1• ",
+        normalized,
+    )
+    return without_block_markers.replace("|", "\\|")
+
+
+@cache
+def pandoc_executable() -> Path:
+    """Locates the Pandoc executable supplied by the locked dev dependency.
+
+    Returns:
+        Path: Absolute path to the bundled Pandoc executable.
+
+    Raises:
+        RuntimeError: If the installed distribution does not contain Pandoc.
+    """
+
+    package_files = files("pypandoc-binary")
+    if package_files is not None:
+        for package_file in package_files:
+            if package_file.name in {"pandoc", "pandoc.exe"}:
+                executable: Path = Path(str(package_file.locate()))
+                if executable.is_file():
+                    return executable
+    raise RuntimeError("The pypandoc-binary distribution does not contain Pandoc.")
+
+
+@cache
+def markdown_to_asciidoc(markdown: str) -> str:
+    """Converts upstream GitHub-flavored Markdown to AsciiDoc with Pandoc.
+
+    Args:
+        markdown (str): Markdown-bearing prose from a generated docstring.
+
+    Returns:
+        str: Equivalent AsciiDoc markup without surrounding blank lines.
+
+    Raises:
+        RuntimeError: If the bundled Pandoc process cannot convert the fragment.
+    """
+
+    normalized: str = markdown.strip()
+    if MARKDOWN_PATTERN.search(normalized) is None:
+        return normalized
+    rewritten: str = normalized.replace(
+        "](#",
+        f"]({UPSTREAM_API_DOCS_URL}#",
+    )
+    process: subprocess.CompletedProcess[str] = subprocess.run(
+        [
+            str(pandoc_executable()),
+            "--from=gfm",
+            "--to=asciidoc",
+            "--wrap=none",
+        ],
+        input=rewritten,
+        capture_output=True,
+        check=False,
+        encoding="utf-8",
+    )
+    if process.returncode != 0:
+        raise RuntimeError(
+            f"Pandoc conversion failed with exit code '{process.returncode}'."
+        )
+    return process.stdout.replace("\r\n", "\n").strip()
 
 
 def append_prose(lines: list[str], prose: list[str]) -> None:
@@ -562,7 +639,7 @@ def append_prose(lines: list[str], prose: list[str]) -> None:
 
     if not prose:
         return
-    lines.extend(prose)
+    lines.extend(markdown_to_asciidoc("\n".join(prose)).splitlines())
     lines.append("")
 
 
@@ -592,8 +669,18 @@ def append_table(
         ]
     )
     lines.append(" ".join(f"|{escape_table(header)}" for header in headers))
+    markdown_columns: set[int] = {
+        index
+        for index, header in enumerate(headers)
+        if header in {"Condition", "Description", "Type and behavior"}
+    }
     for row in materialized:
-        lines.append(" ".join(f"|{escape_table(cell)}" for cell in row))
+        lines.append(
+            " ".join(
+                f"|{escape_table(cell, convert_markdown=index in markdown_columns)}"
+                for index, cell in enumerate(row)
+            )
+        )
     lines.extend(["|===", ""])
 
 
