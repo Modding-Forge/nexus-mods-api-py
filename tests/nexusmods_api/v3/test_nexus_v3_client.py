@@ -73,9 +73,8 @@ class TestNexusV3Client:
             in docstring
             for docstring in operation_docstrings
         )
-        assert (
-            "https://api-docs.nexusmods.com/#tag/mods/operation/getMod"
-            in (inspect.getdoc(NexusV3Client.get_mod) or "")
+        assert "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in (
+            inspect.getdoc(NexusV3Client.get_mod) or ""
         )
 
     def test_invokes_every_generated_operation(self) -> None:
