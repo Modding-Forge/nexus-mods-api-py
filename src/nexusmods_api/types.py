@@ -1,7 +1,9 @@
 """Copyright (c) Modding Forge."""
 
 from collections.abc import Awaitable, Callable
-from typing import Optional, TypeAlias, TypeAliasType
+from typing import Optional, TypeAlias
+
+from typing_extensions import TypeAliasType
 
 JsonValue = TypeAliasType(
     "JsonValue",

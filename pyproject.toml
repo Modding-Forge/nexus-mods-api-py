@@ -7,7 +7,7 @@ name = "nexus-mods-api"
 version = "1.1.1"
 description = "Typed sync and async Python clients for the Nexus Mods APIs"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
@@ -26,6 +26,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
@@ -36,6 +37,7 @@ classifiers = [
 dependencies = [
     "httpx>=0.28.1,<1",
     "pydantic>=2.11,<3",
+    "typing-extensions>=4.12,<5",
 ]
 
 [project.urls]
@@ -80,7 +82,7 @@ members = []
 
 [tool.ruff]
 line-length = 90
-target-version = "py312"
+target-version = "py311"
 
 [tool.ruff.lint]
 explicit-preview-rules = true
@@ -106,7 +108,7 @@ convention = "google"
 
 [tool.pyright]
 include = ["src", "tests", "tools"]
-pythonVersion = "3.12"
+pythonVersion = "3.11"
 typeCheckingMode = "strict"
 reportUnnecessaryTypeIgnoreComment = "error"
 
