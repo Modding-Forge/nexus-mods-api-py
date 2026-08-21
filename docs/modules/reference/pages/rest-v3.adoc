@@ -118,7 +118,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create a collection.
 
-Creates a collection and claims an upload using the upload_id from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a collection and claims an upload using the upload++_++id from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollection
 
@@ -154,7 +154,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create a collection revision.
 
-Creates a collection revision and claims an upload using the upload_id from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a collection revision and claims an upload using the upload++_++id from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollectionRevision
 
@@ -190,7 +190,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create mod file.
 
-Creates a new mod file using the data from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a new mod file using the data from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Note that this is for entirely new files, not new versions of existing files.
 
@@ -267,23 +267,24 @@ Create multipart upload.
 
 Creates a new multipart upload session. This allows you to upload data for a new mod file.
 
-💡 Files smaller than 100 MiB can use the simpler [single part upload](#tag/uploads/operation/createUpload).
+💡 Files smaller than 100 MiB can use the simpler https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[single part upload].
 
-### Next steps
-Multipart upload uses the [Amazon S3 multipart upload specification](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html).
+==== Next steps
 
-* Call `PUT` with your file data to each `part_presigned_urls`.
-   * Each part must be `part_size_bytes` bytes, apart from the final part which may be smaller.
-   * Retrieve the `ETag` response header value from each part upload.
-* Once all parts are uploaded, call `POST` to the `complete presigned_url` with [XML post data](#multipart-resources) describing
-  the `ETag` for each part.
-* Once multipart complete is called, [finalise the upload](#tag/uploads/operation/finaliseUpload).
+Multipart upload uses the https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html[Amazon S3 multipart upload specification].
 
-### Multipart resources
+* Call `PUT` with your file data to each `part++_++presigned++_++urls`.
+** Each part must be `part++_++size++_++bytes` bytes, apart from the final part which may be smaller.
+** Retrieve the `ETag` response header value from each part upload.
+* Once all parts are uploaded, call `POST` to the `complete presigned++_++url` with https://api-docs.nexusmods.com/#multipart-resources[XML post data] describing the `ETag` for each part.
+* Once multipart complete is called, https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload[finalise the upload].
+
+==== Multipart resources
 
 Sample XML for completing the multipart upload:
 
-```xml
+[source,xml]
+----
 <CompleteMultipartUpload>
   <Part>
     <PartNumber>1</PartNumber>
@@ -298,7 +299,7 @@ Sample XML for completing the multipart upload:
     <ETag>acbd18db4cc2f85cedef654fccc4a4d8</ETag>
   </Part>
 </CompleteMultipartUpload>
-```
+----
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload
 
@@ -336,11 +337,9 @@ Create a new update group version (updates a mod file).
 
 Creates a new version of an update group (tied to a mod file), the upload specified in the request becomes the most recent entry in the update chain.
 
-**Deprecated** since 2026-06-11. Use "Create a new mod file version"
-(`POST /mod-files/{id}/versions`, operationId `createModFileVersion`) instead.
+*Deprecated* since 2026-06-11. Use "Create a new mod file version" (`POST /mod-files/++{++id}/versions`, operationId `createModFileVersion`) instead.
 
-This endpoint is stable, so it remains available for a minimum 90-day deprecation
-period from the deprecation date: it will be removed on or after 2026-09-09.
+This endpoint is stable, so it remains available for a minimum 90-day deprecation period from the deprecation date: it will be removed on or after 2026-09-09.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createUpdateGroupVersion
 
@@ -378,14 +377,13 @@ Create upload.
 
 Creates a new upload session. This allows you to upload data for a new mod file.
 
-⚠️ Files larger than 100 MiB must use a [multi part upload](#tag/uploads/operation/createMultipartUpload).
+⚠️ Files larger than 100 MiB must use a https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload[multi part upload].
 
-### Next steps
-* Call `PUT` with your file data to the returned `presigned_url`. Recommended for files up to 100 MiB.
-   * ⚠️ You must send a `Content-Disposition` header of `attachment; filename="<filename>"`, using the `filename`
-     from your request. This value is part of the presigned URL signature, so the upload is rejected if the
-     header is missing or does not match.
-* Once all data is uploaded, [finalise the upload](#tag/uploads/operation/finaliseUpload).
+==== Next steps
+
+* Call `PUT` with your file data to the returned `presigned++_++url`. Recommended for files up to 100 MiB.
+** ⚠️ You must send a `Content-Disposition` header of `attachment; filename="++<++filename++>++"`, using the `filename` from your request. This value is part of the presigned URL signature, so the upload is rejected if the header is missing or does not match.
+* Once all data is uploaded, https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload[finalise the upload].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload
 
@@ -458,10 +456,11 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 Finalise upload.
 
 Closes the upload session once all data is uploaded. Sessions must be closed before you can use the upload as a mod file.
-### Next steps
-* Wait for the upload to be ready for use as a mod file. Use [get upload](#tag/uploads/operation/getUpload) to check that `state`
-  is `available`.
-* [Create a mod file](#tag/mod-files/operation/createModFile) from this upload.
+
+==== Next steps
+
+* Wait for the upload to be ready for use as a mod file. Use https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload[get upload] to check that `state` is `available`.
+* https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile[Create a mod file] from this upload.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload
 
@@ -675,13 +674,9 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Get mod file version dependencies.
 
-Retrieve the **raw** dependencies for a given mod file version with both the
-version-range dependencies and the DLC dependencies, returned exactly as
-authored and stored.
+Retrieve the *raw* dependencies for a given mod file version with both the version-range dependencies and the DLC dependencies, returned exactly as authored and stored.
 
-The version ranges here are **not** resolved into the concrete candidate
-mod file versions that currently satisfy them. To get resolved candidates
-grouped by mod file, use the materialized endpoint.
+The version ranges here are *not* resolved into the concrete candidate mod file versions that currently satisfy them. To get resolved candidates grouped by mod file, use the materialized endpoint.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencies
 
@@ -1108,11 +1103,15 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 Get upload.
 
 Get the state of an upload session.
-### Next steps
-* Once the `state` is `available`, the upload may be used to [create a mod file](#tag/mod-files/operation/createModFile).
-### FAQ
+
+==== Next steps
+
+* Once the `state` is `available`, the upload may be used to https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile[create a mod file].
+
+==== FAQ
+
 * How do I create an upload?
-   * Use [create upload](#tag/uploads/operation/createUpload) to start a new upload session.
+** Use https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[create upload] to start a new upload session.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload
 
@@ -1147,15 +1146,11 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Move multiple mod file versions.
 
-Moves one or more mod file versions to a new position relative to
-another version, which may be in a different mod file.
+Moves one or more mod file versions to a new position relative to another version, which may be in a different mod file.
 
-Versions are inserted in the order given by `version_ids`.
-`version_ids` is expected to be ordered from earliest to latest version.
+Versions are inserted in the order given by `version++_++ids`. `version++_++ids` is expected to be ordered from earliest to latest version.
 
-**Example:** Given a mod file with versions `[v1.0.0, v1.1.0, v2.0.0]`
-(earliest to latest), moving `[v1.0.1, v1.0.2]` with `relative_placement: "after"`
-targeting `v1.0.0` produces `[v1.0.0, v1.0.1, v1.0.2, v1.1.0, v2.0.0]`.
+*Example:* Given a mod file with versions `++[++v1.0.0, v1.1.0, v2.0.0++]++` (earliest to latest), moving `++[++v1.0.1, v1.0.2++]++` with `relative++_++placement: "after"` targeting `v1.0.0` produces `++[++v1.0.0, v1.0.1, v1.0.2, v1.1.0, v2.0.0++]++`.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersions
 
@@ -1601,7 +1596,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create a collection.
 
-Creates a collection and claims an upload using the upload_id from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a collection and claims an upload using the upload++_++id from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollection
 
@@ -1637,7 +1632,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create a collection revision.
 
-Creates a collection revision and claims an upload using the upload_id from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a collection revision and claims an upload using the upload++_++id from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/collections/operation/createCollectionRevision
 
@@ -1673,7 +1668,7 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Create mod file.
 
-Creates a new mod file using the data from a finalised [upload session](#tag/uploads/operation/createUpload).
+Creates a new mod file using the data from a finalised https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[upload session].
 
 Note that this is for entirely new files, not new versions of existing files.
 
@@ -1750,23 +1745,24 @@ Create multipart upload.
 
 Creates a new multipart upload session. This allows you to upload data for a new mod file.
 
-💡 Files smaller than 100 MiB can use the simpler [single part upload](#tag/uploads/operation/createUpload).
+💡 Files smaller than 100 MiB can use the simpler https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[single part upload].
 
-### Next steps
-Multipart upload uses the [Amazon S3 multipart upload specification](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html).
+==== Next steps
 
-* Call `PUT` with your file data to each `part_presigned_urls`.
-   * Each part must be `part_size_bytes` bytes, apart from the final part which may be smaller.
-   * Retrieve the `ETag` response header value from each part upload.
-* Once all parts are uploaded, call `POST` to the `complete presigned_url` with [XML post data](#multipart-resources) describing
-  the `ETag` for each part.
-* Once multipart complete is called, [finalise the upload](#tag/uploads/operation/finaliseUpload).
+Multipart upload uses the https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html[Amazon S3 multipart upload specification].
 
-### Multipart resources
+* Call `PUT` with your file data to each `part++_++presigned++_++urls`.
+** Each part must be `part++_++size++_++bytes` bytes, apart from the final part which may be smaller.
+** Retrieve the `ETag` response header value from each part upload.
+* Once all parts are uploaded, call `POST` to the `complete presigned++_++url` with https://api-docs.nexusmods.com/#multipart-resources[XML post data] describing the `ETag` for each part.
+* Once multipart complete is called, https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload[finalise the upload].
+
+==== Multipart resources
 
 Sample XML for completing the multipart upload:
 
-```xml
+[source,xml]
+----
 <CompleteMultipartUpload>
   <Part>
     <PartNumber>1</PartNumber>
@@ -1781,7 +1777,7 @@ Sample XML for completing the multipart upload:
     <ETag>acbd18db4cc2f85cedef654fccc4a4d8</ETag>
   </Part>
 </CompleteMultipartUpload>
-```
+----
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload
 
@@ -1819,11 +1815,9 @@ Create a new update group version (updates a mod file).
 
 Creates a new version of an update group (tied to a mod file), the upload specified in the request becomes the most recent entry in the update chain.
 
-**Deprecated** since 2026-06-11. Use "Create a new mod file version"
-(`POST /mod-files/{id}/versions`, operationId `createModFileVersion`) instead.
+*Deprecated* since 2026-06-11. Use "Create a new mod file version" (`POST /mod-files/++{++id}/versions`, operationId `createModFileVersion`) instead.
 
-This endpoint is stable, so it remains available for a minimum 90-day deprecation
-period from the deprecation date: it will be removed on or after 2026-09-09.
+This endpoint is stable, so it remains available for a minimum 90-day deprecation period from the deprecation date: it will be removed on or after 2026-09-09.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mod-files/operation/createUpdateGroupVersion
 
@@ -1861,14 +1855,13 @@ Create upload.
 
 Creates a new upload session. This allows you to upload data for a new mod file.
 
-⚠️ Files larger than 100 MiB must use a [multi part upload](#tag/uploads/operation/createMultipartUpload).
+⚠️ Files larger than 100 MiB must use a https://api-docs.nexusmods.com/#tag/uploads/operation/createMultipartUpload[multi part upload].
 
-### Next steps
-* Call `PUT` with your file data to the returned `presigned_url`. Recommended for files up to 100 MiB.
-   * ⚠️ You must send a `Content-Disposition` header of `attachment; filename="<filename>"`, using the `filename`
-     from your request. This value is part of the presigned URL signature, so the upload is rejected if the
-     header is missing or does not match.
-* Once all data is uploaded, [finalise the upload](#tag/uploads/operation/finaliseUpload).
+==== Next steps
+
+* Call `PUT` with your file data to the returned `presigned++_++url`. Recommended for files up to 100 MiB.
+** ⚠️ You must send a `Content-Disposition` header of `attachment; filename="++<++filename++>++"`, using the `filename` from your request. This value is part of the presigned URL signature, so the upload is rejected if the header is missing or does not match.
+* Once all data is uploaded, https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload[finalise the upload].
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload
 
@@ -1941,10 +1934,11 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 Finalise upload.
 
 Closes the upload session once all data is uploaded. Sessions must be closed before you can use the upload as a mod file.
-### Next steps
-* Wait for the upload to be ready for use as a mod file. Use [get upload](#tag/uploads/operation/getUpload) to check that `state`
-  is `available`.
-* [Create a mod file](#tag/mod-files/operation/createModFile) from this upload.
+
+==== Next steps
+
+* Wait for the upload to be ready for use as a mod file. Use https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload[get upload] to check that `state` is `available`.
+* https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile[Create a mod file] from this upload.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/finaliseUpload
 
@@ -2158,13 +2152,9 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Get mod file version dependencies.
 
-Retrieve the **raw** dependencies for a given mod file version with both the
-version-range dependencies and the DLC dependencies, returned exactly as
-authored and stored.
+Retrieve the *raw* dependencies for a given mod file version with both the version-range dependencies and the DLC dependencies, returned exactly as authored and stored.
 
-The version ranges here are **not** resolved into the concrete candidate
-mod file versions that currently satisfy them. To get resolved candidates
-grouped by mod file, use the materialized endpoint.
+The version ranges here are *not* resolved into the concrete candidate mod file versions that currently satisfy them. To get resolved candidates grouped by mod file, use the materialized endpoint.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/getModFileVersionDependencies
 
@@ -2591,11 +2581,15 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 Get upload.
 
 Get the state of an upload session.
-### Next steps
-* Once the `state` is `available`, the upload may be used to [create a mod file](#tag/mod-files/operation/createModFile).
-### FAQ
+
+==== Next steps
+
+* Once the `state` is `available`, the upload may be used to https://api-docs.nexusmods.com/#tag/mod-files/operation/createModFile[create a mod file].
+
+==== FAQ
+
 * How do I create an upload?
-   * Use [create upload](#tag/uploads/operation/createUpload) to start a new upload session.
+** Use https://api-docs.nexusmods.com/#tag/uploads/operation/createUpload[create upload] to start a new upload session.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/uploads/operation/getUpload
 
@@ -2630,15 +2624,11 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Move multiple mod file versions.
 
-Moves one or more mod file versions to a new position relative to
-another version, which may be in a different mod file.
+Moves one or more mod file versions to a new position relative to another version, which may be in a different mod file.
 
-Versions are inserted in the order given by `version_ids`.
-`version_ids` is expected to be ordered from earliest to latest version.
+Versions are inserted in the order given by `version++_++ids`. `version++_++ids` is expected to be ordered from earliest to latest version.
 
-**Example:** Given a mod file with versions `[v1.0.0, v1.1.0, v2.0.0]`
-(earliest to latest), moving `[v1.0.1, v1.0.2]` with `relative_placement: "after"`
-targeting `v1.0.0` produces `[v1.0.0, v1.0.1, v1.0.2, v1.1.0, v2.0.0]`.
+*Example:* Given a mod file with versions `++[++v1.0.0, v1.1.0, v2.0.0++]++` (earliest to latest), moving `++[++v1.0.1, v1.0.2++]++` with `relative++_++placement: "after"` targeting `v1.0.0` produces `++[++v1.0.0, v1.0.1, v1.0.2, v1.1.0, v2.0.0++]++`.
 
 Original API documentation: https://api-docs.nexusmods.com/#tag/mods/operation/moveModFileVersions
 
@@ -3242,7 +3232,7 @@ Models the CreateModFileRequest schema from the pinned Nexus Mods REST v3 OpenAP
 |allow_mod_manager_download |bool \| None |Whether mod manager downloads are enabled for this file.
 |description |str \| None |Description of the mod file.
 |file_category |JsonValue |The embedded NewModFileCategory data for this CreateModFileRequest value.
-|mod_id |str |The unique identifier for the mod this file belongs to. * Use [get mod](#tag/mods/operation/getMod) to get the game scoped ID for a mod using the data from a site URL e.g. `/skyrimspecialedition/mods/12604`.
+|mod_id |str |The unique identifier for the mod this file belongs to. • Use https://api-docs.nexusmods.com/#tag/mods/operation/getMod[get mod] to get the game scoped ID for a mod using the data from a site URL e.g. `/skyrimspecialedition/mods/12604`.
 |name |str |Mod file name.
 |primary_mod_manager_download |bool \| None |Whether this file is the default download for mod managers.
 |show_requirements_pop_up |bool \| None |Whether to show a requirements popup when downloading this file.
