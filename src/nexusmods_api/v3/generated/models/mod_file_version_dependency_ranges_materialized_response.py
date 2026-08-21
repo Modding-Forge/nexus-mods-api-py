@@ -5,7 +5,13 @@ from ....types import JsonValue
 
 
 class ModFileVersionDependencyRangesMaterializedResponse(NexusModel):
-    """Models the ModFileVersionDependencyRangesMaterializedResponse schema..."""
+    """Models the ModFileVersionDependencyRangesMaterializedResponse REST v3 schema.
+
+    Models the ModFileVersionDependencyRangesMaterializedResponse schema from the pinned\
+ Nexus Mods REST v3 OpenAPI document.
+    """
 
     dependencies: list[JsonValue]
-    """Materialized version-range dependencies (each stored range resolved..."""
+    """Materialized version-range dependencies (each stored range resolved to its candid\
+ate versions).
+    """

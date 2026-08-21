@@ -53,19 +53,33 @@ class TestNexusV3Client:
         ]
 
         # when
-        model_descriptions: list[Optional[str]] = [
-            field.description
+        model_descriptions: list[str] = [
+            field.description or ""
             for model_name in generated_models.__all__
             for field in getattr(generated_models, model_name).model_fields.values()
+        ]
+        model_docstrings: list[str] = [
+            inspect.getdoc(getattr(generated_models, model_name)) or ""
+            for model_name in generated_models.__all__
         ]
         operation_docstrings: list[str] = [
             inspect.getdoc(getattr(NexusV3Client, operation_name)) or ""
             for operation_name in operation_names
         ]
+        create_mod_file: str = inspect.getdoc(NexusV3Client.create_mod_file) or ""
+        multipart_upload: str = (
+            inspect.getdoc(NexusV3Client.create_multipart_upload) or ""
+        )
+        mod_summary: Optional[str] = generated_models.ModDetail.model_fields[
+            "summary"
+        ].description
 
         # then
         assert model_descriptions
         assert all(model_descriptions)
+        assert all("..." not in description for description in model_descriptions)
+        assert all("..." not in docstring for docstring in model_docstrings)
+        assert all("..." not in docstring for docstring in operation_docstrings)
         assert all("Args:" in docstring for docstring in operation_docstrings)
         assert all("Returns:" in docstring for docstring in operation_docstrings)
         assert all(
@@ -75,6 +89,11 @@ class TestNexusV3Client:
         )
         assert "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in (
             inspect.getdoc(NexusV3Client.get_mod) or ""
+        )
+        assert "Note that this is for entirely new files" in create_mod_file
+        assert "</CompleteMultipartUpload>" in multipart_upload
+        assert "Empty string when the mod has none." in " ".join(
+            (mod_summary or "").split()
         )
 
     def test_invokes_every_generated_operation(self) -> None:

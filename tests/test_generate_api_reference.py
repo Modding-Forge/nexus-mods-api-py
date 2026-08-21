@@ -72,6 +72,8 @@ class TestGenerateApiReference:
         assert "Values for every path placeholder." in rest_v3
         assert "link:https://github.com/Modding-Forge/" in rest_v3
         assert "https://api-docs.nexusmods.com/#tag/mods/operation/getMod" in rest_v3
+        assert "Note that this is for entirely new files" in rest_v3
+        assert "</CompleteMultipartUpload>" in rest_v3
         assert "https://graphql.nexusmods.com/#query-games" in graphql_v2
         assert (
             "https://app.swaggerhub.com/apis-docs/NexusMods/"

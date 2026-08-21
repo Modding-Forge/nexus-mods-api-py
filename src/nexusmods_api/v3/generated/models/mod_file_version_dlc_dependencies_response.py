@@ -5,7 +5,12 @@ from ....types import JsonValue
 
 
 class ModFileVersionDlcDependenciesResponse(NexusModel):
-    """Models the ModFileVersionDlcDependenciesResponse schema from the..."""
+    """Models the ModFileVersionDlcDependenciesResponse REST v3 schema.
+
+    Models the ModFileVersionDlcDependenciesResponse schema from the pinned Nexus Mods R\
+EST v3 OpenAPI document.
+    """
 
     dlc_dependency_definitions: list[JsonValue]
-    """DLC dependency definitions."""
+    """DLC dependency definitions.
+    """
