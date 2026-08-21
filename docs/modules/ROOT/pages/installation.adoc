@@ -1,6 +1,6 @@
 = Installation
 
-The library requires Python 3.12 or newer.
+The library requires Python 3.11 or newer.
 
 [source,shell]
 ----

@@ -7,7 +7,7 @@ Artifact validation requires the wheel's typing marker and license plus the sour
 distribution's README, license, documentation descriptor, pinned OpenAPI snapshot, and
 generation tooling.
 
-The required matrix covers Python 3.12 through 3.14 on Windows Server 2025 x64,
+The required matrix covers Python 3.11 through 3.14 on Windows Server 2025 x64,
 Ubuntu 24.04 x64 and ARM64, and macOS 15 on ARM64 and Intel. Python 3.14 additionally
 checks Windows Server 2022 x64, Ubuntu 22.04 x64 and ARM64, macOS 14 ARM64, and macOS 26
 on ARM64 and Intel. Windows 11 ARM64 and Ubuntu 26.04 x64 and ARM64 are non-blocking while
