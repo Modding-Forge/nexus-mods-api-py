@@ -78,6 +78,10 @@ class NexusV1Client:
     def validate_api_key(self, api_key: Optional[str] = None) -> UserValidation:
         """Validates the configured or explicitly supplied API key.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/User/\
+post_v1_users_validate.json
+
         Args:
             api_key (Optional[str]): One-off key overriding configured authentication.
 
@@ -99,6 +103,10 @@ class NexusV1Client:
     def get_tracked_mods(self) -> list[TrackedMod]:
         """Returns all mods tracked by the authenticated user.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/User/\
+get_v1_user_tracked_mods.json
+
         Returns:
             list[TrackedMod]: Tracked mods, or an empty list when none exist.
         """
@@ -107,6 +115,10 @@ class NexusV1Client:
 
     def track_mod(self, game_domain: str, mod_id: int) -> ActionResult:
         """Tracks a mod for the authenticated user.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/User/\
+post_v1_user_tracked_mods.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -124,6 +136,10 @@ class NexusV1Client:
     def untrack_mod(self, game_domain: str, mod_id: int) -> ActionResult:
         """Stops tracking a mod for the authenticated user.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/User/\
+delete_v1_user_tracked_mods.json
+
         Args:
             game_domain (str): Nexus Mods game domain.
             mod_id (int): Positive mod identifier.
@@ -140,6 +156,9 @@ class NexusV1Client:
     def get_games(self) -> list[Game]:
         """Returns all games supported by Nexus Mods.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Games/get_v1_games.json
+
         Returns:
             list[Game]: Supported games, or an empty list when none are returned.
         """
@@ -148,6 +167,10 @@ class NexusV1Client:
 
     def get_latest_added(self, game_domain: str) -> list[Mod]:
         """Returns the latest added mods for a game.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_mods_latest_added.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -161,6 +184,9 @@ class NexusV1Client:
     def get_latest_updated(self, game_domain: str) -> list[Mod]:
         """Returns the latest updated mods for a game.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods
+
         Args:
             game_domain (str): Nexus Mods game domain.
 
@@ -172,6 +198,10 @@ class NexusV1Client:
 
     def get_trending(self, game_domain: str) -> list[Mod]:
         """Returns currently trending mods for a game.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_mods_trending.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -185,6 +215,10 @@ class NexusV1Client:
     def get_endorsements(self) -> list[Endorsement]:
         """Returns endorsements by the authenticated user.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/User/\
+get_v1_user_endorsements.json
+
         Returns:
             list[Endorsement]: User endorsements, or an empty list when absent.
         """
@@ -194,6 +228,10 @@ class NexusV1Client:
     def get_colour_schemes(self) -> list[ColourScheme]:
         """Returns legacy Nexus Mods colour schemes.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Colour%20Schemes/\
+get_v1_colourschemes.json
+
         Returns:
             list[ColourScheme]: Available legacy colour schemes.
         """
@@ -202,6 +240,10 @@ class NexusV1Client:
 
     def get_game(self, game_domain: str) -> Game:
         """Returns metadata and categories for one game.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Games/\
+get_v1_games_game_domain.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -218,6 +260,10 @@ class NexusV1Client:
         period: UpdatePeriod,
     ) -> list[ModUpdate]:
         """Returns mods with activity in a cached recent period.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_mods_updates.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -242,6 +288,10 @@ class NexusV1Client:
     def get_mod(self, game_domain: str, mod_id: int) -> Mod:
         """Returns metadata for one mod.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_name_mods_id.json
+
         Args:
             game_domain (str): Nexus Mods game domain.
             mod_id (int): Positive mod identifier.
@@ -258,6 +308,10 @@ class NexusV1Client:
 
     def get_changelogs(self, game_domain: str, mod_id: int) -> Changelogs:
         """Returns version-keyed changelog entries for one mod.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_mods_mod_id_changelogs.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -276,6 +330,10 @@ class NexusV1Client:
     def get_mod_files(self, game_domain: str, mod_id: int) -> ModFiles:
         """Returns all files and replacement links for one mod.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mod%20Files/\
+get_v1_games_game_domain_mods_mod_id_files.json
+
         Args:
             game_domain (str): Nexus Mods game domain.
             mod_id (int): Positive mod identifier.
@@ -292,6 +350,10 @@ class NexusV1Client:
 
     def get_file(self, game_domain: str, mod_id: int, file_id: int) -> ModFile:
         """Returns metadata for one mod file.
+
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mod%20Files/\
+get_v1_games_game_domain_mods_mod_id_files_file_id.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
@@ -353,6 +415,10 @@ class NexusV1Client:
     ) -> list[DownloadLink]:
         """Returns short-lived mirrors for a mod file.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mod%20Files/\
+get_v1_games_game_domain_mods_mod_id_files_id_download_link.json
+
         Args:
             game_domain (str): Nexus Mods game domain.
             mod_id (int): Positive mod identifier.
@@ -389,6 +455,10 @@ class NexusV1Client:
     def search_file_by_md5(self, game_domain: str, md5_hash: str) -> list[MD5Result]:
         """Finds mod files matching an MD5 digest.
 
+        Original API documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+get_v1_games_game_domain_name_mods_md5_search_md5_hash.json
+
         Args:
             game_domain (str): Nexus Mods game domain.
             md5_hash (str): MD5 digest to look up.
@@ -420,6 +490,14 @@ class NexusV1Client:
         status: EndorsementStatus,
     ) -> ActionResult:
         """Endorses or abstains from endorsing one installed mod version.
+
+        Original endorse documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+post_v1_games_game_domain_name_mods_id_endorse.json
+
+        Original abstain documentation: https://app.swaggerhub.com/apis-docs/\
+NexusMods/nexus-mods_public_api_params_in_form_data/1.0#/Mods/\
+post_v1_games_game_domain_name_mods_id_abstain.json
 
         Args:
             game_domain (str): Nexus Mods game domain.
