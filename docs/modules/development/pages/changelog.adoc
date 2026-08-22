@@ -5,6 +5,10 @@ https://semver.org/[Semantic Versioning], including pre-release identifiers.
 
 == Unreleased
 
+No changes yet.
+
+== 1.2.0 - 2026-08-22
+
 * Added Python 3.11 runtime, typing, CI, and cross-platform package support while
   preserving support for Python 3.12 through 3.14.
 
