@@ -26,6 +26,13 @@ data = client.execute(
 issues = client.last_errors
 ----
 
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|last_errors |tuple[v2.models.graphql_issue.GraphQLIssue, ...] |The issues returned by the most recent GraphQL operation.
+|===
+
 [#nexusmods-api-v2-nexus-graphql-client-nexusgraphqlclient-init]
 === `NexusGraphQLClient.__init__`
 
@@ -455,6 +462,13 @@ data = await client.execute(
 )
 issues = client.last_errors
 ----
+
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|last_errors |tuple[v2.models.graphql_issue.GraphQLIssue, ...] |The issues returned by the most recent GraphQL operation.
+|===
 
 [#nexusmods-api-v2-async-nexus-graphql-client-asyncnexusgraphqlclient-init]
 === `AsyncNexusGraphQLClient.__init__`

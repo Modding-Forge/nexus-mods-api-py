@@ -22,7 +22,7 @@ client secret.
 python -m pip install nexus-mods-api
 ```
 
-Python 3.12 or newer is required. Install the optional WebSocket dependency for
+Python 3.11 or newer is required. Install the optional WebSocket dependency for
 SSO:
 
 ```console

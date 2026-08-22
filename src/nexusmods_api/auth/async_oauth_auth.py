@@ -18,6 +18,7 @@ class AsyncOAuthAuth:
     __leeway_seconds: float
     __lock: asyncio.Lock
     credentials: OAuthCredentials
+    """Mutable in-memory OAuth credentials shared across requests."""
 
     def __init__(
         self,

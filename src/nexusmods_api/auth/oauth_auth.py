@@ -18,6 +18,7 @@ class OAuthAuth:
     __leeway_seconds: float
     __lock: threading.Lock
     credentials: OAuthCredentials
+    """Mutable in-memory OAuth credentials shared across requests."""
 
     def __init__(
         self,

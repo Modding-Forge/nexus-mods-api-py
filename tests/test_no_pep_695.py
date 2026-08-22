@@ -21,16 +21,17 @@ class TestNuitkaCompatibility:
                 filename=str(source_file),
             )
             for node in ast.walk(tree):
-                if isinstance(node, ast.TypeAlias):
-                    violations.append(f"{source_file}:{node.lineno}: type alias")
-                elif (
-                    isinstance(
-                        node,
-                        (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef),
-                    )
-                    and node.type_params
-                ):
-                    violations.append(f"{source_file}:{node.lineno}: type parameters")
+                line_number_value: object = vars(node).get("lineno", 0)
+                line_number: int = (
+                    line_number_value if isinstance(line_number_value, int) else 0
+                )
+                if node.__class__.__name__ == "TypeAlias":
+                    violations.append(f"{source_file}:{line_number}: type alias")
+                elif isinstance(
+                    node,
+                    (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef),
+                ) and bool(vars(node).get("type_params", ())):
+                    violations.append(f"{source_file}:{line_number}: type parameters")
 
         # then
         assert violations == []

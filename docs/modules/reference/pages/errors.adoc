@@ -12,6 +12,15 @@ link:https://github.com/Modding-Forge/nexus-mods-api-py/blob/master/src/nexusmod
 
 Provides the sanitized base error for the Nexus Mods client.
 
+.Fields
+[cols="1,1,1",options="header"]
+|===
+|Name |Type |Description
+|payload |JsonValue |The safe structured response payload associated with the failure.
+|request_url |str \| None |The sanitized request URL associated with the failure, when available.
+|status_code |int \| None |The HTTP status code associated with the failure, when available.
+|===
+
 [#nexusmods-api-errors-nexus-api-error-nexusapierror-init]
 === `NexusApiError.__init__`
 
